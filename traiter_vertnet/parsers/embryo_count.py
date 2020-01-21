@@ -1,6 +1,6 @@
 """Parse embryo counts."""
 
-from delete_me.util import as_list, to_int
+from traiter_vertnet.pylib.util import as_list, to_int
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.parsers.base import Base
 from traiter_vertnet.pylib.trait import Trait

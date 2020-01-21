@@ -1,9 +1,9 @@
 """Parse embryo lengths."""
 
-from delete_me.util import as_list, to_float
 from traiter.vocabulary import Vocabulary
+from traiter_vertnet.pylib.util import as_list, to_float
 from traiter_vertnet.pylib.trait import Trait
-import delete_me.convert_units as convert_units
+import traiter_vertnet.pylib.convert_units as convert_units
 from traiter_vertnet.pylib.numeric import simple, add_flags, fix_up_inches
 from traiter_vertnet.parsers.base import Base
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns

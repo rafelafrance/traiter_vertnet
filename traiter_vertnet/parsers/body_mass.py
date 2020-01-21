@@ -1,7 +1,7 @@
 """Parse body mass notations."""
 
-from delete_me.util import as_list, squash, to_float
-from delete_me.convert_units import convert
+from traiter_vertnet.pylib.util import as_list, squash, to_float
+from traiter_vertnet.pylib.convert_units import convert
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.trait import Trait
 from traiter_vertnet.parsers.base import Base
@@ -83,7 +83,7 @@ BODY_MASS = Base(
         VOCAB.producer(shorthand, [
             'key shorthand',    # With a key
             'shorthand',        # Without a key
-        ]),
+            ]),
 
         VOCAB.producer(
             simple_mass, ' key mass_units number (?! len_units ) '),
@@ -91,5 +91,5 @@ BODY_MASS = Base(
             simple_mass, ' key mass_range '),
         VOCAB.producer(
             simple_mass, ' (?P<key> key_with_units ) mass_range '),
-    ],
-)
+        ],
+    )

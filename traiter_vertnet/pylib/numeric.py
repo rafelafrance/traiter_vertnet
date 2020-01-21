@@ -2,9 +2,9 @@
 
 from fractions import Fraction
 import regex
-from delete_me.util import FLAGS, to_int, to_float, squash, as_list
+from traiter_vertnet.pylib.util import FLAGS, to_int, to_float, squash, as_list
 from traiter_vertnet.pylib.trait import Trait
-from delete_me.convert_units import convert
+from traiter_vertnet.pylib.convert_units import convert
 
 LOOK_BACK_FAR = 40
 

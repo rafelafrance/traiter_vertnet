@@ -1,6 +1,6 @@
 """Shared token patterns."""
 
-import delete_me.patterns as patterns
+import traiter_vertnet.pylib.patterns as patterns
 from traiter.vocabulary import Vocabulary, LOWEST
 from traiter_vertnet.pylib.util import ordinal, number_to_words
 

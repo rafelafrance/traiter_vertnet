@@ -5,9 +5,8 @@
 import sys
 import argparse
 import textwrap
-from delete_me.util import __VERSION__
 from traiter_vertnet.pylib.all_traits import TRAITS
-from delete_me.file_parser import FileParser
+from traiter_vertnet.pylib.file_parser import FileParser
 from traiter_vertnet.readers.csv_reader import CsvReader
 from traiter_vertnet.writers.csv_writer import CsvWriter
 from traiter_vertnet.writers.html_writer import HtmlWriter

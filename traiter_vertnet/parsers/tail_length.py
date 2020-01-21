@@ -2,8 +2,8 @@
 
 from functools import partial
 import regex
-from delete_me.util import FLAGS
 from traiter.vocabulary import Vocabulary
+from traiter_vertnet.pylib.util import FLAGS
 from traiter_vertnet.parsers.base import Base
 from traiter_vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from traiter_vertnet.pylib.numeric import simple, fraction
