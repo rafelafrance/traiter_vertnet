@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
-from traiter_vertnet.writers import BaseWriter
+from traiter_vertnet.writers.base_writer import BaseWriter
 
 
 class HtmlWriter(BaseWriter):
@@ -12,6 +12,7 @@ class HtmlWriter(BaseWriter):
         """Build the writer."""
         super().__init__(args)
         self.started = None
+        self.rows = None
 
     def start(self):
         """Start the report."""
@@ -39,7 +40,6 @@ class HtmlWriter(BaseWriter):
             now=self.started,
             as_is=sorted({f for fds in self.args.as_is.values() for f in fds}),
             args=args,
-            rows=self.rows,
-        )
+            rows=self.rows)
         self.args.output_file.write(template)
         self.args.output_file.close()

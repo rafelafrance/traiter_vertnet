@@ -1,8 +1,8 @@
 """Parse lactation state notations."""
 
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base, convert
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -32,5 +32,5 @@ LACTATION_STATE = Base(
 
         VOCAB.producer(
             convert, """ (?P<value> prefix? lactating quest? ) """),
-    ],
-)
+
+        ])

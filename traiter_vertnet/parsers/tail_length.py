@@ -4,10 +4,10 @@ from functools import partial
 import regex
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.util import FLAGS
-from traiter_vertnet.parsers.base import Base
 from traiter_vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from traiter_vertnet.pylib.numeric import simple, fraction
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -84,20 +84,21 @@ TAIL_LENGTH = Base(
         VOCAB.producer(fraction, [
             # E.g.: tail = 9/16 in
             'key len_fraction (?P<units> len_units )',
-            'key len_fraction', # Without units, like: tail = 9/16
+            'key len_fraction',  # Without units, like: tail = 9/16
             ]),
 
         VOCAB.producer(simple, [
             'key_with_units len_range',  # E.g.: tailLengthInMM=9-10
             'key len_range (?P<units> len_units )',  # E.g.: tailLength=9-10 mm
             'key len_range',             # Missing units like: tailLength 9-10
-        ]),
+            ]),
 
         VOCAB.producer(
             partial(shorthand_length, measurement='shorthand_tal'), [
                 'shorthand_key shorthand',  # With a key
                 'shorthand',  # Without a key
                 # Handle a truncated shorthand notation
-                'shorthand_key shorthand_triple (?! shorthand | len_range )']),
-    ],
-)
+                'shorthand_key shorthand_triple (?! shorthand | len_range )'
+                ]),
+
+        ])

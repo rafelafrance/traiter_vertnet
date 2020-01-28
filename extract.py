@@ -12,6 +12,9 @@ from traiter_vertnet.writers.csv_writer import CsvWriter
 from traiter_vertnet.writers.html_writer import HtmlWriter
 
 
+__VERSION__ = '0.6.0'
+
+
 INPUT_FORMATS = {
     'csv': CsvReader}
 

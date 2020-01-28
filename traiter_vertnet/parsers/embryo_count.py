@@ -1,10 +1,10 @@
 """Parse embryo counts."""
 
-from traiter_vertnet.pylib.util import as_list, to_int
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base
+from traiter_vertnet.pylib.util import as_list, to_int
 from traiter_vertnet.pylib.trait import Trait
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -54,5 +54,5 @@ EMBRYO_COUNT = Base(
 
         VOCAB.producer(convert, """
             (?P<total> count) (size | word)? embryo """),
-    ],
-)
+
+        ])

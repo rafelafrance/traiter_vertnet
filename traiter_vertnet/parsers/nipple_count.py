@@ -2,9 +2,9 @@
 
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.util import to_int
-from traiter_vertnet.parsers.base import Base
 from traiter_vertnet.pylib.trait import Trait
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -83,5 +83,5 @@ NIPPLE_COUNT = Base(
 
         # Eg: nipples 5
         VOCAB.producer(convert, """ nipple (?P<value> count ) """),
-    ],
-)
+
+        ])

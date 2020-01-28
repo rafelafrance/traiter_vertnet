@@ -3,10 +3,10 @@
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.util import as_list, to_float
 from traiter_vertnet.pylib.trait import Trait
-import traiter_vertnet.pylib.convert_units as convert_units
 from traiter_vertnet.pylib.numeric import simple, add_flags, fix_up_inches
-from traiter_vertnet.parsers.base import Base
+import traiter_vertnet.pylib.convert_units as convert_units
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -78,5 +78,5 @@ EMBRYO_LENGTH = Base(
             convert, """ embryo noise? value (?! skip ) quest? """),
         VOCAB.producer(isolate, """
             embryo count? (?P<real> value) len_units quest? """),
-    ],
-)
+
+        ])

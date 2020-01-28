@@ -2,13 +2,13 @@
 
 from functools import partial
 import regex
-from traiter_vertnet.pylib.util import FLAGS
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base
+from traiter_vertnet.pylib.util import FLAGS
 from traiter_vertnet.pylib.numeric import simple_len, fraction
 from traiter_vertnet.pylib.numeric import shorthand_length
 from traiter_vertnet.pylib.numeric import numeric_fix_ups
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -114,5 +114,5 @@ EAR_LENGTH = Base(
                 'shorthand_key shorthand',  # With a key
                 'shorthand',  # Without a key
             ]),
-    ],
-)
+
+        ])

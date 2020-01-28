@@ -1,8 +1,8 @@
 """Parse pregnancy state notations."""
 
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base, convert
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -37,5 +37,5 @@ PREGNANCY_STATE = Base(
         VOCAB.producer(convert, [
             """(?P<value> none? (recent | probably)?
             stage? (none | joiner)? pregnant quest? )"""]),
-    ],
-)
+
+        ])

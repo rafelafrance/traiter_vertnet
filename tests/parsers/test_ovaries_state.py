@@ -43,7 +43,7 @@ class TestOvariesState(unittest.TestCase):
                 Trait(value='lg foll', side='l', start=18, end=32),
                 Trait(value='c.l.', side='r', start=43, end=54),
                 Trait(value='+corp. alb', side='both', start=104, end=127),
-            ])
+                ])
 
     def test_parse_06(self):
         self.assertEqual(

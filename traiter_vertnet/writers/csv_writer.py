@@ -3,7 +3,7 @@
 import regex
 import pandas as pd
 from traiter_vertnet.pylib.all_traits import TRAITS
-from traiter_vertnet.writers import BaseWriter
+from traiter_vertnet.writers.base_writer import BaseWriter
 
 
 class CsvWriter(BaseWriter):

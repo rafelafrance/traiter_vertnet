@@ -1,8 +1,8 @@
 """Parse sex notations."""
 
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base, convert
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -35,5 +35,5 @@ SEX = Base(
 
         # E.g.: male, Or: male?
         VOCAB.producer(convert, '(?P<value> sex_vocab quest? )'),
-    ],
-)
+
+        ])

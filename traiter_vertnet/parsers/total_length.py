@@ -2,12 +2,12 @@
 
 from functools import partial
 import regex
-from traiter_vertnet.pylib.util import FLAGS
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base
-from traiter_vertnet.pylib.numeric import fix_up_inches, fraction, compound
 import traiter_vertnet.pylib.numeric as numeric
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.pylib.util import FLAGS
+from traiter_vertnet.pylib.numeric import fix_up_inches, fraction, compound
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -170,6 +170,5 @@ TOTAL_LENGTH = Base(
                 'shorthand',  # Without a key
                 """ ( key | key_units_req ) shorthand_triple
                     (?! shorthand | len_range )"""
-            ]),
-    ],
-)
+                ]),
+        ])

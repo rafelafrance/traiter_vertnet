@@ -2,8 +2,8 @@
 
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.trait import Trait
-from traiter_vertnet.parsers.base import Base
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -82,5 +82,5 @@ TESTES_STATE = Base(
         # E.g.: no gonads
         VOCAB.producer(convert, [
             """(?P<value> non ( testes | scrotal | gonads ) | scrotal )"""]),
-    ],
-)
+
+        ])

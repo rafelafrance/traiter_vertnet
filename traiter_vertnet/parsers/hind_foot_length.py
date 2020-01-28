@@ -2,10 +2,10 @@
 
 from functools import partial
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base
 from traiter_vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from traiter_vertnet.pylib.numeric import fraction, simple
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -48,9 +48,9 @@ HIND_FOOT_LENGTH = Base(
         VOCAB.producer(simple, [
             'key_with_units len_range',     # E.g.: hindFootLengthInMM=9-10
             'key noise? len_range units ',  # E.g.: hindFootLength=9-10 mm
-            'key noise? len_range', # Missing units like: hindFootLength 9-10
+            'key noise? len_range',  # Missing units like: hindFootLength 9-10
             'key dash number units',
-        ]),
+            ]),
 
         VOCAB.producer(partial(
             shorthand_length,
@@ -59,5 +59,5 @@ HIND_FOOT_LENGTH = Base(
                 'shorthand',                # Without a key
                 # Handle a truncated shorthand notation
                 'shorthand_key shorthand_triple (?! shorthand | len_range )']),
-    ],
-)
+
+        ])

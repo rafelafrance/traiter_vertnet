@@ -1,8 +1,8 @@
 """Parse nipple state notations."""
 
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base, convert
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -47,5 +47,4 @@ NIPPLE_STATE = Base(
             convert,
             """(?P<value> nipple non?
                 (state_end | much) (state_mid | state_end){0,2} )"""),
-    ],
-)
+        ])

@@ -2,8 +2,8 @@
 
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.reproductive import double, convert
-from traiter_vertnet.parsers.base import Base
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -83,5 +83,5 @@ OVARY_SIZE = Base(
 
         # E.g.: Ovaries 5 x 3
         VOCAB.producer(convert, 'side? ovary value'),
-    ],
-)
+
+        ])

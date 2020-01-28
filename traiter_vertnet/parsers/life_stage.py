@@ -1,8 +1,8 @@
 """Parse life stage notations."""
 
 from traiter.vocabulary import Vocabulary
-from traiter_vertnet.parsers.base import Base, convert
 import traiter_vertnet.pylib.shared_patterns as patterns
+from traiter_vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -90,5 +90,5 @@ LIFE_STAGE = Base(
 
         # E.g.: 1st year
         VOCAB.producer(convert, '(?P<value> as_time )'),
-    ],
-)
+
+        ])

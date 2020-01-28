@@ -3,8 +3,8 @@
 import regex
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.trait import Trait
-from traiter_vertnet.parsers.base import Base
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -87,5 +87,4 @@ OVARIES_STATE = Base(
                 (?P<side> side) number? (?P<value> word? values+ )
             """),
 
-    ],
-)
+        ])

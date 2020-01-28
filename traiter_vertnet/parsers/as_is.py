@@ -21,5 +21,5 @@ AS_IS = Base(
             r' \S .* \S ',  # Strip leading and trailing spaces
             r' \S ']),      # Get a string with a single character
         producer(convert, '(?P<value> data )'),
-    ],
-)
+
+        ])

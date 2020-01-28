@@ -2,9 +2,9 @@
 
 from string import punctuation
 from copy import copy
-from traiter_vertnet.pylib.numeric import as_value
 from traiter.token import Token
 from traiter.rule import part
+from traiter_vertnet.pylib.numeric import as_value
 from traiter_vertnet.pylib.shared_patterns import CROSS
 from traiter_vertnet.pylib.trait import Trait
 

@@ -1,7 +1,7 @@
 """Shared token patterns."""
 
-import traiter_vertnet.pylib.patterns as patterns
 from traiter.vocabulary import Vocabulary, LOWEST
+import traiter_vertnet.pylib.patterns as patterns
 from traiter_vertnet.pylib.util import ordinal, number_to_words
 
 VOCAB = Vocabulary(patterns.VOCAB)

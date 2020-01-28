@@ -2,8 +2,8 @@
 
 from traiter.vocabulary import Vocabulary
 from traiter_vertnet.pylib.reproductive import double, convert
-from traiter_vertnet.parsers.base import Base
 import traiter_vertnet.pylib.shared_reproductive_patterns as patterns
+from traiter_vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -124,5 +124,5 @@ TESTES_SIZE = Base(
 
         # E.g.: T 5 x 4
         VOCAB.producer(convert, '(?P<ambiguous_char> char_key ) value'),
-    ],
-)
+
+        ])

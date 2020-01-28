@@ -41,7 +41,7 @@ class TestSharedPatterns(unittest.TestCase):
         expect = [Token(
             VOCAB['cross_product'], span=(0, 7),
             group={'number': ['3', '1.5'],
-                    'metric_len': 'mm', 'len_units': 'mm'})]
+                   'metric_len': 'mm', 'len_units': 'mm'})]
         self.assertEqual(actual, expect)
 
     def test_cross_06(self):
@@ -59,7 +59,7 @@ class TestSharedPatterns(unittest.TestCase):
             Token(
                 VOCAB['cross_product'], span=(0, 6),
                 group={'number': '12.3',
-                        'metric_len': 'mm', 'len_units': 'mm'})]
+                       'metric_len': 'mm', 'len_units': 'mm'})]
         self.assertEqual(actual, expect)
 
     def test_fraction_01(self):
@@ -67,7 +67,7 @@ class TestSharedPatterns(unittest.TestCase):
         expect = [Token(
             VOCAB['fraction_product'], span=(0, 5),
             group={'number': ['12', '34'],
-                    'numerator': '12', 'denominator': '34'})]
+                   'numerator': '12', 'denominator': '34'})]
         self.assertEqual(actual, expect)
 
     def test_fraction_02(self):
