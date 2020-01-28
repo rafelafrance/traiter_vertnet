@@ -1,8 +1,8 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from traiter_vertnet.pylib.trait import Trait
-from traiter_vertnet.parsers.embryo_length import EMBRYO_LENGTH
+from vertnet.pylib.trait import Trait
+from vertnet.parsers.embryo_length import EMBRYO_LENGTH
 
 
 class TestEmbryoLength(unittest.TestCase):

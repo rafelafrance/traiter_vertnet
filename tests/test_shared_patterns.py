@@ -4,7 +4,7 @@
 import unittest
 from traiter.parser import Parser
 from traiter.token import Token
-from traiter_vertnet.pylib.shared_patterns import VOCAB
+from vertnet.pylib.shared_patterns import VOCAB
 
 
 def nop(token):

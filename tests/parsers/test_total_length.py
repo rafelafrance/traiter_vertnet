@@ -2,8 +2,8 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 # pylint: disable=too-many-lines
 import unittest
-from traiter_vertnet.pylib.trait import Trait
-from traiter_vertnet.parsers.total_length import TOTAL_LENGTH
+from vertnet.pylib.trait import Trait
+from vertnet.parsers.total_length import TOTAL_LENGTH
 
 
 class TestTotalLength(unittest.TestCase):
