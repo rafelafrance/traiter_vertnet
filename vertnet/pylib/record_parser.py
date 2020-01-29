@@ -1,6 +1,6 @@
 """Parse all traits for the input record."""
 
-from vertnet.parsers.as_is import AS_IS
+# from vertnet.parsers.as_is import AS_IS
 
 
 class TraitFound(Exception):
@@ -20,43 +20,32 @@ class ShouldSkip(Exception):
     """
 
 
-class RecordParser:  # pylint: disable=too-few-public-methods
+class RecordParser:
     """Handles all of the parsed traits for a record."""
 
-    as_is = AS_IS
-
-    def __init__(self, parsers, search_fields=None, as_is_fields=None):
+    def __init__(self, args, parsers):
         """Create the record container."""
         self.parsers = parsers
-        self.search_fields = search_fields if search_fields else []
-        self.as_is_fields = as_is_fields if as_is_fields else {}
+        self.search_fields = args.search_field if args.search_field else []
 
     def parse_record(self, record):
         """Parse the traits for record."""
-        data = {trait: [] for trait, parser in self.parsers}
+        print(record)
+        data = {}
 
+        something_found = False
         for trait, parser in self.parsers:
             try:
-
-                if parser.should_skip(data, trait):
-                    raise ShouldSkip()
-
-                for field in self.as_is_fields.get(trait, []):
-                    parsed = self.as_is.parse(record[field], field)
+                for field_name in self.search_fields:
+                    field = record.get(field_name)
+                    if not field:
+                        continue
+                    parsed = parser.parse(field, field_name)
                     if parsed:
-                        data[trait] += parsed
+                        data[trait] = parsed
+                        something_found = True
                         raise TraitFound()
-
-                for field in self.search_fields:
-                    parsed = parser.parse(record[field], field)
-                    if parsed:
-                        data[trait] += parsed
-                        raise TraitFound()
-
             except TraitFound:
-                parser.adjust_record(data, trait)
-
-            except ShouldSkip:
                 pass
 
-        return data
+        return data if something_found else None

@@ -6,10 +6,11 @@ import sys
 import argparse
 import textwrap
 from vertnet.pylib.all_traits import TRAITS
-from vertnet.pylib.file_parser import FileParser
+from vertnet.pylib.record_parser import RecordParser
 from vertnet.readers.csv_reader import CsvReader
 from vertnet.writers.csv_writer import CsvWriter
 from vertnet.writers.html_writer import HtmlWriter
+from vertnet.writers.json_lines import JsonLinesWriter
 
 
 __VERSION__ = '0.6.0'
@@ -20,7 +21,8 @@ INPUT_FORMATS = {
 
 OUTPUT_FORMATS = {
     'csv': CsvWriter,
-    'html': HtmlWriter}
+    'html': HtmlWriter,
+    'jsonl': JsonLinesWriter}
 
 
 def parse_traits(args):
@@ -32,22 +34,17 @@ def parse_traits(args):
     reader = INPUT_FORMATS[args.input_format](args)
     writer = OUTPUT_FORMATS[args.output_format](args)
 
-    file_parser = FileParser(args, trait_parsers)
+    record_parser = RecordParser(args, trait_parsers)
 
     with reader as input_file, writer as output_file:
 
-        for i, record in enumerate(input_file, 1):
+        for record in input_file:
+            record = {k: v for k, v in record.items()}
 
-            if args.skip and i <= args.skip:
-                continue
-
-            record_parser = file_parser.new_record_parser()
             parsed_record = record_parser.parse_record(record)
 
-            output_file.record(record, parsed_record)
-
-            if args.stop and i >= args.stop:
-                break
+            if parsed_record:
+                output_file.record(record, parsed_record)
 
 
 def parse_args():
@@ -87,39 +84,15 @@ def parse_args():
             argument more than once.""")
 
     arg_parser.add_argument(
-        '--as-is', '-a', action='append', metavar='FIELD:TRAIT', default=[],
-        help="""A FIELD:TRAIT to use as is. For example:
-            --as-is='age:life_stage' will use the value in the record's "age"
-            field, if there is one, as a parsed value of "life_stage". You may
-            use this argument more than once and you may need to quote it.""")
-
-    arg_parser.add_argument(
         '--input-format', '-I', default='csv', choices=INPUT_FORMATS.keys(),
         help="""The data input format. The default is "csv".""")
 
     arg_parser.add_argument(
-        '--output-format', '-O', default='csv', choices=OUTPUT_FORMATS.keys(),
-        help="""Output the result in this format. The default is "csv".""")
-
-    arg_parser.add_argument(
-        '--skip', type=int,
-        help="""Skip this many records at the beginning of the input file.""")
-
-    arg_parser.add_argument(
-        '--stop', type=int,
-        help="""Stop after this many records are processed.""")
-
-    arg_parser.add_argument(
-        '--log-every', type=int, metavar='N',
-        help="""Log after message after processing every N input records.""")
+        '--output-format', '-O', default='jsonl',
+        choices=OUTPUT_FORMATS.keys(),
+        help="""Output the result in this format. The default is "jsonl".""")
 
     args = arg_parser.parse_args()
-
-    as_is = {x.split(':')[1].strip(): [] for x in args.as_is}
-    for arg in args.as_is:
-        key, val = arg.split(':')
-        as_is[val.strip()].append(key.strip())
-    args.as_is = as_is
 
     return args
 

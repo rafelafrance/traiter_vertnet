@@ -19,7 +19,8 @@ def convert(token):
 
 def isolate(token):
     """Convert parsed token into a trait product."""
-    token.group['number'] = token.group['real']
+    token.group['number'] = [v.strip()
+                             for v in token.group['value'].split('x')]
     return convert(token)
 
 
@@ -77,6 +78,6 @@ EMBRYO_LENGTH = Base(
         VOCAB.producer(
             convert, """ embryo noise? value (?! skip ) quest? """),
         VOCAB.producer(isolate, """
-            embryo count? (?P<real> value) len_units quest? """),
+            embryo count? value len_units quest? """),
 
         ])
