@@ -14,22 +14,12 @@ class HtmlWriter(BaseWriter):
         self.started = None
         self.rows = None
 
-    def start(self):
+    def __enter__(self):
         """Start the report."""
         self.started = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
         self.rows = []
 
-    def record(self, raw_record, parsed_record):
-        """Output a row to the file."""
-        self.progress()
-
-        for trait, parses in parsed_record.items():
-            parsed_record[trait] = [x.__dict__ for x in parses]
-
-        self.rows.append(
-            {'raw': raw_record, 'parsed': parsed_record, 'index': self.index})
-
-    def end(self):
+    def __exit__(self, exc_type, exc_value, traceback):
         """End the report."""
         env = Environment(
             loader=FileSystemLoader('./pylib/writers/templates'),
@@ -43,3 +33,10 @@ class HtmlWriter(BaseWriter):
             rows=self.rows)
         self.args.output_file.write(template)
         self.args.output_file.close()
+
+    def write(self, raw_record, parsed_record):
+        """Output a row to the file."""
+        for trait, parses in parsed_record.items():
+            parsed_record[trait] = [x.__dict__ for x in parses]
+
+        self.rows.append({'raw': raw_record, 'parsed': parsed_record})

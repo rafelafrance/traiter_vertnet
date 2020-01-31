@@ -1,10 +1,11 @@
 inflect==4.0.0
-Jinja2==2.10.3
-lxml==4.4.2
+Jinja2==2.11.0
+lxml==4.5.0
 MarkupSafe==1.1.1
 numpy==1.18.1
-pandas==0.25.3
+pandas==1.0.0
 python-dateutil==2.8.1
 pytz==2019.3
 regex==2020.1.8
 six==1.14.0
+-e git+https://github.com/rafelafrance/traiter.git@e58ba33579e3a143d1348c3743a2686fbcfe5f71#egg=traiter

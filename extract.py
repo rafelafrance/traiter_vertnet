@@ -5,6 +5,7 @@
 import sys
 import argparse
 import textwrap
+from tqdm import tqdm
 from vertnet.pylib.all_traits import TRAITS
 from vertnet.pylib.record_parser import RecordParser
 from vertnet.readers.csv_reader import CsvReader
@@ -38,13 +39,11 @@ def parse_traits(args):
 
     with reader as input_file, writer as output_file:
 
-        for record in input_file:
+        for record in tqdm(input_file, disable=args.progress):
             record = {k: v for k, v in record.items()}
 
             parsed_record = record_parser.parse_record(record)
-
-            if parsed_record:
-                output_file.record(record, parsed_record)
+            output_file.write(record, parsed_record)
 
 
 def parse_args():
@@ -91,6 +90,9 @@ def parse_args():
         '--output-format', '-O', default='jsonl',
         choices=OUTPUT_FORMATS.keys(),
         help="""Output the result in this format. The default is "jsonl".""")
+
+    arg_parser.add_argument(
+        '--progress', action='store_false', help="""Show a progress bar.""")
 
     args = arg_parser.parse_args()
 

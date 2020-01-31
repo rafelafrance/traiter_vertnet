@@ -66,7 +66,8 @@ EMBRYO_LENGTH = Base(
         VOCAB.part('separator', r' [;"/.] '),
 
         VOCAB.grouper('noise', ' word x '.split()),
-        VOCAB.grouper('value', ' cross | number len_units? '),
+        VOCAB.grouper('value', """
+            cross | ( number len_units? ) (?! sex ) """),
 
         VOCAB.grouper('count', """number side number side """),
         VOCAB.grouper('skip', ' prep word cross | other | side '),

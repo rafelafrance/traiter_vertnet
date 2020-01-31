@@ -10,7 +10,6 @@ class CsvReader(BaseReader):
     def __init__(self, args):
         """Build the reader."""
         super().__init__(args)
-        self.args = args
         self.reader = None
         self.input_file = args.input_file
         self.columns = args.search_field + args.extra_field

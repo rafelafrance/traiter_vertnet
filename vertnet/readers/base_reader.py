@@ -1,23 +1,18 @@
 """Read the lib input from a file."""
 
 from abc import abstractmethod
+from contextlib import AbstractContextManager
+from collections.abc import Iterable
 
 
-class BaseReader:
+class BaseReader(AbstractContextManager, Iterable):
     """Read the lib input from a file."""
 
     def __init__(self, args):
         """Build the reader."""
         self.args = args
-
-    @abstractmethod
-    def __enter__(self):
-        """Build the iterator."""
+        self.index = 0
 
     @abstractmethod
     def __iter__(self):
         """Iterate thru the input file."""
-
-    @abstractmethod
-    def __exit__(self, exc_type, exc_value, traceback):
-        """Teardown the iterator."""

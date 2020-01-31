@@ -13,15 +13,11 @@ class JsonLinesWriter(BaseWriter):
         self.columns = args.extra_field
         self.columns += args.search_field
 
-    def start(self):
-        """Start the report."""
-
-    def record(self, raw_record, parsed_record):
+    def write(self, raw_record, parsed_record):
         """Output a row to the file."""
+        if not parsed_record:
+            return
+        raw_record = {k: v for k, v in raw_record.items() if v}
         row = {**raw_record, **parsed_record}
         obj = json.dumps(row) + '\n'
         self.args.output_file.write(obj)
-
-    def end(self):
-        """End the report."""
-

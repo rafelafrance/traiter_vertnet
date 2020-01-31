@@ -5,6 +5,8 @@ import vertnet.pylib.shared_patterns as patterns
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
+VOCAB.term('sex', 'females? | males? | [f]'),
+
 VOCAB.term('active', 'active inactive'.split())
 VOCAB.part('and', r' ( and \b | [&] ) ')
 VOCAB.term('count', r"""( only | all | both )? \s* [12]""")

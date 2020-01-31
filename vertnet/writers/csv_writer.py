@@ -17,24 +17,22 @@ class CsvWriter(BaseWriter):
         self.columns += args.search_field
         self.columns += sorted({f for fds in args.as_is.values() for f in fds})
 
-    def start(self):
+    def __enter__(self):
         """Start the report."""
         self.rows = []
 
-    def record(self, raw_record, parsed_record):
-        """Output a row to the file."""
-        self.progress()
+    def __exit__(self, exc_type, exc_value, traceback):
+        """End the report."""
+        dfm = pd.DataFrame(self.rows)
+        dfm.rename(
+            columns=lambda x: regex.sub(r'^.+?:\s*', '', x), inplace=True)
+        dfm.to_csv(self.args.output_file, index=False)
 
+    def write(self, raw_record, parsed_record):
+        """Output a record to the file."""
         row = {c: raw_record.get(c, '') for c in self.columns}
 
         for trait, parses in parsed_record.items():
             TRAITS[trait].csv_formatter(trait, row, parses[:self.limit])
 
         self.rows.append(row)
-
-    def end(self):
-        """End the report."""
-        dfm = pd.DataFrame(self.rows)
-        dfm.rename(
-            columns=lambda x: regex.sub(r'^.+?:\s*', '', x), inplace=True)
-        dfm.to_csv(self.args.output_file, index=False)
