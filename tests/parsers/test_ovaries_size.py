@@ -93,3 +93,34 @@ class TestOvariesSize(unittest.TestCase):
                 Trait(
                     value=5, units='MM', units_inferred=False,
                     ambiguous_key=True, dimension='width', start=25, end=43)])
+
+    def test_parse_11(self):
+        self.assertEqual(
+            OVARY_SIZE.parse((
+                'reproductive data=Embryos '
+                'L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ; right '
+                'gonad length=3 mm; left gonad width=2 mm; right gonad '
+                'width=2 mm; left gonad length=3 mm')),
+            [
+                Trait(
+                    value=3, units='mm', units_inferred=False, side='right',
+                    ambiguous_key=True, dimension='length', start=71, end=94),
+                Trait(
+                    value=2, units='mm', units_inferred=False, side='left',
+                    ambiguous_key=True, dimension='width', start=96, end=117),
+                Trait(
+                    value=2, units='mm', units_inferred=False, side='right',
+                    ambiguous_key=True, dimension='width',
+                    start=119, end=141),
+                Trait(
+                    value=3, units='mm', units_inferred=False, side='left',
+                    ambiguous_key=True, dimension='length',
+                    start=143, end=165),
+                ])
+
+    def test_parse_12(self):
+        self.assertEqual(
+            OVARY_SIZE.parse((
+                'reproductive data=Embryos '
+                'L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ;')),
+            [])

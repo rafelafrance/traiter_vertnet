@@ -37,10 +37,6 @@ OVARY_SIZE = Base(
         # E.g.: reproductive data: left 10x5 mm, right 10x6 mm
         VOCAB.producer(double, """label side_cross"""),
 
-        # Has side before gonad key
-        # E.g.: left ovary: 4 x 2 mm
-        VOCAB.producer(double, """ side_cross """),
-
         # Has the ovaries marker but is lacking the label
         # E.g.: ovaries left 10x5 mm, right 10x6 mm
         VOCAB.producer(double, """ ovary side_cross """),
@@ -54,9 +50,6 @@ OVARY_SIZE = Base(
 
         # E.g.: left ovaries 10x5 mm
         VOCAB.producer(convert, ' side ovary value '),
-
-        # E.g.: reproductive data: 10x5 mm
-        VOCAB.producer(convert, 'label value'),
 
         # May have a few words between the label and the measurement
         VOCAB.producer(convert, """

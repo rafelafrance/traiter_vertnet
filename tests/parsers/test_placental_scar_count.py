@@ -265,3 +265,8 @@ class TestPlacentalScarCount(unittest.TestCase):
             PLACENTAL_SCAR_COUNT.parse(
                 'no embryonic scars 360-40-125-68 1800g'),
             [Trait(value=0, start=0, end=18)])
+
+    def test_parse_48(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse('scars  emb.1R,1L;'),
+            [Trait(value='present', start=0, end=5)])
