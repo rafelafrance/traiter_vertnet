@@ -28,6 +28,10 @@ def convert(token):
             sub = SUB.get(sub[0].lower(), sub)
             setattr(trait, sub, to_int(count))
 
+    elif token.group.get('side'):
+        side = token.group['side'].lower()
+        trait.side = SUB.get(side, side)
+
     return trait if all(x < 1000 for x in as_list(trait.value)) else None
 
 
@@ -38,7 +42,12 @@ EMBRYO_COUNT = Base(
         VOCAB.part('sex', r"""
             males? | females? | (?<! [a-z] ) [mf] (?! [a-z] ) """),
 
+        VOCAB.term('skip', r' w  wt '.split()),
+        VOCAB.part('sep', r' [;] '),
+
         VOCAB.grouper('count', ' none word conj | integer | none '),
+
+        VOCAB.producer(convert, """ side (?P<total> count ) embryo """),
 
         VOCAB.producer(convert, """
             ( (?P<total> count) word? )?
@@ -48,11 +57,11 @@ EMBRYO_COUNT = Base(
             """),
 
         # Eg: 4 fetuses on left, 1 on right
-        VOCAB.producer(convert, [
-            """ (?P<subcount> count ) embryo prep? (?P<sub> side )
-                (?P<subcount> count ) embryo? prep? (?P<sub> side )"""]),
+        VOCAB.producer(convert, """
+            (?P<subcount> count ) embryo prep? (?P<sub> side )
+            (?P<subcount> count ) embryo? prep? (?P<sub> side )
+            """),
 
         VOCAB.producer(convert, """
-            (?P<total> count) (size | word)? embryo """),
-
+            (?P<total> count ) ( size | word )? embryo """),
         ])

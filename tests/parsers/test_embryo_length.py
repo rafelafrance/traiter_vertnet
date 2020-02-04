@@ -195,3 +195,8 @@ class TestEmbryoLength(unittest.TestCase):
             [Trait(
                 value=59.0, units='mm', units_inferred=False,
                 start=33, end=42)])
+
+    def test_parse_26(self):
+        self.assertEqual(
+            EMBRYO_LENGTH.parse('no emb, 155-79-18-13=13.5'),
+            [])

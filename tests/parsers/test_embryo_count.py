@@ -136,3 +136,28 @@ class TestEmbryoCount(unittest.TestCase):
         self.assertEqual(
             EMBRYO_COUNT.parse('embryos of NK 125721, embryos NK 125726A-D'),
             [])
+
+    def test_parse_26(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('no emb, 155-79-18-13=13.5'),
+            [Trait(value=0, start=0, end=6)])
+
+    def test_parse_27(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse(
+                'pregnant; 1 emb; CR-74; emb W-25; emb WT-4.8'),
+            [Trait(value=1, start=10, end=15)])
+
+    def test_parse_28(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse(
+                'pregnant; 1 emb; CR-516; emb 516-41-210-44; emb WT-2835'),
+            [Trait(value=1, start=10, end=15)])
+
+    def test_parse_29(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse(
+                'no scars, horns R 2 emb x 11, L 4 emb x 11,'),
+            [
+                Trait(value=2, side='right', start=16, end=23),
+                Trait(value=4, side='left', start=30, end=37)])

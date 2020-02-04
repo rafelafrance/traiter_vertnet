@@ -54,6 +54,7 @@ EMBRYO_LENGTH = Base(
     name=__name__.split('.')[-1],
     fix_up=fix_up,
     rules=[
+        VOCAB['shorthand'],
         VOCAB.part('key', r"""
             (?<! collector [\s=:.] ) (?<! reg [\s=:.] ) (
                 ( crown | cr ) ( [_\s\-] | \s+ to \s+ )? rump
