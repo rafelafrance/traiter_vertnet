@@ -24,7 +24,8 @@ class TestEmbryoLength(unittest.TestCase):
             EMBRYO_LENGTH.parse(
                 'reproductive data: 4 embryos - 15 mm, crown-rump length'),
             [Trait(
-                value=15, units='mm', units_inferred=False, start=21, end=48)])
+                value=15, units='mm', units_inferred=False,
+                start=21, end=55)])
 
     def test_parse_04(self):
         self.assertEqual(
@@ -200,3 +201,19 @@ class TestEmbryoLength(unittest.TestCase):
         self.assertEqual(
             EMBRYO_LENGTH.parse('no emb, 155-79-18-13=13.5'),
             [])
+
+    def test_parse_27(self):
+        self.assertEqual(
+            EMBRYO_LENGTH.parse(
+                'uterus large, embryos 1 + 1 = 2 (29763, 29764) CR = 30 mm.'),
+            [Trait(
+                value=30.0, units='mm', units_inferred=False,
+                start=47, end=57)])
+
+    def test_parse_27(self):
+        self.assertEqual(
+            EMBRYO_LENGTH.parse(
+                'uterus large, embryos 1 + 1 = 2 (29763, 29764) CR = 30 mm.'),
+            [Trait(
+                value=30.0, units='mm', units_inferred=False,
+                start=47, end=57)])

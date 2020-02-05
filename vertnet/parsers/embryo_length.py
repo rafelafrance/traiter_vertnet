@@ -10,11 +10,13 @@ from vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
+TOO_BIG = 1000
+
 
 def convert(token):
     """Convert parsed token into a trait product."""
     trait = simple(token, units='len_units')
-    return trait if all(x < 1000 for x in as_list(trait.value)) else None
+    return trait if all(x < TOO_BIG for x in as_list(trait.value)) else None
 
 
 def isolate(token):
@@ -39,6 +41,8 @@ def convert_many(token):
             trait.units = units[-1] if units else None
             trait.units_inferred = True
         trait.value = convert_units.convert(to_float(value), trait.units)
+        if trait.value > TOO_BIG:
+            continue
         add_flags(token, trait)
         traits.append(trait)
     return traits
@@ -55,31 +59,41 @@ EMBRYO_LENGTH = Base(
     fix_up=fix_up,
     rules=[
         VOCAB['shorthand'],
-        VOCAB.part('key', r"""
+        VOCAB.part('embryo_len_key', r"""
             (?<! collector [\s=:.] ) (?<! reg [\s=:.] ) (
                 ( crown | cr ) ( [_\s\-] | \s+ to \s+ )? rump
                 | (?<! [a-z] ) crl (?! [a-z] )
                 | (?<! [a-z] ) cr  (?! [a-z] )
             )"""),
 
+        VOCAB.part('len', r' (length | len) (?! [a-z] ) '),
+
         VOCAB.part('other', r' \( \s* \d+ \s* \w+ \s* \) '),
 
         VOCAB.part('separator', r' [;"/.] '),
 
-        VOCAB.grouper('noise', ' word x '.split()),
         VOCAB.grouper('value', """
-            cross | ( number len_units? ) (?! sex ) """),
+            cross | number len_units? (?! sex ) """),
 
-        VOCAB.grouper('count', """number side number side """),
+        VOCAB.grouper('key', """ embryo_len_key len? ( eq | colon )? """),
+
+        VOCAB.grouper('count', """
+            number side number side eq?
+            | number plus number ( eq number )?
+            """),
+
         VOCAB.grouper('skip', ' prep word cross | other | side '),
 
+        VOCAB.producer(convert, """ embryo? key value quest? """),
+
+        VOCAB.producer(convert, """ embryo? x? value key quest? """),
         VOCAB.producer(convert_many, """
             embryo count? value{2,} (?! skip ) quest? """),
-        VOCAB.producer(convert, """ embryo? key noise? value quest? """),
-        VOCAB.producer(convert, """ embryo? noise? value key quest? """),
+        VOCAB.producer(convert, """ embryo? key x? value quest? """),
+        VOCAB.producer(convert, """ embryo? x? value key quest? """),
         VOCAB.producer(
-            convert, """ embryo noise? value (?! skip ) quest? """),
+            convert, """ embryo x? value (?! skip ) quest? """),
         VOCAB.producer(isolate, """
-            embryo count? value len_units quest? """),
+            embryo colon? count? value len_units quest? """),
 
         ])
