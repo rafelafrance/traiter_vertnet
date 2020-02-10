@@ -55,8 +55,10 @@ HIND_FOOT_LENGTH = Base(
         VOCAB.producer(partial(
             shorthand_length,
             measurement='shorthand_hfl'), [
-                'shorthand_key shorthand',  # With a key
-                'shorthand',                # Without a key
+                'shorthand_key shorthand',
+                'shorthand',
+                'key shorthand_bats',
+                'shorthand_bats',
                 # Handle a truncated shorthand notation
                 'shorthand_key shorthand_triple (?! shorthand | len_range )']),
 

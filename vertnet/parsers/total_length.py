@@ -166,8 +166,10 @@ TOTAL_LENGTH = Base(
         # Handle a truncated shorthand notation
         VOCAB.producer(
             partial(numeric.shorthand_length, measurement='shorthand_tl'), [
-                'key shorthand',  # With a key
-                'shorthand',  # Without a key
+                'key shorthand',
+                'shorthand',
+                'key shorthand_bats',
+                'shorthand_bats',
                 """ ( key | key_units_req ) shorthand_triple
                     (?! shorthand | len_range )"""
                 ]),

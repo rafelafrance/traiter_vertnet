@@ -537,7 +537,9 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_074(self):
         self.assertEqual(
             TOTAL_LENGTH.parse('308-190-45-20-11-22'),
-            [])
+            [Trait(
+                value=308, units='mm_shorthand', units_inferred=False,
+                is_shorthand=True, start=0, end=19)])
 
     def test_parse_075(self):
         self.assertEqual(

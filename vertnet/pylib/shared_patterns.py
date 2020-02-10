@@ -55,12 +55,33 @@ VOCAB.part('shorthand', fr"""
     (?P=shorthand_sep)
     (?P<shorthand_el> (?P<estimated_el> \[ )? {SH_VAL} \]? )
     (?P<shorthand_ext> ( (?P=shorthand_sep) [a-z]{{1,4}} {SH_VAL} )* )
-    ( [\s=:/-] \s*
+    ( [\s=:/-] \s?
         (?P<estimated_wt> \[? \s* )
         (?P<shorthand_wt> {SH_VAL} ) \s*
         \]?
         (?P<shorthand_wt_units> {patterns.METRIC_MASS} )?
-        \s*? \]?
+        \s? \]?
+    )?
+    (?! [\d/:=a-z-] )
+    """)
+
+VOCAB.part('shorthand_bats', fr"""
+    (?<! [\d/a-z-] )
+    (?P<shorthand_tl> (?P<estimated_tl> \[ )? {SH_VAL} \]? )
+    (?P<shorthand_sep> [:/-] )
+    (?P<shorthand_tal> (?P<estimated_tal> \[ )? {SH_VAL} \]? )
+    (?P=shorthand_sep)
+    (?P<shorthand_hfl> (?P<estimated_hfl> \[ )? {SH_VAL} \]? )
+    (?P=shorthand_sep)
+    (?P<shorthand_el> (?P<estimated_el> \[ )? {SH_VAL} \]? )
+    (?P=shorthand_sep)
+    (?P<shorthand_fl> (?P<estimated_fl> \[ )? {SH_VAL} \]? )
+    ( [\s=:/-] \s?
+        (?P<estimated_wt> \[? \s? )
+        (?P<shorthand_wt> {SH_VAL} ) \s?
+        \]?
+        (?P<shorthand_wt_units> {patterns.METRIC_MASS} )?
+        \s? \]?
     )?
     (?! [\d/:=a-z-] )
     """)

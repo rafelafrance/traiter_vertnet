@@ -1,3 +1,4 @@
+"""Test body mass notations."""
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
@@ -246,9 +247,7 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse(
                 'Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62] x'),
-            [Trait(
-                value=62, estimated_value=True, units=None,
-                units_inferred=True, is_shorthand=True, start=41, end=56)])
+            [])
 
     def test_parse_32(self):
         self.assertEqual(
@@ -362,3 +361,10 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse('; unformatted measurements=g 0.24 mm ;'),
             [])
+
+    def test_parse_48(self):
+        self.assertEqual(
+            BODY_MASS.parse('143-63-20-17-22=13'),
+            [Trait(
+                value=13, units=None, units_inferred=True, is_shorthand=True,
+                start=0, end=18)])
