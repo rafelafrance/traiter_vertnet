@@ -1,7 +1,6 @@
 """Shared token patterns."""
 
 from traiter.vocabulary import Vocabulary, FIRST, LOWEST
-from vertnet.pylib.util import ordinal, number_to_words
 
 VOCAB = Vocabulary()
 
@@ -29,7 +28,7 @@ VOCAB.part('with', r' with ', capture=False)
 VOCAB.part('up_to', r' ( up \s+ )? to ', capture=False)
 VOCAB.term('and', r' and ', capture=False)
 VOCAB.term('conj', ' or and '.split(), capture=False)
-VOCAB.term('prep', ' to with on of '.split(), capture=False)
+VOCAB.term('prep', ' to with on of in '.split(), capture=False)
 
 # NOTE: Double quotes as inches is handled elsewhere
 VOCAB.part('inches', r"""
@@ -57,10 +56,6 @@ VOCAB.part('uuid', r"""
     \b [0-9a-f]{8} - [0-9a-f]{4} - [1-5][0-9a-f]{3}
         - [89ab][0-9a-f]{3} - [0-9a-f]{12} \b """,
            capture=False, priority=FIRST)
-
-# Some numeric values are reported as ordinals or words
-ORDINALS = [ordinal(x) for x in range(1, 6)]
-VOCAB.part('ordinals', [number_to_words(x) for x in ORDINALS])
 
 # Time units
 VOCAB.part('time_units', r'years? | months? | weeks? | days? | hours?')

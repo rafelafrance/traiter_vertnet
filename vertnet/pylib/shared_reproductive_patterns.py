@@ -111,6 +111,7 @@ VOCAB.part(
 VOCAB.part('ovary', r' ( ovary s? | ovaries | ov ) \b ')
 
 VOCAB.part('uterus', 'uterus uterine ut'.split())
+VOCAB.part('horn', 'horns?'.split(), capture=False)
 
 VOCAB.part('nipple', r""" ( \b
     nipples? | nipp?s? | teats? |

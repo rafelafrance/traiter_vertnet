@@ -4,6 +4,11 @@ import regex
 import inflect
 
 INFLECT = inflect.engine()
+ORDINALS = [INFLECT.ordinal(x) for x in range(21)]
+ORDINALS += [INFLECT.number_to_words(x) for x in ORDINALS]
+WORD_TO_NUM = {INFLECT.number_to_words(x): x for x in range(21)}
+NUM_WORDS = list(WORD_TO_NUM.keys())
+
 
 FLAGS = regex.VERBOSE | regex.IGNORECASE
 
@@ -25,16 +30,6 @@ def as_list(values):
     return values if isinstance(values, (list, tuple, set)) else [values]
 
 
-def ordinal(i):
-    """Convert the digit to an ordinal value: 1->1st, 2->2nd, etc."""
-    return INFLECT.ordinal(i)
-
-
-def number_to_words(number):
-    """Convert the number or ordinal value into words."""
-    return INFLECT.number_to_words(number)
-
-
 def to_float(value):
     """Convert the value to a float."""
     value = regex.sub(r'[^\d.]', '', value) if value else ''
@@ -46,8 +41,9 @@ def to_float(value):
 
 def to_int(value):
     """Convert value to an integer, handle 'no' or 'none' etc."""
-    value = regex.sub(r'\D', '', value) if value else ''
+    digits = regex.sub(r'\D', '', value) if value else ''
     try:
-        return int(value)
+        return int(digits)
     except ValueError:
-        return 0
+        value = value if value else ''
+        return WORD_TO_NUM.get(value.lower().strip(), 0)

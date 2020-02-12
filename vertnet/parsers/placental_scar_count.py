@@ -42,6 +42,8 @@ def convert_state(token):
 PLACENTAL_SCAR_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['shorthand'],
+
         # Adjectives to placental scars
         VOCAB.term('adj', r"""
             faint prominent recent old possible """.split()),

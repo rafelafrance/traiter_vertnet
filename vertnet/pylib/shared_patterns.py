@@ -1,8 +1,8 @@
 """Shared token patterns."""
 
 from traiter.vocabulary import Vocabulary, LOWEST
+from vertnet.pylib.util import ORDINALS, NUM_WORDS
 import vertnet.pylib.patterns as patterns
-from vertnet.pylib.util import ordinal, number_to_words
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -98,9 +98,8 @@ VOCAB.part('shorthand_triple', fr"""
     """)
 
 # Some numeric values are reported as ordinals or words
-ORDINALS = [ordinal(x) for x in range(1, 9)]
-ORDINALS += [number_to_words(x) for x in ORDINALS]
 VOCAB.part('ordinals', ORDINALS)
+VOCAB.term('num_words', NUM_WORDS)
 
 # Time units
 VOCAB.part('time_units', ' years? months? weeks? days? hours? '.split())

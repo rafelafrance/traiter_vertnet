@@ -38,6 +38,8 @@ def convert(token):
 EMBRYO_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['shorthand'],
+
         # The sexes like: 3M or 4Females
         VOCAB.part('sex', r"""
             males? | females? | (?<! [a-z] ) [mf] (?! [a-z] ) """),
@@ -45,23 +47,26 @@ EMBRYO_COUNT = Base(
         VOCAB.term('skip', r' w  wt '.split()),
         VOCAB.part('sep', r' [;] '),
 
-        VOCAB.grouper('count', ' none word conj | integer | none '),
+        VOCAB.grouper('count', """
+            none (word | plac_scar) conj | integer | none | num_words """),
 
-        VOCAB.producer(convert, """ side (?P<total> count ) embryo """),
+        VOCAB.producer(convert, """
+            side (?P<total> count ) embryo (?! plac_scar ) """),
 
         VOCAB.producer(convert, """
             ( (?P<total> count) word? )?
-            embryo ((integer (?! side) ) | word)*
-            (?P<subcount> count) (?P<sub> side | sex)
-            ( ( conj | prep )? (?P<subcount> count) (?P<sub> side | sex) )?
+            embryo ( ( integer (?! side) ) | word )*
+            (?P<subcount> count ) (?P<sub> side | sex )
+            ( ( conj | prep )? (?P<subcount> count ) (?P<sub> side | sex ) )?
             """),
 
         # Eg: 4 fetuses on left, 1 on right
         VOCAB.producer(convert, """
-            (?P<subcount> count ) embryo prep? (?P<sub> side )
+            (?P<subcount> count ) embryo prep? (?P<sub> side ) horn?
             (?P<subcount> count ) embryo? prep? (?P<sub> side )
             """),
 
         VOCAB.producer(convert, """
-            (?P<total> count ) ( size | word )? embryo """),
+            (?P<total> count ) ( size | word )? embryo (?! plac_scar ) """),
+
         ])

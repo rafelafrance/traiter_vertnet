@@ -162,3 +162,34 @@ class TestEmbryoCount(unittest.TestCase):
             [
                 Trait(value=2, side='right', start=16, end=23),
                 Trait(value=4, side='left', start=30, end=37)])
+
+    def test_parse_30(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('FOUR EMBS, 25MM'),
+            [Trait(value=4, start=0, end=9)])
+
+    def test_parse_31(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('182-95-19-13-18 emb. i'),
+            [])
+
+    def test_parse_32(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('2 embryo scars left horn, 1 right'),
+            [])
+
+    def test_parse_33(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse(
+                '3 embryos in left horn, 1 in right, crown to rump 25mm'),
+            [Trait(value=4, left=3, right=1, start=0, end=34)])
+
+    def test_parse_34(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('2 embryo scars, 1 in each horn, lactating'),
+            [])
+
+    def test_parse_35(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Fetus found in uterus, saved in formalin'),
+            [Trait(value=1, start=0, end=9)])
