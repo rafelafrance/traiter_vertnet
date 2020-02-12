@@ -2,7 +2,7 @@
 
 import regex
 import pandas as pd
-from vertnet.pylib.all_traits import TRAITS
+# from vertnet.pylib.all_traits import TRAITS
 from vertnet.writers.base_writer import BaseWriter
 
 
@@ -32,7 +32,7 @@ class CsvWriter(BaseWriter):
         """Output a record to the file."""
         row = {c: raw_record.get(c, '') for c in self.columns}
 
-        for trait, parses in parsed_record.items():
-            TRAITS[trait].csv_formatter(trait, row, parses[:self.limit])
+        # for trait, parses in parsed_record.items():
+        #     TRAITS[trait].csv_formatter(trait, row, parses[:self.limit])
 
         self.rows.append(row)
