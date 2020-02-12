@@ -1,3 +1,4 @@
+"""Test ovary state notations."""
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest

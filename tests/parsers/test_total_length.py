@@ -1,3 +1,4 @@
+"""Test total notations."""
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 # pylint: disable=too-many-lines
