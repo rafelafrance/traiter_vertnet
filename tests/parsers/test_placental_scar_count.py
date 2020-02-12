@@ -309,9 +309,3 @@ class TestPlacentalScarCount(unittest.TestCase):
             PLACENTAL_SCAR_COUNT.parse(
                 'reproductive data=nip small, no plsc ; '),
             [Trait(value=0, start=29, end=36)])
-
-    def test_parse_57(self):
-        self.assertEqual(
-            PLACENTAL_SCAR_COUNT.parse(
-                'fat=2; lactating; 6 embryo scars'),
-            [Trait(value=0, start=29, end=36)])
