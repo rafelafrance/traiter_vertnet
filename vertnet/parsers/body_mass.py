@@ -5,7 +5,7 @@ from vertnet.pylib.util import as_list, squash, to_float
 from vertnet.pylib.convert_units import convert
 from vertnet.pylib.trait import Trait
 from vertnet.pylib.numeric import as_value, add_flags, simple_mass
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)

@@ -7,7 +7,7 @@ from vertnet.pylib.util import FLAGS
 from vertnet.pylib.numeric import simple_len, fraction
 from vertnet.pylib.numeric import shorthand_length
 from vertnet.pylib.numeric import numeric_fix_ups
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)

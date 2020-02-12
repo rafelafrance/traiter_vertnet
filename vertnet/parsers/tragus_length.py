@@ -3,7 +3,7 @@
 from traiter.vocabulary import Vocabulary
 from vertnet.pylib.numeric import fix_up_inches
 from vertnet.pylib.numeric import fraction, simple
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)

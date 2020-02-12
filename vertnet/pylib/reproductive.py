@@ -5,7 +5,7 @@ from copy import copy
 from traiter.token import Token
 from traiter.rule import part
 from vertnet.pylib.numeric import as_value
-from vertnet.pylib.shared_patterns import CROSS
+from vertnet.pylib.patterns import CROSS
 from vertnet.pylib.trait import Trait
 
 # Used to get compounds traits from a single parse

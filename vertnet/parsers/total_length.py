@@ -4,7 +4,7 @@ from functools import partial
 import regex
 from traiter.vocabulary import Vocabulary
 import vertnet.pylib.numeric as numeric
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.pylib.util import FLAGS
 from vertnet.pylib.numeric import fix_up_inches, fraction, compound
 from vertnet.parsers.base import Base

@@ -1,7 +1,7 @@
 """Parse life stage notations."""
 
 from traiter.vocabulary import Vocabulary
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base, convert
 
 VOCAB = Vocabulary(patterns.VOCAB)

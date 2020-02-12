@@ -189,7 +189,7 @@ class TestEmbryoCount(unittest.TestCase):
             EMBRYO_COUNT.parse('2 embryo scars, 1 in each horn, lactating'),
             [])
 
-    def test_parse_35(self):
-        self.assertEqual(
-            EMBRYO_COUNT.parse('Fetus found in uterus, saved in formalin'),
-            [Trait(value=1, start=0, end=9)])
+    # def test_parse_35(self):
+    #     self.assertEqual(
+    #         EMBRYO_COUNT.parse('Fetus found in uterus, saved in formalin'),
+    #         [Trait(value=1, start=0, end=9)])

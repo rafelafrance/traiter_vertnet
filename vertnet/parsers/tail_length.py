@@ -6,7 +6,7 @@ from traiter.vocabulary import Vocabulary
 from vertnet.pylib.util import FLAGS
 from vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from vertnet.pylib.numeric import simple, fraction
-import vertnet.pylib.shared_patterns as patterns
+import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
 
 VOCAB = Vocabulary(patterns.VOCAB)
