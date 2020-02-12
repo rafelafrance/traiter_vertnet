@@ -53,15 +53,14 @@ PLACENTAL_SCAR_COUNT = Base(
         VOCAB.part('sep', r' [;/] '),
 
         VOCAB.grouper('count', """
-            none embryo conj
-            | none visible | integer | none """),
+            none embryo conj | none visible | integer | none """),
 
         VOCAB.producer(convert_count, [
             """(?P<count1> count ) op (?P<count2> count )
                 ( eq (?P<value> count ) )? plac_scar """]),
 
         VOCAB.producer(convert_count, [
-            """plac_scar
+            """plac_scar op?
                   (?P<count1> count ) prep? (?P<side1> side )
                 ( (?P<count2> count ) prep? (?P<side2> side ) )? """]),
 
@@ -77,13 +76,14 @@ PLACENTAL_SCAR_COUNT = Base(
                     (visible)? (visible | op)? plac_scar? )? """]),
 
         VOCAB.producer(convert_count, [
-            """   (?P<count1> count ) prep? (?P<side1> side )
+            """ (?<! lut )
+                (?P<count1> count ) prep? (?P<side1> side )
                 ( (?P<count2> count ) prep? (?P<side2> side ) )?
                 plac_scar """]),
 
         VOCAB.producer(convert_count, [
             """ (?P<count1> count ) plac_scar (?P<side1> side )
-                ( (?P<count2> count ) plac_scar (?P<side2> side ) )? """]),
+                ( (?P<count2> count ) plac_scar? (?P<side2> side ) )? """]),
 
         VOCAB.producer(convert_count, [
             """ plac_scar (?P<side1> side ) (?P<count1> count )
@@ -105,7 +105,7 @@ PLACENTAL_SCAR_COUNT = Base(
                 """]),
 
         VOCAB.producer(convert_count, [
-            """ (?P<value> count ) embryo? plac_scar """]),
+            """ (?P<value> count ) embryo? plac_scar (?! count ) """]),
 
         VOCAB.producer(convert_count, [
             """ plac_scar eq? (?P<count1> count ) (?P<side1> side ) """]),

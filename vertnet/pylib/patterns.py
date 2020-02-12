@@ -32,6 +32,7 @@ VOCAB.part('up_to', r' ( up \s+ )? to ', capture=False)
 VOCAB.term('and', r' and ', capture=False)
 VOCAB.term('conj', ' or and '.split(), capture=False)
 VOCAB.term('prep', ' to with on of in '.split(), capture=False)
+VOCAB.term('found', 'found', capture=False)
 
 # NOTE: Double quotes as inches is handled elsewhere
 VOCAB.part('inches', r"""
@@ -179,7 +180,6 @@ VOCAB.part('time_units', ' years? months? weeks? days? hours? '.split())
 VOCAB.part('side', r"""
     (?<! [a-z] ) [lr] (?! [a-z] )
     | both | left | right | lft? | lt | rt """)
-# SIDE = RULE['side'].pattern
 
 DIMENSION = r' (?P<dim> length | width ) '
 VOCAB.part('dimension', DIMENSION)

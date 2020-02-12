@@ -276,3 +276,42 @@ class TestPlacentalScarCount(unittest.TestCase):
         self.assertEqual(
             PLACENTAL_SCAR_COUNT.parse('fat=2; lactating; 14 embryo scars'),
             [Trait(value=14, start=18, end=33)])
+
+    def test_parse_50(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse('3 scars left, 3 right; lactating.'),
+            [Trait(value=6, left=3, right=3, start=0, end=21)])
+
+    def test_parse_51(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse('Uterine scars: 1 L, 3 R.'),
+            [Trait(value=4, left=1, right=3, start=0, end=23)])
+
+    def test_parse_52(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse('scars: 2R, 2L, no embryos'),
+            [Trait(value=4, left=2, right=2, start=0, end=13)])
+
+    def test_parse_53(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse(
+                'corp. lut. 4L, 3R, scars 3L, 3R, no embryos'),
+            [Trait(value=6, left=3, right=3, start=15, end=27)])
+
+    def test_parse_55(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse(
+                'no embryos, scars 2R, 3L, corp. lut. 2R, 4L, nipples'),
+            [Trait(value=5, left=3, right=2, start=12, end=24)])
+
+    def test_parse_56(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse(
+                'reproductive data=nip small, no plsc ; '),
+            [Trait(value=0, start=29, end=36)])
+
+    def test_parse_57(self):
+        self.assertEqual(
+            PLACENTAL_SCAR_COUNT.parse(
+                'fat=2; lactating; 6 embryo scars'),
+            [Trait(value=0, start=29, end=36)])

@@ -125,8 +125,8 @@ class TestEmbryoCount(unittest.TestCase):
     def test_parse_23(self):
         self.assertEqual(
             EMBRYO_COUNT.parse(
-                '; reproductive data=7 near term embryos 95L, 2R)'),
-            [Trait(value=97, left=95, right=2, start=32, end=47)])
+                '; reproductive data=7 near term embryos 5L, 2R)'),
+            [Trait(value=7, left=5, right=2, start=20, end=46)])
 
     def test_parse_24(self):
         self.assertEqual(
@@ -189,7 +189,44 @@ class TestEmbryoCount(unittest.TestCase):
             EMBRYO_COUNT.parse('2 embryo scars, 1 in each horn, lactating'),
             [])
 
-    # def test_parse_35(self):
-    #     self.assertEqual(
-    #         EMBRYO_COUNT.parse('Fetus found in uterus, saved in formalin'),
-    #         [Trait(value=1, start=0, end=9)])
+    def test_parse_35(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Fetus found in uterus, saved in formalin'),
+            [Trait(value=1, start=0, end=11)])
+
+    def test_parse_36(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Near-term fetus (86.5 cm S.L.)'),
+            [Trait(value=1, start=0, end=15)])
+
+    def test_parse_37(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Pregnant female, 6 near-term embryos.'),
+            [Trait(value=6, start=17, end=36)])
+
+    def test_parse_38(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('2 embryos right horn, 3 left, ~9x10mm'),
+            [Trait(value=5, left=3, right=2, start=0, end=28)])
+
+    def test_parse_39(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Fetus on left, 18mm crown to rump.'),
+            [Trait(value=1, side='left', start=0, end=13)])
+
+    def test_parse_40(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('3 embryos L side, 1 R. Mammaries developing.'),
+            [Trait(value=4, left=3, right=1, start=0, end=21)])
+
+    def test_parse_41(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('corp. lut. 2L, 4R, no scars, embryos 2L, 4R, '
+                               'nipples small, moderate fat'),
+            [Trait(value=6, left=2, right=4, start=29, end=43)])
+
+    def test_parse_42(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse(
+                'perforate; 2L 2R emb; CR-9; 1L R emb; mammary'),
+            [Trait(value=4, left=2, right=2, start=11, end=20)])

@@ -130,7 +130,7 @@ VOCAB.part('plac_scar', r"""
     | p [\s.-] ( scarring | scars? )
     | ( uterus | uterine | \b ut \b ) [.\s]* ( scarring | scars? )
     | ( scarring | scars? ) \b (?! \s* ( on | above | below ) )
-    | ps \b | pslc | plac \b | plscr
+    | ps \b | pslc | plac \b | plscr | plsc
     """)
 
 # Gonads can be for female or male

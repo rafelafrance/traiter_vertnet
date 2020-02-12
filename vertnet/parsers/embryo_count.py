@@ -35,6 +35,12 @@ def convert(token):
     return trait if all(x < 1000 for x in as_list(trait.value)) else None
 
 
+def found(token):
+    """An embryo was found, so count it."""
+    token.group['total'] = '1'
+    return convert(token)
+
+
 EMBRYO_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
@@ -44,29 +50,46 @@ EMBRYO_COUNT = Base(
         VOCAB.part('sex', r"""
             males? | females? | (?<! [a-z] ) [mf] (?! [a-z] ) """),
 
+        VOCAB.term('near_term', r' near[\s-]?term'),
+
         VOCAB.term('skip', r' w  wt '.split()),
         VOCAB.part('sep', r' [;] '),
 
         VOCAB.grouper('count', """
             none (word | plac_scar) conj | integer | none | num_words """),
 
+        VOCAB.grouper('present', ' found | near_term '),
+
         VOCAB.producer(convert, """
             side (?P<total> count ) embryo (?! plac_scar ) """),
 
         VOCAB.producer(convert, """
-            ( (?P<total> count) word? )?
+            ( (?P<total> count ) ( word | present )? )?
             embryo ( ( integer (?! side) ) | word )*
             (?P<subcount> count ) (?P<sub> side | sex )
             ( ( conj | prep )? (?P<subcount> count ) (?P<sub> side | sex ) )?
             """),
 
-        # Eg: 4 fetuses on left, 1 on right
         VOCAB.producer(convert, """
-            (?P<subcount> count ) embryo prep? (?P<sub> side ) horn?
+            (?P<subcount> count ) embryo prep? (?P<sub> side ) word?
             (?P<subcount> count ) embryo? prep? (?P<sub> side )
             """),
 
         VOCAB.producer(convert, """
+            (?P<subcount> count ) (?P<sub> side ) word?
+            (?P<subcount> count ) (?P<sub> side ) embryo
+            """),
+
+        VOCAB.producer(convert, """
             (?P<total> count ) ( size | word )? embryo (?! plac_scar ) """),
+
+        VOCAB.producer(convert, """
+            (?P<total> count ) ( size | word )? embryo (?! plac_scar ) """),
+
+        VOCAB.producer(convert, """ (?P<total> count ) present embryo """),
+
+        VOCAB.producer(found, """ embryo present | present embryo """),
+
+        VOCAB.producer(found, """ embryo prep? present? (?P<sub> side ) """),
 
         ])
