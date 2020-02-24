@@ -42,6 +42,8 @@ def convert_state(token):
 PLACENTAL_SCAR_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         VOCAB['shorthand'],
 
         # Adjectives to placental scars

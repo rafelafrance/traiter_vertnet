@@ -44,6 +44,8 @@ def found(token):
 EMBRYO_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         VOCAB['shorthand'],
 
         # The sexes like: 3M or 4Females

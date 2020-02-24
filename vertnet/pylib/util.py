@@ -20,8 +20,13 @@ class DotDict(dict):
     __delattr__ = dict.__delitem__
 
 
+def shorten(text):
+    """Collapse whitespace in a string."""
+    return ' '.join(text.split())
+
+
 def squash(values):
-    """Squash a list to a single value is its length is one."""
+    """Squash a list to a single value if its length is one."""
     return values if len(values) != 1 else values[0]
 
 

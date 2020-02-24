@@ -2,6 +2,7 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
+from vertnet.pylib.util import shorten
 from vertnet.pylib.trait import Trait
 from vertnet.parsers.testes_size import TESTES_SIZE
 
@@ -331,4 +332,10 @@ class TestTestesSize(unittest.TestCase):
                 '{"created": "2014-10-29", "relatedresourceid": '
                 '"57d3efd8-2b9c-4952-8976-e27401a01251;'
                 '8a35be5e-27fb-4875-81f6-42a5d7787760"}'),
+            [])
+
+    def test_parse_41(self):
+        self.assertEqual(
+            TESTES_SIZE.parse(shorten("""
+                "0abd6b4f-e836-49ad-80e8-4ce47bffa190;""")),
             [])

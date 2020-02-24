@@ -10,6 +10,8 @@ VOCAB = Vocabulary(patterns.VOCAB)
 TESTES_SIZE = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         # Note: abbrev differs from the one in the testes_state_trait
         VOCAB.term('abbrev', 'tes ts tnd td tns ta'.split()),
 

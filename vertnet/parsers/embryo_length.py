@@ -58,6 +58,8 @@ EMBRYO_LENGTH = Base(
     name=__name__.split('.')[-1],
     fix_up=fix_up,
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         VOCAB['shorthand'],
         VOCAB.part('embryo_len_key', r"""
             (?<! collector [\s=:.] ) (?<! reg [\s=:.] ) (

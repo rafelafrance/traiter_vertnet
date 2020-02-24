@@ -10,6 +10,8 @@ VOCAB = Vocabulary(patterns.VOCAB)
 OVARY_SIZE = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         # A key with units, like: gonadLengthInMM
         VOCAB.term('key_with_units', r"""
             (?P<ambiguous_key> gonad ) \s*

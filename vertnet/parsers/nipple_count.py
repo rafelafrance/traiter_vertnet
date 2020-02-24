@@ -40,6 +40,8 @@ def typed(token):
 NIPPLE_COUNT = Base(
     name=__name__.split('.')[-1],
     rules=[
+        VOCAB['uuid'],  # UUIDs cause problems with numbers
+
         VOCAB.term('id', r' \d+-\d+ '),
 
         VOCAB.term('adj', r""" inguinal ing pectoral pec pr """.split()),
