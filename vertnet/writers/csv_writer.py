@@ -2,7 +2,6 @@
 
 import regex
 import pandas as pd
-# from vertnet.pylib.all_traits import TRAITS
 from vertnet.writers.base_writer import BaseWriter
 
 
@@ -12,7 +11,6 @@ class CsvWriter(BaseWriter):
     def __init__(self, args):
         """Build the writer."""
         super().__init__(args)
-        self.limit = 4
         self.columns = args.extra_field
         self.columns += args.search_field
         self.columns += sorted({f for fds in args.as_is.values() for f in fds})
@@ -31,8 +29,5 @@ class CsvWriter(BaseWriter):
     def write(self, raw_record, parsed_record):
         """Output a record to the file."""
         row = {c: raw_record.get(c, '') for c in self.columns}
-
-        # for trait, parses in parsed_record.items():
-        #     TRAITS[trait].csv_formatter(trait, row, parses[:self.limit])
 
         self.rows.append(row)
