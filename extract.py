@@ -40,7 +40,7 @@ def parse_traits(args):
     with reader as input_file, writer as output_file:
 
         for record in tqdm(input_file, disable=args.progress):
-            record = record.items()
+            record = dict(record.items())
 
             parsed_record = record_parser.parse_record(record)
             output_file.write(record, parsed_record)
@@ -50,8 +50,6 @@ def parse_args():
     """Process command-line arguments."""
     description = """Extract parsers from the file."""
     arg_parser = argparse.ArgumentParser(
-        allow_abbrev=True,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent(description),
         fromfile_prefix_chars='@')
 
@@ -60,7 +58,7 @@ def parse_args():
         version='%(prog)s v{}'.format(__VERSION__))
 
     arg_parser.add_argument(
-        '--input-file', '-i', type=argparse.FileType('r'), default=sys.stdin,
+        '--input-file', '-i', type=argparse.FileType(), default=sys.stdin,
         help="""The input file containing the raw data. Defaults to stdin.""")
 
     arg_parser.add_argument(
