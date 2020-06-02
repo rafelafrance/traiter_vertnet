@@ -52,3 +52,33 @@ class TestForearmLength(unittest.TestCase):
             [Trait(
                 value=62, estimated_value=True, units='mm_shorthand',
                 units_inferred=False, is_shorthand=True, start=41, end=58)])
+
+    def test_parse_07(self):
+        self.assertEqual(
+            FOREARM_LENGTH.parse(
+                '{"measurements":"82-34-8-13-32(fa)", "weightInGrams":"8.0"}'),
+            [Trait(
+                value=32, units='mm_shorthand',
+                units_inferred=False, is_shorthand=True, start=2, end=34)])
+
+    def test_parse_08(self):
+        self.assertEqual(
+            FOREARM_LENGTH.parse(
+                '{"measurements":"44.0 (FA)" }'),
+            [Trait(
+                value=44, units=None, units_inferred=True, start=17, end=25)])
+
+    def test_parse_09(self):
+        self.assertEqual(
+            FOREARM_LENGTH.parse(
+                '{"ADULT;  TR 7-FA 37.3; FET8;'),
+            [Trait(
+                value=37.3, units=None, units_inferred=True,
+                start=15, end=22)])
+
+    def test_parse_10(self):
+        self.assertEqual(
+            FOREARM_LENGTH.parse(
+                'Big brown bat, tragus L.-7mm, forearm L.-28mm.'),
+            [Trait(value=28.0, units='mm', units_inferred=False,
+                   start=30, end=45)])

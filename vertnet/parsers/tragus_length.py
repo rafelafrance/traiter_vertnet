@@ -27,7 +27,9 @@ TRAGUS_LENGTH = Base(
                     (?P<units> millimeters | mm ) """),
 
         # Standard keywords that indicate a tragus length follows
-        VOCAB.term('key', r"""( tragus | trag ) \s* (length | len )? """),
+        VOCAB.term('key', r"""
+            ( tragus | trag | tragi ) \s* (length | len | l )?
+            | tr """),
 
         # Some patterns require a separator
         VOCAB.part('sep', r' [;,] | $ ', capture=False),
@@ -45,7 +47,7 @@ TRAGUS_LENGTH = Base(
             'key_with_units len_range',     # E.g.: tragusLengthInMM=9-10
             'key noise? len_range units ',  # E.g.: tragusLengthInMM=9-10 mm
             'key noise? len_range',  # Missing units: tragusLengthInMM 9-10
-            'key dash number units?',
+            'key dash? number units?',
             ]),
 
         ])

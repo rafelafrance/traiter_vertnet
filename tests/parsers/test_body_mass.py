@@ -368,3 +368,18 @@ class TestBodyMass(unittest.TestCase):
             [Trait(
                 value=13, units=None, units_inferred=True, is_shorthand=True,
                 start=0, end=18)])
+
+    def test_parse_49(self):
+        self.assertEqual(
+            BODY_MASS.parse(
+                '{"earLengthInMM":"15 mm", "hindfootLengthInMM":'
+                '"hind_foot_length]", "measurements":"38", "tail":"40 mm", '
+                '"totalLength":"96 mm", "weight":"11.7 g" }'),
+            [Trait(
+                value=11.7, units='g', units_inferred=False,
+                start=129, end=144)])
+
+    def test_parse_50(self):
+        self.assertEqual(
+            BODY_MASS.parse('Other Measurements: ratio=.33'),
+            [])

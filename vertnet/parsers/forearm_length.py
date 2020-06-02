@@ -29,7 +29,7 @@ FOREARM_LENGTH = Base(
 
         # Standard keywords that indicate a forearm length follows
         VOCAB.term('key', r"""
-            forearm  ( \s* ( length | len ) )?
+            forearm ( \s* ( length | len | l ) )?
             | fore? \s? [.]? \s? a
             | fa
             """),
@@ -51,11 +51,12 @@ FOREARM_LENGTH = Base(
             'key noise? len_range units ',  # E.g.: forearmLength=9-10 mm
             'key noise? len_range',  # Missing units like: forearm 9-10
             'key dash number units?',
+            'number key units?'
             ]),
 
         VOCAB.producer(partial(
             shorthand_length,
-            measurement='shorthand_fl'), [
+            measurement='shorthand_fa'), [
             'shorthand_key shorthand',       # With a key
             'shorthand',                     # Without a key
             'shorthand_key shorthand_bats',  # With a key

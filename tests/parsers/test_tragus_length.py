@@ -35,3 +35,8 @@ class TestTragusLength(unittest.TestCase):
             [Trait(
                 value=6, units='MM', units_inferred=False,
                 start=98, end=118)])
+
+    def test_parse_05(self):
+        self.assertEqual(
+            TRAGUS_LENGTH.parse("""ADULT; TR 7-FA 37.3; FET8;"""),
+            [Trait(value=7, units=None, units_inferred=True, start=7, end=11)])
