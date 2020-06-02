@@ -1,6 +1,6 @@
 """Shared reproductive trait tokens (testes & ovaries)."""
 
-from traiter.vocabulary import Vocabulary, LOWEST
+from traiter.old.vocabulary import Vocabulary, LOWEST
 import vertnet.pylib.patterns as patterns
 
 VOCAB = Vocabulary(patterns.VOCAB)

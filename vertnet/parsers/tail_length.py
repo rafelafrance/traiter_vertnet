@@ -2,7 +2,7 @@
 
 from functools import partial
 import regex
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 from vertnet.pylib.util import FLAGS
 from vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from vertnet.pylib.numeric import simple, fraction

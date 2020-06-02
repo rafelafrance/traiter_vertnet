@@ -1,6 +1,6 @@
 """Parse testes state notations."""
 
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 from vertnet.pylib.trait import Trait
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base

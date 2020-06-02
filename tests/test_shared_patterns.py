@@ -2,8 +2,8 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 
 import unittest
-from traiter.parser import Parser
-from traiter.token import Token
+from traiter.old.parser import Parser
+from traiter.old.token import Token
 from vertnet.pylib.patterns import VOCAB
 
 

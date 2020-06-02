@@ -1,6 +1,6 @@
 """Parse body mass notations."""
 
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 from vertnet.pylib.util import as_list, squash, to_float
 from vertnet.pylib.convert_units import convert
 from vertnet.pylib.trait import Trait

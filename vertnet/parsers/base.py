@@ -1,7 +1,7 @@
 """Common logic for parsing trait notations."""
 
 from typing import Callable, List
-from traiter.parser import Parser, RulesInput
+from traiter.old.parser import Parser, RulesInput
 from vertnet.pylib.trait import Trait
 
 

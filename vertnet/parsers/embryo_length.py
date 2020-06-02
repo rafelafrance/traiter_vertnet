@@ -1,6 +1,6 @@
 """Parse embryo lengths."""
 
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 from vertnet.pylib.util import as_list, to_float
 from vertnet.pylib.trait import Trait
 from vertnet.pylib.numeric import simple, add_flags, fix_up_inches

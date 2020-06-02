@@ -1,7 +1,7 @@
 """Parse forearm length notations."""
 
 from functools import partial
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 from vertnet.pylib.numeric import fix_up_inches, shorthand_length
 from vertnet.pylib.numeric import fraction, simple
 import vertnet.pylib.patterns as patterns

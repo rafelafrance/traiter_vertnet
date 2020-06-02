@@ -1,6 +1,6 @@
 """Parse sex notations."""
 
-from traiter.vocabulary import Vocabulary
+from traiter.old.vocabulary import Vocabulary
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base, convert
 

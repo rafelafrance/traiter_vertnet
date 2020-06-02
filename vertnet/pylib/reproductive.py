@@ -2,8 +2,8 @@
 
 from string import punctuation
 from copy import copy
-from traiter.token import Token
-from traiter.rule import part
+from traiter.old.token import Token
+from traiter.old.rule import part
 from vertnet.pylib.numeric import as_value
 from vertnet.pylib.patterns import CROSS
 from vertnet.pylib.trait import Trait
