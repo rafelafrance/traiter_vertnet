@@ -5,6 +5,7 @@ from contextlib import AbstractContextManager
 from collections.abc import Iterable
 
 
+# pylint: disable=too-few-public-methods
 class BaseReader(AbstractContextManager, Iterable):
     """Read the lib input from a file."""
 

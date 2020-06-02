@@ -2,8 +2,8 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
-from vertnet.parsers.thumb_length import THUMB_LENGTH
+# from vertnet.pylib.trait import Trait
+# from vertnet.parsers.thumb_length import THUMB_LENGTH
 
 
 class TestThumbLength(unittest.TestCase):

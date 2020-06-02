@@ -30,7 +30,7 @@ class TestTragusLength(unittest.TestCase):
         self.assertEqual(
             TRAGUS_LENGTH.parse(
                 """{"totalLengthInMM":"94", "tailLengthInMM":"11","""
-                """ "hindfootLengthInMM":"15", "earLengthInMM":"17",""" 
+                """ "hindfootLengthInMM":"15", "earLengthInMM":"17","""
                 """ "tragusLengthInMM":"6", "weightInGrams":"34.7" }"""),
             [Trait(
                 value=6, units='MM', units_inferred=False,

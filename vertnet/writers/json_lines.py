@@ -4,7 +4,7 @@ import json
 from vertnet.writers.base_writer import BaseWriter
 
 
-class JsonLinesWriter(BaseWriter):
+class JsonLinesWriter(BaseWriter):  # pylint: disable=too-few-public-methods
     """Write the lib output to a file."""
 
     def __init__(self, args):

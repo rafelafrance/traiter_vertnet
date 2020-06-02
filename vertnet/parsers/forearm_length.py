@@ -57,10 +57,10 @@ FOREARM_LENGTH = Base(
         VOCAB.producer(partial(
             shorthand_length,
             measurement='shorthand_fa'), [
-            'shorthand_key shorthand',       # With a key
-            'shorthand',                     # Without a key
-            'shorthand_key shorthand_bats',  # With a key
-            'shorthand_bats',                # Without a key
+                'shorthand_key shorthand',       # With a key
+                'shorthand',                     # Without a key
+                'shorthand_key shorthand_bats',  # With a key
+                'shorthand_bats',                # Without a key
             ]),
 
         ])

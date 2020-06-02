@@ -240,7 +240,7 @@ VOCAB.grouper('cross', CROSS, capture=False)
 # Handle 2 cross measurements, one per left/right side
 VOCAB.grouper('joiner', ' ampersand comma and '.split())
 
-VOCAB.grouper('side_cross', f"""
+VOCAB.grouper('side_cross', """
     (?P<side_1> side )?
         (?P<value_1> number ) (?P<units_1> len_units )?
             ( x | by ) (?P<value_1> number ) (?P<units_1> len_units )?

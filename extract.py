@@ -40,7 +40,7 @@ def parse_traits(args):
     with reader as input_file, writer as output_file:
 
         for record in tqdm(input_file, disable=args.progress):
-            record = {k: v for k, v in record.items()}
+            record = record.items()
 
             parsed_record = record_parser.parse_record(record)
             output_file.write(record, parsed_record)
@@ -74,7 +74,7 @@ def parse_args():
 
     arg_parser.add_argument(
         '--search-field', '-s', action='append', metavar='FIELD',
-        help=f"""A field that contains the data to parse.
+        help="""A field that contains the data to parse.
             You may use this argument more than once.""")
 
     arg_parser.add_argument(
