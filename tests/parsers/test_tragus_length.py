@@ -49,9 +49,7 @@ class TestTragusLength(unittest.TestCase):
                 ; hind foot with claw=10 mm; tragus length=7 mm;
                 tail length=54 mm; ear from notch=16 mm;
                 forearm length=54 mm; total length=126 mm""")),
-            [{'start': 23, 'end': 55,  'value': 7.0, 'units': 'mm_shorthand',
-              'units_inferred': False, 'is_shorthand': True},
-             {'start': 92, 'end': 110, 'units': 'mm', 'value': 7.0,
+            [{'start': 92, 'end': 110, 'units': 'mm', 'value': 7.0,
               'units_inferred': False}])
 
     def test_parse_07(self):

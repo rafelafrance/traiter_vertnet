@@ -31,8 +31,10 @@ class TestForearmLength(unittest.TestCase):
         self.assertEqual(
             FOREARM_LENGTH.parse(
                 'unformatted measurements=67-27.1-5.2-9.2-3.9=x, FA 29.3'),
-            [Trait(value=29.3, units=None, units_inferred=True,
-                   start=48, end=55)])
+            [{'start': 12, 'end': 46, 'value': 3.9, 'units': 'mm_shorthand',
+              'units_inferred': False, 'is_shorthand': True},
+             {'start': 48, 'end': 55, 'units': None, 'value': 29.3,
+              'units_inferred': True}])
 
     def test_parse_05(self):
         self.assertEqual(
@@ -44,7 +46,9 @@ class TestForearmLength(unittest.TestCase):
         self.assertEqual(
             FOREARM_LENGTH.parse(
                 'Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62] x'),
-            [])
+            [{'start': 41, 'end': 58, 'value': 62.0,
+              'units': 'mm_shorthand', 'units_inferred': False,
+              'is_shorthand': True, 'estimated_value': True}])
 
     def test_parse_07(self):
         self.assertEqual(
@@ -83,7 +87,9 @@ class TestForearmLength(unittest.TestCase):
                 ; hind foot with claw=10 mm; tragus length=7 mm;
                 tail length=54 mm; ear from notch=16 mm;
                 forearm length=54 mm; total length=126 mm""")),
-            [{'start': 57, 'end': 62, 'units': None, 'value': 54.0,
+            [{'start': 23, 'end': 55, 'value': 7.0, 'units': 'mm_shorthand',
+              'units_inferred': False, 'is_shorthand': True},
+             {'start': 57, 'end': 62, 'units': None, 'value': 54.0,
               'units_inferred': True},
-             {'start': 153, 'end': 173, 'units': 'mm',
-              'value': 54.0, 'units_inferred': False}])
+             {'start': 153, 'end': 173, 'units': 'mm', 'value': 54.0,
+              'units_inferred': False}])
