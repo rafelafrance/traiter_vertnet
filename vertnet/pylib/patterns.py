@@ -147,7 +147,33 @@ VOCAB.part('shorthand_bats', fr"""
     (?P=shorthand_sep)
     (?P<shorthand_el> (?P<estimated_el> \[ )? {SH_VAL} \]? )
     (?P=shorthand_sep)
-    (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? (\(fa\))? )
+    (
+        (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? \(?tr\)? )
+        (
+          (?P=shorthand_sep)
+          (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? (\(?fa\)?)? )
+        )?
+        |
+        (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? \(?fa\)? )
+        (
+          (?P=shorthand_sep)
+          (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? (\(?tr\)?)? )
+        )?
+        |
+        (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? )
+        (?P=shorthand_sep)
+        (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? \(?fa\)? )
+        |
+        (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? )
+        (?P=shorthand_sep)
+        (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? \(?tr\)? )
+        |
+        (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? )
+        (
+          (?P=shorthand_sep)
+          (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? )
+        )?
+    )
     ( [\s=:/-] \s?
         (?P<estimated_wt> \[? \s? )
         (?P<shorthand_wt> {SH_VAL} ) \s?
@@ -206,7 +232,7 @@ VOCAB.part('number', r"""
 VOCAB.grouper('mass_range', """
     (?<! dash )
     ( number mass_units? (( dash | to ) number mass_units?)? )
-    (?! dash ) """, capture=False)
+    (?! dash | len_units ) """, capture=False)
 
 # A number or a range of numbers like "12 to 34" or "12.3-45.6"
 # Note we want to exclude dates and to not pick up partial dates
@@ -215,7 +241,7 @@ VOCAB.grouper('len_range', """
     (?<! dash )
     ( number (?P<units> len_units )?
     (( dash | to ) number (?P<units> len_units )? )? )
-    (?! dash ) """, capture=False)
+    (?! dash | mass_units ) """, capture=False)
 
 # A rule for parsing a compound weight like 2 lbs. 3.1 - 4.5 oz
 VOCAB.grouper('compound_len', """
@@ -248,6 +274,7 @@ VOCAB.grouper('side_cross', """
     (?P<side_2> side )?
         (?P<value_2> number ) (?P<units_2> len_units )?
             ( x | by ) (?P<value_2> number ) (?P<units_2> len_units )?
+    (?! mass_units )
     """, capture=False)
 
 # For fractions like "1 2/3" or "1/2".
@@ -256,4 +283,4 @@ VOCAB.grouper('len_fraction', """
     (?P<whole> number )?
     (?<! slash )
     (?P<numerator> number) slash (?P<denominator> number)
-    (?! slash ) (?P<units> len_units)? """, capture=False)
+    (?! slash ) (?P<units> len_units)? (?! mass_units ) """, capture=False)

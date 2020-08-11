@@ -2,20 +2,19 @@
 
 """Given a CSV file of natural history notes, parse parsers."""
 
-import sys
 import argparse
+import sys
 import textwrap
+
+import traiter.pylib.util as util
 from tqdm import tqdm
+
 from vertnet.pylib.all_traits import TRAITS
 from vertnet.pylib.record_parser import RecordParser
 from vertnet.readers.csv_reader import CsvReader
 from vertnet.writers.csv_writer import CsvWriter
 from vertnet.writers.html_writer import HtmlWriter
 from vertnet.writers.json_lines import JsonLinesWriter
-
-
-__VERSION__ = '0.6.0'
-
 
 INPUT_FORMATS = {
     'csv': CsvReader}
@@ -55,7 +54,7 @@ def parse_args():
 
     arg_parser.add_argument(
         '--version', '-V', action='version',
-        version='%(prog)s v{}'.format(__VERSION__))
+        version='%(prog)s v{}'.format(util.__VERSION__))
 
     arg_parser.add_argument(
         '--input-file', '-i', type=argparse.FileType(), default=sys.stdin,

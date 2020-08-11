@@ -2,8 +2,11 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
+from traiter.pylib.util import shorten
+
 from vertnet.parsers.body_mass import BODY_MASS
+from vertnet.pylib.trait import Trait
 
 
 class TestBodyMass(unittest.TestCase):
@@ -383,3 +386,19 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse('Other Measurements: ratio=.33'),
             [])
+
+    def test_parse_51(self):
+        self.assertEqual(
+            BODY_MASS.parse(shorten("""
+                Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm; 
+                Hind Foot: 11 mm; Ear: 13 mm""")),
+            [Trait(
+                value=12, units='gm', units_inferred=False, start=0, end=11)])
+
+    def test_parse_52(self):
+        self.assertEqual(
+            BODY_MASS.parse(shorten("""
+                {"measurements":"78-39-5-14-8(TR)-30(FA)",
+                "weightInGrams":"3.5" }""")),
+            [{'start': 44, 'end': 63, 'units': 'Grams',
+              'value': 3.5, 'units_inferred': False}])

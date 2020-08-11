@@ -1,10 +1,12 @@
 """Utilities for parsing numeric traits."""
 
 from fractions import Fraction
+
 import regex
-from vertnet.pylib.util import FLAGS, to_int, to_float, squash, as_list
-from vertnet.pylib.trait import Trait
+
 from vertnet.pylib.convert_units import convert
+from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import FLAGS, as_list, squash, to_float, to_int
 
 LOOK_BACK_FAR = 40
 
@@ -26,6 +28,8 @@ def as_value(token, trait, value_field='number', unit_field='units'):
         else:
             unit = units[-1] if units else None
         values.append(convert(val, unit))
+    if not values:
+        return False
     trait.value = squash(values)
     trait.units_inferred = not bool(trait.units)
     return True

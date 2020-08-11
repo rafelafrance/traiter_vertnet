@@ -2,6 +2,7 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
+from traiter.pylib.util import shorten
 from vertnet.pylib.trait import Trait
 from vertnet.parsers.forearm_length import FOREARM_LENGTH
 
@@ -30,14 +31,8 @@ class TestForearmLength(unittest.TestCase):
         self.assertEqual(
             FOREARM_LENGTH.parse(
                 'unformatted measurements=67-27.1-5.2-9.2-3.9=x, FA 29.3'),
-            [
-                Trait(
-                    value=3.9, units='mm_shorthand', units_inferred=False,
-                    is_shorthand=True, start=12, end=46),
-                Trait(
-                    value=29.3, units=None, units_inferred=True,
-                    start=48, end=55),
-                ])
+            [Trait(value=29.3, units=None, units_inferred=True,
+                   start=48, end=55)])
 
     def test_parse_05(self):
         self.assertEqual(
@@ -49,9 +44,7 @@ class TestForearmLength(unittest.TestCase):
         self.assertEqual(
             FOREARM_LENGTH.parse(
                 'Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62] x'),
-            [Trait(
-                value=62, estimated_value=True, units='mm_shorthand',
-                units_inferred=False, is_shorthand=True, start=41, end=58)])
+            [])
 
     def test_parse_07(self):
         self.assertEqual(
@@ -82,3 +75,15 @@ class TestForearmLength(unittest.TestCase):
                 'Big brown bat, tragus L.-7mm, forearm L.-28mm.'),
             [Trait(value=28.0, units='mm', units_inferred=False,
                    start=30, end=45)])
+
+    def test_parse_11(self):
+        self.assertEqual(
+            FOREARM_LENGTH.parse(shorten("""
+                sex=male ; unformatted measurements=126-54-10-16-7=18.7; FA 54
+                ; hind foot with claw=10 mm; tragus length=7 mm;
+                tail length=54 mm; ear from notch=16 mm;
+                forearm length=54 mm; total length=126 mm""")),
+            [{'start': 57, 'end': 62, 'units': None, 'value': 54.0,
+              'units_inferred': True},
+             {'start': 153, 'end': 173, 'units': 'mm',
+              'value': 54.0, 'units_inferred': False}])

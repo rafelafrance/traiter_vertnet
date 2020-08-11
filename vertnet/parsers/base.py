@@ -5,7 +5,7 @@ from traiter.old.parser import Parser, RulesInput
 from vertnet.pylib.trait import Trait
 
 
-def fix_up_nop(trait, text):  # pylint: disable=unused-argument
+def fix_up_nop(trait, _):  # pylint: disable=unused-argument
     """Fix problematic parses."""
     return trait
 
@@ -47,6 +47,9 @@ class Base(Parser):  # pylint: disable=too-few-public-methods
                     if field:
                         trait.field = field
                     traits.append(trait)
+
+        # from pprint import pp
+        # pp(traits)
 
         return traits
 

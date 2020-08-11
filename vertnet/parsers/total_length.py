@@ -123,7 +123,7 @@ TOTAL_LENGTH = Base(
             ( eq | dash )? """),
 
         VOCAB.grouper('value', """
-            len_range | number (?P<units> len_units )? """),
+            len_range | number (?P<units> len_units )? (?! mass_units ) """),
         VOCAB.grouper('value_units', """
             len_range | number (?P<units> len_units ) """),
 
@@ -156,7 +156,7 @@ TOTAL_LENGTH = Base(
 
         # E.g.: L 12.4 cm
         VOCAB.producer(simple, """
-            char_key value (?P<units> len_units )? """),
+            char_key value (?P<units> len_units )? (?! mass_units ) """),
 
         VOCAB.producer(
             partial(numeric.shorthand_length, measurement='shorthand_tl'), [

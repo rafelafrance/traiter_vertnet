@@ -2,9 +2,13 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 # pylint: disable=too-many-lines
+
 import unittest
-from vertnet.pylib.trait import Trait
+
+from traiter.pylib.util import shorten
+
 from vertnet.parsers.total_length import TOTAL_LENGTH
+from vertnet.pylib.trait import Trait
 
 
 class TestTotalLength(unittest.TestCase):
@@ -415,8 +419,7 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_055(self):
         self.assertEqual(
             TOTAL_LENGTH.parse('SVL=0 g'),
-            [Trait(
-                value=0, units=None, units_inferred=True, start=0, end=5)])
+            [])
 
     def test_parse_056(self):
         self.assertEqual(
@@ -766,3 +769,17 @@ class TestTotalLength(unittest.TestCase):
             [Trait(
                 value=212, units='mm_shorthand', units_inferred=False,
                 is_shorthand=True, start=16, end=33)])
+
+    def test_parse_107(self):
+        self.assertEqual(
+            TOTAL_LENGTH.parse(shorten("""Body: 14 g""")),
+            [])
+
+    def test_parse_108(self):
+        self.assertEqual(
+            TOTAL_LENGTH.parse(shorten("""
+                Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm; 
+                Hind Foot: 11 mm; Ear: 13 mm""")),
+            [Trait(
+                value=109, units='mm', units_inferred=False,
+                start=13, end=34)])

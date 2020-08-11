@@ -2,8 +2,11 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
+from traiter.pylib.util import shorten
+
 from vertnet.parsers.tail_length import TAIL_LENGTH
+from vertnet.pylib.trait import Trait
 
 
 class TestTailLength(unittest.TestCase):
@@ -138,3 +141,15 @@ class TestTailLength(unittest.TestCase):
         self.assertEqual(
             TAIL_LENGTH.parse('scrotal t.21mm'),
             [])
+
+    def test_parse_21(self):
+        self.assertEqual(
+            TAIL_LENGTH.parse(shorten("""
+                sex=male ; unformatted measurements=126-54-10-16-7=18.7; FA 54
+                ; hind foot with claw=10 mm; tragus length=7 mm;
+                tail length=54 mm; ear from notch=16 mm;
+                forearm length=54 mm; total length=126 mm""")),
+            [{'start': 36, 'end': 55, 'value': 54.0, 'units': 'mm_shorthand',
+              'units_inferred': False, 'is_shorthand': True},
+             {'start': 112, 'end': 129, 'units': 'mm',
+              'value': 54.0, 'units_inferred': False}])

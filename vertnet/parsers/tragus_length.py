@@ -1,10 +1,13 @@
 """Parse tragus length notations."""
 
+from functools import partial
+
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.numeric import fix_up_inches
-from vertnet.pylib.numeric import fraction, simple
+
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.numeric import fix_up_inches, fraction, shorthand_length, \
+    simple
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -38,16 +41,25 @@ TRAGUS_LENGTH = Base(
 
         # Handle fractional values like: tragus 9/16"
         VOCAB.producer(fraction, [
-            'key len_fraction units',   # E.g.: tragus = 9/16 inches
-            'key len_fraction',         # E.g.: tragus = 9/16
-            ]),
+            'key len_fraction units',  # E.g.: tragus = 9/16 inches
+            'key len_fraction',  # E.g.: tragus = 9/16
+        ]),
 
         # A typical hind-foot notation
         VOCAB.producer(simple, [
-            'key_with_units len_range',     # E.g.: tragusLengthInMM=9-10
+            'key_with_units len_range',  # E.g.: tragusLengthInMM=9-10
             'key noise? len_range units ',  # E.g.: tragusLengthInMM=9-10 mm
             'key noise? len_range',  # Missing units: tragusLengthInMM 9-10
             'key dash? number units?',
-            ]),
+        ]),
 
-        ])
+        VOCAB.producer(partial(
+            shorthand_length,
+            measurement='shorthand_tr'), [
+            'shorthand_key shorthand',  # With a key
+            'shorthand',  # Without a key
+            'shorthand_key shorthand_bats',  # With a key
+            'shorthand_bats',  # Without a key
+        ]),
+
+    ])
