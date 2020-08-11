@@ -168,10 +168,10 @@ VOCAB.part('shorthand_bats', fr"""
         (?P=shorthand_sep)
         (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? \(?tr\)? )
         |
-        (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? )
+        (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? )
         (
           (?P=shorthand_sep)
-          (?P<shorthand_fa> (?P<estimated_fa> \[ )? {SH_VAL} \]? )
+          (?P<shorthand_tr> (?P<estimated_tr> \[ )? {SH_VAL} \]? )
         )?
     )
     ( [\s=:/-] \s?
