@@ -6,7 +6,7 @@
 .mypy_cache/
 
 # Environment
-.env
+.env/
 venv/
 .venv/
 
@@ -22,10 +22,7 @@ admin/
 
 # data
 output/
-!output/.gitkeep
-
 data/
-!data/.gitkeep
 
 # Temp files
 old/
@@ -40,3 +37,4 @@ junk*
 
 # Other code
 args/
+notebooks/
