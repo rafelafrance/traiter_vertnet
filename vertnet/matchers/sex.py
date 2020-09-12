@@ -1,6 +1,6 @@
 """Rule-based parsing of sex notations."""
 
-from vertnet.pylib.util import DotDict
+from traiter.pylib.util import DotDict
 
 
 C = DotDict(

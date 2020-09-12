@@ -3,10 +3,11 @@
 from fractions import Fraction
 
 import regex
+from traiter.pylib.util import FLAGS, as_list, squash, to_positive_float, \
+    to_positive_int
 
 from vertnet.pylib.convert_units import convert
 from vertnet.pylib.trait import Trait
-from vertnet.pylib.util import FLAGS, as_list, squash, to_float, to_int
 
 LOOK_BACK_FAR = 40
 
@@ -20,7 +21,7 @@ def as_value(token, trait, value_field='number', unit_field='units'):
     trait.units = squash(units) if units else None
     values = []
     for i, val in enumerate(as_list(token.group.get(value_field, []))):
-        val = to_float(val)
+        val = to_positive_float(val)
         if val is None:
             return False
         if i < len(units):
@@ -69,8 +70,9 @@ def compound(token):
     trait.units = [token.group['feet'], token.group['inches']]
     trait.units_inferred = False
     trait.is_flag_missing(token, 'key', rename='ambiguous_key')
-    fts = convert(to_float(token.group['ft']), 'ft')
-    ins = [convert(to_float(i), 'in') for i in as_list(token.group['in'])]
+    fts = convert(to_positive_float(token.group['ft']), 'ft')
+    ins = [convert(to_positive_float(i), 'in') for i in
+           as_list(token.group['in'])]
     value = [round(fts + i, 2) for i in ins]
     trait.value = squash(value)
     add_flags(token, trait)
@@ -82,9 +84,9 @@ def fraction(token):
     trait = Trait(start=token.start, end=token.end)
     trait.units = token.group.get('units')
     trait.units_inferred = not bool(trait.units)
-    whole = to_float(token.group.get('whole', '0'))
-    numerator = to_int(token.group['numerator'])
-    denominator = to_int(token.group['denominator'])
+    whole = to_positive_float(token.group.get('whole', '0'))
+    numerator = to_positive_int(token.group['numerator'])
+    denominator = to_positive_int(token.group['denominator'])
     trait.value = whole + Fraction(numerator, denominator)
     if trait.units:
         trait.value = convert(trait.value, trait.units)
@@ -95,7 +97,7 @@ def fraction(token):
 def shorthand_length(token, measurement=''):
     """Handle shorthand length notation like 11-22-33-44:55g."""
     trait = Trait(start=token.start, end=token.end)
-    trait.value = to_float(token.group.get(measurement))
+    trait.value = to_positive_float(token.group.get(measurement))
     if not trait.value:
         return None
     trait.units = 'mm_shorthand'

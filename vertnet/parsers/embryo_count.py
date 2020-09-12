@@ -1,10 +1,12 @@
 """Parse embryo counts."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import as_list, to_int
-from vertnet.pylib.trait import Trait
+from traiter.pylib.util import as_list
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -16,17 +18,17 @@ def convert(token):
     trait = Trait(start=token.start, end=token.end)
 
     if token.group.get('total'):
-        trait.value = to_int(token.group['total'])
+        trait.value = to_positive_int(token.group['total'])
 
     elif token.group.get('subcount'):
         trait.value = sum(
-            to_int(c) for c in as_list(token.group['subcount']))
+            to_positive_int(c) for c in as_list(token.group['subcount']))
 
     if token.group.get('subcount') and token.group.get('sub'):
         for count, sub in zip(as_list(token.group['subcount']),
                               as_list(token.group.get('sub'))):
             sub = SUB.get(sub[0].lower(), sub)
-            setattr(trait, sub, to_int(count))
+            setattr(trait, sub, to_positive_int(count))
 
     elif token.group.get('side'):
         side = token.group['side'].lower()
@@ -94,4 +96,4 @@ EMBRYO_COUNT = Base(
 
         VOCAB.producer(found, """ embryo prep? present? (?P<sub> side ) """),
 
-        ])
+    ])

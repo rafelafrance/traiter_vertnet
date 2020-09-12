@@ -1,10 +1,12 @@
 """Parse placental scar counts."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import as_list, to_int
-from vertnet.pylib.trait import Trait
+from traiter.pylib.util import as_list
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -15,9 +17,9 @@ def convert_count(token):
     """Convert parsed tokens into a result."""
     trait = Trait(start=token.start, end=token.end)
 
-    trait.value = to_int(token.group.get('value'))
-    count1 = to_int(token.group.get('count1'))
-    count2 = to_int(token.group.get('count2'))
+    trait.value = to_positive_int(token.group.get('value'))
+    count1 = to_positive_int(token.group.get('count1'))
+    count2 = to_positive_int(token.group.get('count2'))
     side1 = SUB.get(token.group.get('side1', ' ').lower()[0], 'side1')
     side2 = SUB.get(token.group.get('side2', ' ').lower()[0], 'side2')
 
@@ -117,4 +119,4 @@ PLACENTAL_SCAR_COUNT = Base(
 
         VOCAB.producer(convert_state, """ plac_scar """),
 
-        ])
+    ])

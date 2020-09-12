@@ -1,7 +1,7 @@
 """Build a trait parse result."""
 
 from collections import namedtuple
-from vertnet.pylib.util import DotDict, as_list, squash
+from traiter.pylib.util import DotDict, as_list, squash
 
 TraitKey = namedtuple('TraitKey', 'value side')
 
@@ -38,7 +38,7 @@ class Trait(DotDict):
         """Capture the meaning across all parses."""
         ambiguous_key = bool(getattr(self, 'ambiguous_key'))
         ambiguous_key &= bool(getattr(other, 'ambiguous_key'))
-        setattr(self, 'ambiguous_key', ambiguous_key)
+        setattr(self, 'ambiguous_key', ambiguous_key)  # squash pylint
 
     def as_key(self):
         """Determine if the traits are the same trait."""

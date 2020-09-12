@@ -1,10 +1,11 @@
 """Parse lactation state notations."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import to_int
-from vertnet.pylib.trait import Trait
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -17,7 +18,7 @@ def convert(token):
         return None
 
     trait = Trait(start=token.start, end=token.end)
-    trait.value = to_int(value)
+    trait.value = to_positive_int(value)
 
     if trait.value > 100:
         return None
@@ -32,8 +33,8 @@ def typed(token):
     """Convert single value tokens into a result."""
     trait = Trait(start=token.start, end=token.end)
     trait.notation = token.group['notation']
-    trait.value = to_int(token.group['value1'])
-    trait.value += to_int(token.group.get('value2'))
+    trait.value = to_positive_int(token.group['value1'])
+    trait.value += to_positive_int(token.group.get('value2'))
     return trait
 
 
@@ -86,4 +87,4 @@ NIPPLE_COUNT = Base(
         # Eg: nipples 5
         VOCAB.producer(convert, """ nipple (?P<value> count ) """),
 
-        ])
+    ])

@@ -1,12 +1,13 @@
 """Parse embryo lengths."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import as_list, to_float
-from vertnet.pylib.trait import Trait
-from vertnet.pylib.numeric import simple, add_flags, fix_up_inches
+from traiter.pylib.util import as_list, to_positive_float
+
 import vertnet.pylib.convert_units as convert_units
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.numeric import add_flags, fix_up_inches, simple
+from vertnet.pylib.trait import Trait
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -40,7 +41,8 @@ def convert_many(token):
         else:
             trait.units = units[-1] if units else None
             trait.units_inferred = True
-        trait.value = convert_units.convert(to_float(value), trait.units)
+        trait.value = convert_units.convert(to_positive_float(value),
+                                            trait.units)
         if trait.value > TOO_BIG:
             continue
         add_flags(token, trait)
@@ -98,4 +100,4 @@ EMBRYO_LENGTH = Base(
         VOCAB.producer(isolate, """
             embryo colon? count? value len_units quest? """),
 
-        ])
+    ])

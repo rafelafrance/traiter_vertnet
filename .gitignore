@@ -23,6 +23,7 @@ admin/
 # data
 output/
 data/
+docs/
 
 # Temp files
 old/
