@@ -27,7 +27,7 @@ class TestTotalLength(unittest.TestCase):
             [
                 Trait(
                     value=230, units=None, units_inferred=True,
-                    start=0, end=21),
+                    start=14, end=21),
                 Trait(
                     value=231, units_inferred=False, units='mm',
                     start=42, end=61)])
@@ -40,7 +40,7 @@ class TestTotalLength(unittest.TestCase):
             [
                 Trait(
                     value=230, units=None, units_inferred=True,
-                    start=0, end=21),
+                    start=14, end=21),
                 Trait(
                     value=240, units_inferred=False, units='cm',
                     start=42, end=60)])
@@ -572,9 +572,7 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_079(self):
         self.assertEqual(
             TOTAL_LENGTH.parse('measurements:210-92-30 185-252 mm'),
-            [Trait(
-                value=[185, 252], units='mm', units_inferred=False,
-                start=0, end=33)])
+            [])
 
     def test_parse_080(self):
         self.assertEqual(
@@ -783,3 +781,9 @@ class TestTotalLength(unittest.TestCase):
             [Trait(
                 value=109, units='mm', units_inferred=False,
                 start=13, end=34)])
+
+    def test_parse_109(self):
+        self.assertEqual(
+            TOTAL_LENGTH.parse(shorten("""
+                Note in catalog: Recatalogued from 115818-850""")),
+            [])

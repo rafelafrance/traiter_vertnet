@@ -47,7 +47,7 @@ class TestTailLength(unittest.TestCase):
             TAIL_LENGTH.parse('measurements:213-91-32-23'),
             [Trait(
                 value=91, units='mm_shorthand', units_inferred=False,
-                is_shorthand=True, start=0, end=25)])
+                is_shorthand=True, start=13, end=25)])
 
     def test_parse_07(self):
         self.assertEqual(
@@ -86,17 +86,9 @@ class TestTailLength(unittest.TestCase):
 
     def test_parse_12(self):
         self.assertEqual(
-            TAIL_LENGTH.parse(
-                '{"created": "2014-10-29", "relatedresourceid": '
-                '"57d3efd8-2b9c-4952-8976-e27401a01251;'
-                '8a35be5e-27fb-4875-81f6-42a5d7787760"}'),
-            [])
-
-    def test_parse_13(self):
-        self.assertEqual(
             TAIL_LENGTH.parse('ELEV G.T. 3900 FT'), [])
 
-    def test_parse_14(self):
+    def test_parse_13(self):
         self.assertEqual(
             TAIL_LENGTH.parse(
                 '"Dry muscle tissue accessioned into the Southwest Fisheries '
@@ -106,7 +98,7 @@ class TestTailLength(unittest.TestCase):
                 'Pacific Science 3(4):353."'),
             [])
 
-    def test_parse_15(self):
+    def test_parse_14(self):
         self.assertEqual(
             TAIL_LENGTH.parse(
                 '95 on skull; [total: 773.5mm tail: 280.0 foot: 65.0 '
@@ -115,34 +107,34 @@ class TestTailLength(unittest.TestCase):
                 value=85344, units='foot', units_inferred=False,
                 start=29, end=45)])
 
-    def test_parse_16(self):
+    def test_parse_15(self):
         self.assertEqual(
             TAIL_LENGTH.parse('Body and tail: 1690 mm; Body: 114000 g'),
             [])
 
-    def test_parse_17(self):
+    def test_parse_16(self):
         self.assertEqual(
             TAIL_LENGTH.parse(
                 'Other Measurements: nose-tail=60in., girth=39in.'),
             [])
 
-    def test_parse_18(self):
+    def test_parse_17(self):
         self.assertEqual(
             TAIL_LENGTH.parse(
                 'Imm. weight 50 kg, L. snout to tip of tail 1510,'),
             [])
 
-    def test_parse_19(self):
+    def test_parse_18(self):
         self.assertEqual(
             TAIL_LENGTH.parse('; trap identifier=CN02-T01/19 ;'),
             [])
 
-    def test_parse_20(self):
+    def test_parse_19(self):
         self.assertEqual(
             TAIL_LENGTH.parse('scrotal t.21mm'),
             [])
 
-    def test_parse_21(self):
+    def test_parse_20(self):
         self.assertEqual(
             TAIL_LENGTH.parse(shorten("""
                 sex=male ; unformatted measurements=126-54-10-16-7=18.7; FA 54

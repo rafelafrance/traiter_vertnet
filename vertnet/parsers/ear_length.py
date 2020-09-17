@@ -111,9 +111,7 @@ EAR_LENGTH = Base(
         # Shorthand notation like: on tag: 11-22-33-44=99g
         VOCAB.producer(
             partial(shorthand_length, measurement='shorthand_el'), [
-                'shorthand_key shorthand',
                 'shorthand',
-                'shorthand_key shorthand_bats',
                 'shorthand_bats',
                 ]),
 

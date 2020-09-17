@@ -97,19 +97,6 @@ VOCAB.term('word', r' ( [a-z] \w* ) ', capture=False, priority=LOWEST)
 # Ambiguous measurements are enclosed in brackets.
 #   E.g.: 11-[22]-33-[44]:99g
 
-VOCAB.part('shorthand_key', r"""
-    (on \s* tag | specimens? (?! \s* [a-z] )
-        | catalog (?! [a-z] )) (?! \s* [#] )
-    | ( measurement s? | meas ) [:.,]{0,2} ( \s* length \s* )?
-        (
-            \s* [({\[})]?
-                (t [o.]? l [._]? (?! [a-z.] )
-                | [a-z]{1,2}) [)}\]]? \.?
-        )?
-    | tag \s+ \d+ \s* =? ( male | female)? \s* ,
-    | measurements? | mesurements? | measurementsnt
-    """)
-
 # A possibly unknown value
 SH_NUM = r""" \d+ ( \. \d+ )? | (?<= [^\d] ) \. \d+ """
 VOCAB.part('sh_num', SH_NUM)
@@ -185,6 +172,12 @@ VOCAB.part('shorthand_bats', fr"""
     """)
 
 # Sometimes the last number is missing. Be careful to not pick up dates.
+VOCAB.part('triple_key', r"""
+    ( measurement s? | meas ) \.? [:,]? ( \s* length \s* )?
+    | tag \s+ \d+ \s* =? ( male | female)? \s* ,
+    | (measurements? | mesurements? | measurementsnt)
+    """)
+
 VOCAB.part('shorthand_triple', fr"""
     (?<! [\d/a-z-] )
     (?P<shorthand_tl> (?P<estimated_tl> \[ )? {SH_VAL} \]? )

@@ -73,7 +73,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse('Note in catalog: 83-0-17-23-fa64-35g'),
             [Trait(
                 value=35, units='g', units_inferred=False, is_shorthand=True,
-                start=8, end=36)])
+                start=17, end=36)])
 
     def test_parse_09(self):
         self.assertEqual(
@@ -104,7 +104,7 @@ class TestBodyMass(unittest.TestCase):
                     start=0, end=12),
                 Trait(
                     value=5.4, units=None, units_inferred=True,
-                    is_shorthand=True, start=26, end=53)])
+                    is_shorthand=True, start=39, end=53)])
 
     def test_parse_13(self):
         self.assertEqual(
@@ -113,7 +113,7 @@ class TestBodyMass(unittest.TestCase):
             [
                 Trait(
                     value=5.4, units=None, units_inferred=True,
-                    is_shorthand=True, start=12, end=39),
+                    is_shorthand=True, start=25, end=39),
                 Trait(
                     value=5.4, units=None, units_inferred=True,
                     start=41, end=51)])
@@ -130,7 +130,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse('{"measurements":"143-63-20-17=13 g" }'),
             [Trait(
                 value=13, units='g', units_inferred=False, is_shorthand=True,
-                start=2, end=34)])
+                start=17, end=34)])
 
     def test_parse_16(self):
         self.assertEqual(
@@ -146,7 +146,7 @@ class TestBodyMass(unittest.TestCase):
                 'male; unformatted measurements: 181-75-21-18=22 g'),
             [Trait(
                 value=22, units='g', units_inferred=False, is_shorthand=True,
-                start=69, end=100)])
+                start=83, end=100)])
 
     def test_parse_18(self):
         self.assertEqual(
@@ -195,9 +195,7 @@ class TestBodyMass(unittest.TestCase):
     def test_parse_24(self):
         self.assertEqual(
             BODY_MASS.parse(
-                "Specimen #'s - 5491,5492,5498,5499,5505,5526,5527,"
-                "5528,5500,5507,5508,5590,5592,5595,5594,5593,5596,"
-                "5589,5587,5586,5585"),
+                "Specimen #'s - 5491,5492"),
             [])
 
     def test_parse_25(self):
@@ -210,7 +208,7 @@ class TestBodyMass(unittest.TestCase):
                     start=0, end=12),
                 Trait(
                     value=5.4, units=None, units_inferred=True,
-                    is_shorthand=True, start=26, end=52)])
+                    is_shorthand=True, start=39, end=52)])
 
     def test_parse_26(self):
         self.assertEqual(
@@ -358,7 +356,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse('{"measurements":"90-30-16-7=6.9MGS" }'),
             [Trait(
                 value=0.01, units='MGS', units_inferred=False,
-                is_shorthand=True, start=2, end=34)])
+                is_shorthand=True, start=17, end=34)])
 
     def test_parse_47(self):
         self.assertEqual(
@@ -402,3 +400,10 @@ class TestBodyMass(unittest.TestCase):
                 "weightInGrams":"3.5" }""")),
             [{'start': 44, 'end': 63, 'units': 'Grams',
               'value': 3.5, 'units_inferred': False}])
+
+    def test_parse_53(self):
+        self.assertEqual(
+            BODY_MASS.parse(shorten("""
+                all measurements given in specimens 11041-11070 are:
+                """)),
+            [])

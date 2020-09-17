@@ -57,5 +57,5 @@ class TestTragusLength(unittest.TestCase):
             TRAGUS_LENGTH.parse(shorten("""
                 {"measurements":"78-39-5-14-8(TR)-30(FA)",
                 "weightInGrams":"3.5" }""")),
-            [{'start': 2, 'end': 40, 'value': 8.0, 'units': 'mm_shorthand',
+            [{'start': 17, 'end': 40, 'value': 8.0, 'units': 'mm_shorthand',
               'units_inferred': False, 'is_shorthand': True}])

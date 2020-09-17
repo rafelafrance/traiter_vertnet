@@ -38,14 +38,14 @@ class TestHindFootLength(unittest.TestCase):
             HIND_FOOT_LENGTH.parse('{"measurements":"192-84-31-19=38g" }'),
             [Trait(
                 value=31, units='mm_shorthand', units_inferred=False,
-                is_shorthand=True, start=2, end=33)])
+                is_shorthand=True, start=17, end=33)])
 
     def test_parse_06(self):
         self.assertEqual(
             HIND_FOOT_LENGTH.parse('{"measurements":"192-84-[31]-19=38g" }'),
             [Trait(
                 value=31, units='mm_shorthand', units_inferred=False,
-                is_shorthand=True, estimated_value=True, start=2, end=35)])
+                is_shorthand=True, estimated_value=True, start=17, end=35)])
 
     def test_parse_07(self):
         self.assertEqual(
@@ -90,7 +90,7 @@ class TestHindFootLength(unittest.TestCase):
             HIND_FOOT_LENGTH.parse('{"measurements":"242-109-37-34=N/D" }'),
             [Trait(
                 value=37, units='mm_shorthand', units_inferred=False,
-                is_shorthand=True, start=2, end=34)])
+                is_shorthand=True, start=17, end=34)])
 
     def test_parse_14(self):
         self.assertEqual(
@@ -116,14 +116,6 @@ class TestHindFootLength(unittest.TestCase):
             [])
 
     def test_parse_17(self):
-        self.assertEqual(
-            HIND_FOOT_LENGTH.parse(
-                '{"created": "2014-10-29", "relatedresourceid": '
-                '"57d3efd8-2b9c-4952-8976-e27401a01251;'
-                '8a35be5e-27fb-4875-81f6-42a5d7787760"}'),
-            [])
-
-    def test_parse_18(self):
         self.assertEqual(
             HIND_FOOT_LENGTH.parse(
                 '2010:15,27,41,69,106-107.112-115,118-128;'),

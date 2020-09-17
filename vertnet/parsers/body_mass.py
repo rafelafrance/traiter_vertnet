@@ -77,7 +77,7 @@ BODY_MASS = Base(
                 | weight | mass | key_with_dots )
             """),
 
-        VOCAB.grouper('key', ' shorthand_key wt_key '.split()),
+        VOCAB.grouper('key', ' wt_key '.split()),
 
         VOCAB.producer(compound, ' key? compound_wt '),
 
@@ -94,7 +94,7 @@ BODY_MASS = Base(
         VOCAB.producer(
             simple_mass, ' wt_key mass_range '),
         VOCAB.producer(
-            simple_mass, ' key mass_range mass_units '),
+            simple_mass, ' ( key | triple_key ) mass_range mass_units '),
         VOCAB.producer(
             simple_mass, ' (?P<key> key_with_units ) mass_range '),
 

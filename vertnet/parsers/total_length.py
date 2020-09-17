@@ -118,8 +118,7 @@ TOTAL_LENGTH = Base(
         VOCAB['comma'],
 
         VOCAB.grouper('key', """
-            ( key_with_units | len_key | shorthand_key | ambiguous
-                | char_key )
+            ( key_with_units | len_key | ambiguous | char_key )
             ( eq | dash )? """),
 
         VOCAB.grouper('value', """
@@ -131,7 +130,8 @@ TOTAL_LENGTH = Base(
         VOCAB.producer(simple, 'value (?P<units> len_units ) key'),
         VOCAB.producer(simple, """ key value key? """),
         VOCAB.producer(simple, """ key (?P<units> len_units ) value """),
-        VOCAB.producer(simple, """ key_units_req value_units """),
+        VOCAB.producer(simple, """
+            key_units_req ( value_units | triple_key ) """),
 
         # E.g.: total length 4 feet 7 inches
         VOCAB.producer(compound, ' key? compound_len '),
@@ -152,7 +152,7 @@ TOTAL_LENGTH = Base(
 
         # E.g.: total length: 10-29-39 10-11
         VOCAB.producer(simple, """
-            ( key | key_units_req ) shorthand_triple? len_range"""),
+            ( key | key_units_req ) shorthand_triple? len_range """),
 
         # E.g.: L 12.4 cm
         VOCAB.producer(simple, """

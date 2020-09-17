@@ -77,7 +77,7 @@ class TestEarLength(unittest.TestCase):
             EAR_LENGTH.parse('{"measurements":"242-109-37-34=N/D" }'),
             [Trait(
                 value=34, units='mm_shorthand', units_inferred=False,
-                is_shorthand=True, start=2, end=34)])
+                is_shorthand=True, start=17, end=34)])
 
     def test_parse_12(self):
         self.assertEqual(
