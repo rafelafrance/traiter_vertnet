@@ -1,4 +1,4 @@
-# The Traits Database Project [![Build Status](https://travis-ci.org/rafelafrance/traiter_vertnet.svg?branch=master)](https://travis-ci.org/rafelafrance/traiter_vertnet)
+# The Traits Database Project [![Build Status](https://travis-ci.org/rafelafrance/traiter_vertnet.svg?branch=master)]((https://github.com/rafelafrance/traiter_vertnet/workflows/CI/badge.svg))
 
 ## All right, what's this all about then?
 **Challenge**: Extract trait information from unstructured or semi-structured natural history field notations. That is, if I'm given text like:
