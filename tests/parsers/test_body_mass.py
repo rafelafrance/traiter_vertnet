@@ -286,10 +286,9 @@ class TestBodyMass(unittest.TestCase):
 
     def test_parse_37(self):
         self.assertEqual(
-            BODY_MASS.parse(
-                'ear from notch=9 mm; weight=.65 kg; reproductive data'),
+            BODY_MASS.parse('ear from notch=9 mm; weight=.65 kg; reproductive data'),
             [Trait(
-                value=650, units='kg', units_inferred=False,
+                value=0.65, units='kg', units_inferred=False,
                 start=21, end=34)])
 
     def test_parse_38(self):
@@ -297,7 +296,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse('; weight=22 oz; Verbatim weight=1lb 6oz;'),
             [
                 Trait(
-                    value=623.69, units='oz', units_inferred=False,
+                    value=22, units='oz', units_inferred=False,
                     start=2, end=14),
                 Trait(
                     value=623.69, units=['lb', 'oz'], units_inferred=False,
@@ -348,14 +347,14 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse('{"earLengthInmm":"X", "weightInlbs":"22"}'),
             [Trait(
-                value=9979.03, units='lbs', units_inferred=False,
+                value=22, units='lbs', units_inferred=False,
                 start=23, end=39)])
 
     def test_parse_46(self):
         self.assertEqual(
             BODY_MASS.parse('{"measurements":"90-30-16-7=6.9MGS" }'),
             [Trait(
-                value=0.01, units='MGS', units_inferred=False,
+                value=6.9, units='MGS', units_inferred=False,
                 is_shorthand=True, start=17, end=34)])
 
     def test_parse_47(self):

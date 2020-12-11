@@ -42,7 +42,7 @@ class TestTotalLength(unittest.TestCase):
                     value=230, units=None, units_inferred=True,
                     start=14, end=21),
                 Trait(
-                    value=240, units_inferred=False, units='cm',
+                    value=24.0, units_inferred=False, units='cm',
                     start=42, end=60)])
 
     def test_parse_004(self):
@@ -108,8 +108,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('** Body length =345 cm; Blubber=1 cm '),
             [Trait(
-                value=3450, units='cm', units_inferred=False,
-                start=3, end=22)])
+                value=345.0, units='cm', units_inferred=False, start=3, end=22)])
 
     def test_parse_012(self):
         self.assertEqual(
@@ -129,8 +128,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('total length= 2 ft.'),
             [Trait(
-                value=609.6, units_inferred=False, units='ft',
-                start=0, end=18)])
+                value=2, units_inferred=False, units='ft', start=0, end=18)])
 
     def test_parse_015(self):
         self.assertEqual(
@@ -191,13 +189,13 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('Size=13 cm TL'),
             [Trait(
-                value=130, units='cm', units_inferred=False, start=5, end=13)])
+                value=13.0, units='cm', units_inferred=False, start=5, end=13)])
 
     def test_parse_024(self):
         self.assertEqual(
             TOTAL_LENGTH.parse('det_comments:31.5-58.3inTL'),
             [Trait(
-                value=[800.1, 1480.82], units='in', units_inferred=False,
+                value=[31.5, 58.3], units='in', units_inferred=False,
                 start=13, end=26)])
 
     def test_parse_025(self):
@@ -367,7 +365,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('Meas: L: 21.0 cm'),
             [Trait(
-                value=210, units='cm', units_inferred=False, start=0, end=16)])
+                value=21.0, units='cm', units_inferred=False, start=0, end=16)])
 
     def test_parse_047(self):
         self.assertEqual(
@@ -408,7 +406,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('Measurements: L: 21.0 cm'),
             [Trait(
-                value=210, units='cm', units_inferred=False, start=0, end=24)])
+                value=21.0, units='cm', units_inferred=False, start=0, end=24)])
 
     def test_parse_054(self):
         self.assertEqual(
@@ -463,7 +461,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('76 cm S.L., 4.7 kg'),
             [Trait(
-                value=760, units='cm', units_inferred=False, start=0, end=10)])
+                value=76.0, units='cm', units_inferred=False, start=0, end=10)])
 
     def test_parse_063(self):
         self.assertEqual(
@@ -637,10 +635,10 @@ class TestTotalLength(unittest.TestCase):
                 '4/12/39 . | 1.5 TRUE'),
             [
                 Trait(
-                    value=11, units=None, units_inferred=True,
+                    value=11.0, units=None, units_inferred=True,
                     ambiguous_key=True, start=25, end=29),
                 Trait(
-                    value=279.4, units='in', units_inferred=False,
+                    value=11.0, units='in', units_inferred=False,
                     start=103, end=121)])
 
     def test_parse_089(self):
@@ -677,8 +675,7 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse('{"measurements":"TL=216.4 cm (+ 5 cm)" }'),
             [Trait(
-                value=2164, units='cm', units_inferred=False,
-                start=17, end=28)])
+                value=216.4, units='cm', units_inferred=False, start=17, end=28)])
 
     def test_parse_094(self):
         self.assertEqual(
@@ -715,8 +712,7 @@ class TestTotalLength(unittest.TestCase):
                 '{"measurements":"TL=225 cm (265cm est) flukes cutoff", '
                 '"weightInGrams":"299000.0" }'),
             [Trait(
-                value=2250, units='cm', units_inferred=False,
-                start=17, end=26)])
+                value=225, units='cm', units_inferred=False, start=17, end=26)])
 
     def test_parse_100(self):
         self.assertEqual(

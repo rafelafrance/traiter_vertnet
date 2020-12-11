@@ -97,7 +97,7 @@ class TestEarLength(unittest.TestCase):
         self.assertEqual(
             EAR_LENGTH.parse('; ear from notch=.25 in'),
             [Trait(
-                value=6.35, units='in', units_inferred=False,
+                value=0.25, units='in', units_inferred=False,
                 measured_from='notch', start=2, end=23)])
 
     def test_parse_15(self):

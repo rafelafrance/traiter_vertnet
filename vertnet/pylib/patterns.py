@@ -36,9 +36,11 @@ VOCAB.term('found', 'found', capture=False)
 
 # NOTE: Double quotes as inches is handled elsewhere
 VOCAB.part('inches', r"""
-    (?<! [a-z] ) ( inch e? s? | in s? (?! [a-ru-wyz] ) ) """)
+    (?<! [a-z] ) ( inch e? s? | in s? (?! [a-ru-wyz] ) ) (?! [:] ) """)
 VOCAB.part('feet', r"""
-    (?<! [a-z] ) ( foot s? | feet s? | ft s? (?! [,\w]) ) | (?<= \d ) ' """)
+    (?<! [a-z] ) 
+        ( foot s? (?! [:] ) | feet s? (?! [:] ) 
+        | ft s? (?! [,\w]) )  | (?<= \d ) ' """)
 VOCAB.part('metric_len', r"""
     ( milli | centi )? meters? | ( [cm] [\s.]? m ) (?! [a-ru-wyz] ) """)
 VOCAB.grouper('len_units', ' metric_len feet inches'.split())

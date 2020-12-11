@@ -96,7 +96,7 @@ class TestHindFootLength(unittest.TestCase):
         self.assertEqual(
             HIND_FOOT_LENGTH.parse('; hind foot with claw=2 in;'),
             [Trait(
-                value=50.8, units='in', units_inferred=False, includes='claw',
+                value=2, units='in', units_inferred=False, includes='claw',
                 start=2, end=26)])
 
     def test_parse_15(self):

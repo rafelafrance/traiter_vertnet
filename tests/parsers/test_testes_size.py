@@ -238,7 +238,7 @@ class TestTestesSize(unittest.TestCase):
             TESTES_SIZE.parse(
                 "sex=male ; reproductive data=Testes .5' , scrotal"),
             [Trait(
-                value=152.4, units="'", units_inferred=False,
+                value=0.5, units="'", units_inferred=False,
                 start=11, end=39)])
 
     def test_parse_29(self):

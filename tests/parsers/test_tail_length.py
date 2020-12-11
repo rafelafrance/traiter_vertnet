@@ -104,8 +104,7 @@ class TestTailLength(unittest.TestCase):
                 '95 on skull; [total: 773.5mm tail: 280.0 foot: 65.0 '
                 'pina: 41.0; 24 June 1986]'),
             [Trait(
-                value=85344, units='foot', units_inferred=False,
-                start=29, end=45)])
+                value=280.0, units=None, units_inferred=True, start=29, end=40)])
 
     def test_parse_15(self):
         self.assertEqual(
