@@ -5,10 +5,10 @@
 
 import unittest
 
-from traiter.pylib.util import shorten
+from traiter.util import shorten
 
-from vertnet.parsers.total_length import TOTAL_LENGTH
-from vertnet.pylib.trait import Trait
+from src.parsers.total_length import TOTAL_LENGTH
+from src.pylib.trait import Trait
 
 
 class TestTotalLength(unittest.TestCase):

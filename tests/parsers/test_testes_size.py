@@ -2,9 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-# from vertnet.pylib.util import shorten
-from vertnet.pylib.trait import Trait
-from vertnet.parsers.testes_size import TESTES_SIZE
+# from src.pylib.util import shorten
+from src.pylib.trait import Trait
+from src.parsers.testes_size import TESTES_SIZE
 
 
 class TestTestesSize(unittest.TestCase):

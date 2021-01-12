@@ -2,8 +2,8 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
-from vertnet.parsers.lactation_state import LACTATION_STATE
+from src.pylib.trait import Trait
+from src.parsers.lactation_state import LACTATION_STATE
 
 
 class TestLactationState(unittest.TestCase):
