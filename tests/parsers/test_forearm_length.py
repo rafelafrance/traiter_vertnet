@@ -3,8 +3,8 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
 from traiter.util import shorten
-from src.pylib.trait import Trait
-from src.parsers.forearm_length import FOREARM_LENGTH
+from vertnet.pylib.trait import Trait
+from vertnet.parsers.forearm_length import FOREARM_LENGTH
 
 
 class TestForearmLength(unittest.TestCase):

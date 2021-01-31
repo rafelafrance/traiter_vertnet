@@ -5,8 +5,8 @@ import unittest
 
 from traiter.util import shorten
 
-from src.parsers.body_mass import BODY_MASS
-from src.pylib.trait import Trait
+from vertnet.parsers.body_mass import BODY_MASS
+from vertnet.pylib.trait import Trait
 
 
 class TestBodyMass(unittest.TestCase):

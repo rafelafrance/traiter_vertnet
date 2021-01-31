@@ -2,8 +2,8 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from src.pylib.trait import Trait
-from src.parsers.placental_scar_count import PLACENTAL_SCAR_COUNT
+from vertnet.pylib.trait import Trait
+from vertnet.parsers.placental_scar_count import PLACENTAL_SCAR_COUNT
 
 
 class TestPlacentalScarCount(unittest.TestCase):

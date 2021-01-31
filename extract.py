@@ -9,12 +9,12 @@ import textwrap
 import traiter.pylib.util as util
 from tqdm import tqdm
 
-from src.pylib.all_traits import TRAITS
-from src.pylib.record_parser import RecordParser
-from src.readers.csv_reader import CsvReader
-from src.writers.csv_writer import CsvWriter
-from src.writers.html_writer import HtmlWriter
-from src.writers.json_lines import JsonLinesWriter
+from vertnet.pylib.all_traits import TRAITS
+from vertnet.pylib.record_parser import RecordParser
+from vertnet.readers.csv_reader import CsvReader
+from vertnet.writers.csv_writer import CsvWriter
+from vertnet.writers.html_writer import HtmlWriter
+from vertnet.writers.json_lines import JsonLinesWriter
 
 INPUT_FORMATS = {
     'csv': CsvReader}

@@ -2,8 +2,8 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from src.pylib.trait import Trait
-from src.parsers.nipple_count import NIPPLE_COUNT
+from vertnet.pylib.trait import Trait
+from vertnet.parsers.nipple_count import NIPPLE_COUNT
 
 
 class TestNippleCount(unittest.TestCase):
