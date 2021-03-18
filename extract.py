@@ -6,7 +6,6 @@ import argparse
 import sys
 import textwrap
 
-import traiter.pylib.util as util
 from tqdm import tqdm
 
 from vertnet.pylib.all_traits import TRAITS
@@ -51,10 +50,6 @@ def parse_args():
     arg_parser = argparse.ArgumentParser(
         description=textwrap.dedent(description),
         fromfile_prefix_chars='@')
-
-    arg_parser.add_argument(
-        '--version', '-V', action='version',
-        version='%(prog)s v{}'.format(util.__VERSION__))
 
     arg_parser.add_argument(
         '--input-file', '-i', type=argparse.FileType(), default=sys.stdin,

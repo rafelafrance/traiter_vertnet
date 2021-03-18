@@ -87,7 +87,11 @@ def fraction(token):
     whole = to_positive_float(token.group.get('whole', '0'))
     numerator = to_positive_int(token.group['numerator'])
     denominator = to_positive_int(token.group['denominator'])
-    trait.value = whole + Fraction(numerator, denominator)
+    try:
+        trait.value = whole + Fraction(numerator, denominator)
+    except TypeError:
+        print(f'Fraction error: {numerator} / {denominator}')
+        return None
     if trait.units:
         trait.value = convert(trait.value, trait.units)
     add_flags(token, trait)
