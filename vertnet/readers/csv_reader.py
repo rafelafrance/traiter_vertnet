@@ -16,12 +16,13 @@ class CsvReader(BaseReader):
 
     def __enter__(self):
         """Use the reader in with statements."""
-        self.reader = csv.DictReader(self.input_file)
+        self.handle = self.input_file.open()
+        self.reader = csv.DictReader(self.handle)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         """Close the file handle."""
-        self.input_file.close()  # paranoia
+        self.handle.close()
 
     def __iter__(self):
         """Loop thru the file."""

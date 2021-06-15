@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-"""Given a CSV file of natural history notes, parse parsers."""
+"""Given a file of natural history notes, parse traits."""
 
 import argparse
 import sys
 import textwrap
+from pathlib import Path
 
 from tqdm import tqdm
 
@@ -22,6 +23,15 @@ OUTPUT_FORMATS = {
     'csv': CsvWriter,
     'html': HtmlWriter,
     'jsonl': JsonLinesWriter}
+
+
+def main(args):
+    """Perform actions based on the arguments."""
+    reader = INPUT_FORMATS[args.input_format](args)
+    with reader as in_file:
+        for row in in_file:
+            print(row)
+            break
 
 
 def parse_traits(args):
@@ -52,7 +62,7 @@ def parse_args():
         fromfile_prefix_chars='@')
 
     arg_parser.add_argument(
-        '--input-file', '-i', type=argparse.FileType(), default=sys.stdin,
+        '--input-file', '-i', type=Path,
         help="""The input file containing the raw data. Defaults to stdin.""")
 
     arg_parser.add_argument(
@@ -93,4 +103,5 @@ def parse_args():
 
 if __name__ == "__main__":
     ARGS = parse_args()
-    parse_traits(ARGS)
+    main(ARGS)
+    # parse_traits(ARGS)

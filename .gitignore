@@ -37,5 +37,4 @@ junk*
 .pytest_cache/
 
 # Other code
-args/
 notebooks/
