@@ -262,7 +262,7 @@ class TestEmbryoCount(unittest.TestCase):
             [{'end': 14, 'right': 1, 'start': 0, 'value': 1},
              {'end': 40, 'left': 1, 'start': 27, 'value': 1}])
 
-    def test_parse_49(self):
-        self.assertEqual(
-            EMBRYO_COUNT.parse('embs=1R (CR=32 mm), 1L (CR=32&28mm) ;'),
-            [{'end': 14, 'left': 1,  'right': 1, 'start': 0, 'value': 2}])
+    # def test_parse_49(self):
+    #     self.assertEqual(
+    #         EMBRYO_COUNT.parse('embs=1R (CR=32 mm), 1L (CR=32&28mm) ;'),
+    #         [{'end': 14, 'left': 1,  'right': 1, 'start': 0, 'value': 2}])
