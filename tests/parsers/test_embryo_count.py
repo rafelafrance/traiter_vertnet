@@ -230,3 +230,39 @@ class TestEmbryoCount(unittest.TestCase):
             EMBRYO_COUNT.parse(
                 'perforate; 2L 2R emb; CR-9; 1L R emb; mammary'),
             [Trait(value=4, left=2, right=2, start=11, end=20)])
+
+    def test_parse_43(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('Embryos: 5R x 4L c.r. 3 mm.'),
+            [Trait(value=9, left=4, right=5, start=0, end=16)])
+
+    def test_parse_44(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('reproductive data=8 3mm. embryos.'),
+            [Trait(value=8, start=18, end=32)])
+
+    def test_parse_45(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('reproductive data=mammae (4L, 5R)'),
+            [Trait(value=9, left=4, right=5, start=18, end=32)])
+
+    def test_parse_46(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('embs.=1R,!L'),
+            [Trait(value=1, right=1, start=0, end=8)])
+
+    def test_parse_47(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('(260)-(150)-37-14  47.6g  embs 1R,1L'),
+            [Trait(value=2, left=1, right=1, start=26, end=36)])
+
+    def test_parse_48(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('1 embryo right horn 4x8mm, 1 embryo left horn'),
+            [{'end': 14, 'right': 1, 'start': 0, 'value': 1},
+             {'end': 40, 'left': 1, 'start': 27, 'value': 1}])
+
+    def test_parse_49(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse('embs=1R (CR=32 mm), 1L (CR=32&28mm) ;'),
+            [{'end': 14, 'left': 1,  'right': 1, 'start': 0, 'value': 2}])

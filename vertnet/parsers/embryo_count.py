@@ -38,7 +38,7 @@ def convert(token):
 
 
 def found(token):
-    """An embryo was found, so count it."""
+    """Count the found embryo."""
     token.group['total'] = '1'
     return convert(token)
 
@@ -49,6 +49,7 @@ EMBRYO_COUNT = Base(
         VOCAB['uuid'],  # UUIDs cause problems with numbers
 
         VOCAB['shorthand'],
+        VOCAB['metric_mass'],
 
         # The sexes like: 3M or 4Females
         VOCAB.part('sex', r"""
@@ -75,7 +76,7 @@ EMBRYO_COUNT = Base(
             """),
 
         VOCAB.producer(convert, """
-            (?P<subcount> count ) embryo prep? (?P<sub> side ) word?
+            (?P<subcount> count ) embryo  prep? (?P<sub> side ) word?
             (?P<subcount> count ) embryo? prep? (?P<sub> side )
             """),
 
@@ -85,7 +86,17 @@ EMBRYO_COUNT = Base(
             """),
 
         VOCAB.producer(convert, """
-            (?P<total> count ) ( size | word )? embryo (?! plac_scar ) """),
+            embryo (?P<subcount> count ) (?P<sub> side ) word?
+                   (?P<subcount> count ) (?P<sub> side )
+            """),
+
+        VOCAB.producer(convert, """
+            nipple (?P<subcount> count ) (?P<sub> side ) word?
+                   (?P<subcount> count ) (?P<sub> side )
+            """),
+
+        VOCAB.producer(convert, """
+            (?P<total> count ) integer ( size | word )? embryo (?! plac_scar ) """),
 
         VOCAB.producer(convert, """
             (?P<total> count ) ( size | word )? embryo (?! plac_scar ) """),
@@ -95,5 +106,7 @@ EMBRYO_COUNT = Base(
         VOCAB.producer(found, """ embryo present | present embryo """),
 
         VOCAB.producer(found, """ embryo prep? present? (?P<sub> side ) """),
+
+        VOCAB.producer(convert, """ (?P<subcount> count ) embryo (?P<sub> side )"""),
 
     ])

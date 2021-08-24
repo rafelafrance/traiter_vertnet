@@ -54,7 +54,7 @@ NIPPLE_COUNT = Base(
         VOCAB['word'],
         VOCAB['sep'],
 
-        VOCAB.grouper('count', ' integer | none '),
+        VOCAB.grouper('count', ' (?: integer | none )(?! side ) '),
 
         VOCAB.grouper('modifier', 'adj visible'.split()),
 

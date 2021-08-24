@@ -89,3 +89,8 @@ class TestNippleCount(unittest.TestCase):
         self.assertEqual(
             NIPPLE_COUNT.parse('CR:14 LG TEATS 98% LEAF,2%'),
             [])
+
+    def test_parse_17(self):
+        self.assertEqual(
+            NIPPLE_COUNT.parse('reproductive data=mammae (4L, 5R)'),
+            [])
