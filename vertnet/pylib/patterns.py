@@ -38,8 +38,8 @@ VOCAB.term('found', 'found', capture=False)
 VOCAB.part('inches', r"""
     (?<! [a-z] ) ( inch e? s? | in s? (?! [a-ru-wyz] ) ) (?! [:] ) """)
 VOCAB.part('feet', r"""
-    (?<! [a-z] ) 
-        ( foot s? (?! [:] ) | feet s? (?! [:] ) 
+    (?<! [a-z] )
+        ( foot s? (?! [:] ) | feet s? (?! [:] )
         | ft s? (?! [,\w]) )  | (?<= \d ) ' """)
 VOCAB.part('metric_len', r"""
     ( milli | centi )? meters? | ( [cm] [\s.]? m ) (?! [a-ru-wyz] ) """)

@@ -121,7 +121,10 @@ VOCAB.part('nipple', r""" ( \b
 
 VOCAB.part('embryo', r"""
     embryonic | embryos? | embryps? | embroys | embs? | embrs?
-    | fetuses | fetus | foeti """)
+    | fetuses | fetus | foeti
+    | pregnant
+    | embyros?
+    """)
 
 # Spellings of placental scar
 VOCAB.part('plac_scar', r"""
