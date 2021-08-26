@@ -103,5 +103,5 @@ def parse_args():
 
 if __name__ == "__main__":
     ARGS = parse_args()
-    main(ARGS)
-    # parse_traits(ARGS)
+    # main(ARGS)
+    parse_traits(ARGS)

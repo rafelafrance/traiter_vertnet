@@ -58,7 +58,7 @@
 --extra-field=month
 --extra-field=year
 --input-file=data/mammals_no_bats.csv
---output-file=output/no_bats_2021-06-15.jsonl
+--output-file=output/no_bats_2021-08-26.jsonl
 --output-format=jsonl
 --progress
 --search-field=dynamicproperties
