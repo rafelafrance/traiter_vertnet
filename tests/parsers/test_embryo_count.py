@@ -60,7 +60,7 @@ class TestEmbryoCount(unittest.TestCase):
     def test_parse_10(self):
         self.assertEqual(
             EMBRYO_COUNT.parse("reproductive data=5 embryos (3L, 2R);"),
-            [Trait(value=5, left=3, right=2, start=0, end=35)],
+            [Trait(value=5, left=3, right=2, start=18, end=35)],
         )
 
     def test_parse_11(self):
@@ -72,7 +72,7 @@ class TestEmbryoCount(unittest.TestCase):
     def test_parse_12(self):
         self.assertEqual(
             EMBRYO_COUNT.parse('; 4 emb. x 07 mm, 3L2R", "weight":"23.0"'),
-            [Trait(value=4, left=3, right=2, start=2, end=22)],
+            [Trait(value=5, left=3, right=2, start=2, end=22)],
         )
 
     def test_parse_13(self):
@@ -118,8 +118,8 @@ class TestEmbryoCount(unittest.TestCase):
 
     def test_parse_21(self):
         self.assertEqual(
-            EMBRYO_COUNT.parse("'Foeti: 2R4L=6'; Donator: Dartmouth College Museum."),
-            [Trait(value=6, left=4, right=2, start=1, end=12)],
+            EMBRYO_COUNT.parse("Foeti: 2R4L=6; Donator: Dartmouth College Museum."),
+            [Trait(value=6, left=4, right=2, start=0, end=13)],
         )
 
     def test_parse_22(self):
@@ -327,7 +327,7 @@ class TestEmbryoCount(unittest.TestCase):
     def test_parse_55(self):
         self.assertEqual(
             EMBRYO_COUNT.parse("reproductive data=5 3mm embryos: 1R, 4L"),
-            [{"end": 39, "left": 4, "right": 1, "start": 0, "value": 5}],
+            [{"end": 39, "left": 4, "right": 1, "start": 18, "value": 5}],
         )
 
     def test_parse_56(self):
@@ -348,9 +348,68 @@ class TestEmbryoCount(unittest.TestCase):
             ],
         )
 
-    # def test_parse_58(self):
-    #     self.assertEqual(
-    #         EMBRYO_COUNT.parse("fetuses R: horn: 15, 15, 11 mm, L: 4 mm"),
-    #         [{"end": 21, "left": 1, "right":2, "start": 0, "value": 3}],
-    #     )
+    def test_parse_58(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("2 embryos each side (4 total), 3x4mm"),
+            [{"end": 19, "left": 2, "right": 2, "start": 0, "value": 4}],
+        )
 
+    def test_parse_59(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("reproductive data=2Rx1Lx23 mm fetuses"),
+            [{"end": 24, "left": 1, "right": 2, "start": 0, "value": 3}],
+        )
+
+    def test_parse_60(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("VC, R2, L3=19, embryos saved"),
+            [{"end": 22, "left": 3, "right": 2, "start": 4, "value": 5}],
+        )
+
+    def test_parse_61(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("VO, mamm. lg., 4L, CRL=26, embryos saved"),
+            [{"end": 34, "left": 4, "start": 15, "value": 4}],
+        )
+
+    def test_parse_62(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("corpora lutea: L-4, R-5; embryos: L-2, R-3 (5x3mm)"),
+            [{"end": 42, "left": 2, "right": 3, "start": 25, "value": 5}],
+        )
+
+    def test_parse_63(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("Pregnant with 4 embryos (rt = 1, lt = 3;"),
+            [{"end": 39, "left": 3, "right": 1, "start": 14, "value": 4}],
+        )
+
+    def test_parse_64(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("RBS 4029; EMB-R 2, EMB-L 3, CR 8 mm"),
+            [{"end": 26, "left": 3, "right": 2, "start": 10, "value": 5}],
+        )
+
+    def test_parse_65(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("reproductive data=4 2.5mm embryos"),
+            [{"end": 33, "start": 18, "value": 4}],
+        )
+
+    def test_parse_66(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("reproductive data=Emb = 4 : CR = 17mm : 2R x 2L"),
+            [{"end": 47, "left": 2, "right": 2, "start": 18, "value": 4}],
+        )
+
+    def test_parse_67(self):
+        self.assertEqual(
+            EMBRYO_COUNT.parse("reproductive data=3 embryos (3R, 1L)"),
+            [{"end": 35, "left": 1, "right": 3, "start": 18, "value": 4}],
+        )
+
+    # def test_parse_68(self):
+    #     self.assertEqual(
+    #         EMBRYO_COUNT.parse("Embryos (R2, L4, 10mm)."),
+    #         [{"end": 35, "left": 1, "right": 3, "start": 18, "value": 4}],
+    #     )

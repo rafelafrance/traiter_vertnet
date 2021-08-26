@@ -20,14 +20,14 @@ def convert(token):
     if token.group.get("total"):
         trait.value = to_positive_int(token.group["total"])
 
-    elif token.group.get("subcount"):
+    if token.group.get("subcount"):
         trait.value = sum(to_positive_int(c) for c in as_list(token.group["subcount"]))
 
     if token.group.get("subcount") and token.group.get("sub"):
         for count, sub in zip(
             as_list(token.group["subcount"]), as_list(token.group.get("sub"))
         ):
-            count = '1' if count == '!' else count
+            count = "1" if count == "!" else count
             sub = SUB.get(sub[0].lower(), sub)
             setattr(trait, sub, to_positive_int(count))
 
@@ -44,6 +44,19 @@ def found(token):
     return convert(token)
 
 
+def each_side(token):
+    """Count the found embryo."""
+    trait = Trait(start=token.start, end=token.end)
+
+    if token.group.get("subcount"):
+        count = to_positive_int(token.group["subcount"])
+        trait.value = count + count
+        trait.left = count
+        trait.right = count
+
+    return trait
+
+
 EMBRYO_COUNT = Base(
     name=__name__.split(".")[-1],
     rules=[
@@ -54,8 +67,9 @@ EMBRYO_COUNT = Base(
             "sex",
             r""" males? | females? | (?<! [a-z] ) [mf] (?! [a-z] ) """,
         ),
-        VOCAB.term('repo_key', r""" reproductive \s data """),
+        VOCAB.term("repo_key", r""" reproductive \s data """),
         VOCAB.term("near_term", r" near[\s-]?term"),
+        VOCAB.term("each_side", r" each \s side "),
         VOCAB.term("skip", r" w  wt ".split()),
         VOCAB.part("sep", r" [;] "),
         VOCAB.part("bang", r" [!] "),
@@ -64,55 +78,62 @@ EMBRYO_COUNT = Base(
             """ none (word | plac_scar) conj | integer | none | num_words | bang """,
         ),
         VOCAB.grouper("present", " found | near_term "),
-        VOCAB.producer(
-            convert,
-            """ (?P<total> count ) embryo (?! plac_scar ) """,
+        VOCAB.grouper("numeric", " integer | real "),
+        VOCAB.grouper(
+            "skip_len", " ( x? numeric metric_len ) | (x numeric metric_len?) "
         ),
+        VOCAB.grouper("skip_words", " word | numeric | metric_len | eq "),
+        VOCAB.grouper("side_link", " x | conj | word "),
+        VOCAB.grouper("between", "side_link? | skip_words{,4}"),
         VOCAB.producer(
             convert,
-            """ (?P<total> count ) embryo
-                (?P<subcount> count ) (?P<sub> side | sex ) conj?
-                (?P<subcount> count ) (?P<sub> side | sex )
-            """,
-        ),
-        VOCAB.producer(
-            convert,
-            """ (?P<total> count ) embryo ( x? integer metric_len )?
-                (?P<subcount> count ) (?P<sub> side ) conj?
-                (?P<subcount> count ) (?P<sub> side )
-            """,
-        ),
-        VOCAB.producer(
-            convert,
-            """ (?P<total> count ) ( near_term )? embryo
-                (?P<subcount> count ) (?P<sub> side ) conj?
-                (?P<subcount> count ) (?P<sub> side )
-            """,
-        ),
-        VOCAB.producer(
-            convert,
-            """ embryo (?P<total> count ) x integer metric_len?
-                (?P<sub> side ) (?P<subcount> count ) conj?
+            """ embryo eq? (?P<total> count ) skip_len?
+                (?P<sub> side ) (?P<subcount> count ) between
                 (?P<sub> side ) (?P<subcount> count )
             """,
         ),
         VOCAB.producer(
             convert,
-            """ embryo (?P<subcount> count ) (?P<sub> side ) ( conj | x )?
-                       (?P<subcount> count ) (?P<sub> side )
+            """ embryo eq? (?P<sub> side ) (?P<subcount> count ) between
+                embryo?    (?P<sub> side ) (?P<subcount> count ) embryo?
             """,
         ),
         VOCAB.producer(
             convert,
-            """ embryo (?P<subcount> count ) (?P<sub> side )
-                            ( word | integer | metric_len ){,3}
-                       (?P<subcount> count ) (?P<sub> side )
+            """ embryo eq? (?P<total> count ) skip_words{,4}
+                    (?P<subcount> count ) (?P<sub> side ) between
+                    (?P<subcount> count ) (?P<sub> side )
             """,
         ),
         VOCAB.producer(
             convert,
-            """ (?P<subcount> count ) (?P<sub> side ) conj?
-                (?P<subcount> count ) (?P<sub> side ) embryo
+            """ embryo eq?
+                (?P<subcount> count ) (?P<sub> side ) between
+                (?P<subcount> count ) (?P<sub> side ) eq
+                (?P<total> count )
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ embryo eq? (?P<subcount> count ) (?P<sub> side ) between
+                           (?P<subcount> count ) (?P<sub> side )
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ embryo eq? (?P<subcount> count ) skip_len (?P<sub> side ) """,
+        ),
+        VOCAB.producer(found, """ embryo word? (?P<sub> side ) (?! plac_scar ) """),
+        VOCAB.producer(found, """ embryo present | present embryo """),
+        VOCAB.producer(
+            convert,
+            """ (?P<total> count ) near_term? embryo  (?! plac_scar ) """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<total> count ) near_term? embryo (?! plac_scar ) skip_len?
+                (?P<subcount> count ) (?P<sub> side | sex ) side_link?
+                (?P<subcount> count ) (?P<sub> side | sex )
             """,
         ),
         VOCAB.producer(
@@ -122,71 +143,78 @@ EMBRYO_COUNT = Base(
         VOCAB.producer(
             convert,
             """ (?P<total> count ) ( size | word )? embryo (?! plac_scar )
-                (?P<subcount> count ) (?P<sub> side ) conj?
+                (?P<subcount> count ) (?P<sub> side ) side_link?
                 (?P<subcount> count ) (?P<sub> side )
             """,
         ),
         VOCAB.producer(
             convert,
-            """ (?P<subcount> count ) embryo word? (?P<sub> side ) ( conj | word )?
+            """ (?P<total> count ) skip_len? embryo (?! plac_scar )
+                (?P<subcount> count ) (?P<sub> side ) side_link?
+                (?P<subcount> count ) (?P<sub> side )
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<total> count ) skip_len embryo (?! plac_scar ) """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<sub> side ) eq? (?P<subcount> count ) eq? side_link?
+                (?P<sub> side ) eq? (?P<subcount> count ) eq? numeric? embryo
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<subcount> count ) (?P<sub> side ) side_link?
+                (?P<subcount> count ) (?P<sub> side ) embryo
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<subcount> count ) embryo word? (?P<sub> side ) side_link?
                 (?P<subcount> count ) word? (?P<sub> side )
             """,
         ),
-         VOCAB.producer(
+        VOCAB.producer(
             convert,
-            """ repo_key word? (?P<subcount> count ) (?P<sub> side ) word?
-                               (?P<subcount> count ) (?P<sub> side )
-            """,
-        ),
-         VOCAB.producer(
-            convert,
-            """ repo_key? word? (?P<total> count ) ( x? integer metric_len )? embryo
-                    (?P<subcount> count ) (?P<sub> side ) word?
+            """ repo_key ( eq | word ){,2}
+                    (?P<subcount> count ) (?P<sub> side ) side_link?
                     (?P<subcount> count ) (?P<sub> side )
             """,
         ),
-       VOCAB.producer(
+        VOCAB.producer(
             convert,
-            """ (?P<sub> side ) (?P<subcount> count ) embryo
-                ( x integer )?
+            """ (?P<total> count ) embryo
+                    (?P<sub> side ) eq? (?P<subcount> count ) side_link?
+                    (?P<sub> side ) eq? (?P<subcount> count )
+            """,
+        ),
+        VOCAB.producer(
+            convert,
+            """ (?P<sub> side ) (?P<subcount> count ) embryo skip_len?
                 (?P<sub> side ) (?P<subcount> count ) embryo?
             """,
         ),
-       VOCAB.producer(
-            convert,
-            """ embryo (?P<sub> side ) (?P<subcount> count )
-                            ( word | integer | metric_len ){,3}
-                       (?P<sub> side ) (?P<subcount> count ) embryo?
-            """,
-        ),
-       VOCAB.producer(
+        VOCAB.producer(
             convert,
             """ (?P<subcount> count ) (?P<sub> side ) x
                 (?P<subcount> count ) (?P<sub> side ) x
-                integer metric_len embryo
+                eq? skip_len? embryo
             """,
         ),
-       VOCAB.producer(
-            convert,
-            """ (?P<sub> side )
-                    ( word | integer | metric_len ){,3} (?P<subcount> count )
-                    embryo? ( x integer metric_len )
-                (?P<sub> side )
-                    ( word | integer | metric_len ){,3} (?P<subcount> count )
-            """,
-        ),
-        VOCAB.producer(convert, """ (?P<total> count ) integer metric_len embryo """),
         VOCAB.producer(
             convert,
-            """ (?P<total> count ) near_term? embryo  (?! plac_scar ) """,
+            """ (?P<sub> side ) skip_words{,4} (?P<subcount> count ) embryo? skip_len
+                (?P<sub> side ) skip_words{,4} (?P<subcount> count )
+            """,
         ),
-        VOCAB.producer(found, """ embryo present | present embryo """),
-        VOCAB.producer(found, """ embryo word? (?P<sub> side ) """),
         VOCAB.producer(convert, """ (?P<subcount> count ) embryo (?P<sub> side )"""),
-        VOCAB.producer(convert, """ embryo (?P<total> count )"""),
+        VOCAB.producer(convert, """ embryo eq? (?P<total> count )"""),
         VOCAB.producer(
             convert,
-            """ embryo (?P<subcount> count ) x integer metric_len? (?P<sub> side ) """,
+            """ (?P<subcount> count ) (?P<sub> side ) skip_words{,3} embryo """,
         ),
+        VOCAB.producer(each_side, """ (?P<subcount> count ) embryo each_side """),
     ],
 )

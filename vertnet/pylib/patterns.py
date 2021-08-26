@@ -66,8 +66,9 @@ VOCAB.part('uuid', r"""
 # Time units
 VOCAB.part('time_units', r'years? | months? | weeks? | days? | hours?')
 
-# Integers, no commas or signs and typically small
+# Numbers, no signs and typically small
 VOCAB.part('integer', r""" \d+ (?! [%\d\-] ) """)
+VOCAB.part('real', r""" \d+ \. \d+ (?! [%\d\-] ) """)
 
 # Date
 VOCAB.part('month_name', """
@@ -199,7 +200,7 @@ VOCAB.part('time_units', ' years? months? weeks? days? hours? '.split())
 
 # Side keywords
 VOCAB.part('side', r"""
-    (?<! [a-z] ) [lr] (?! [a-z] )
+    (?<! [a-z] ) [lr] x? (?! [a-z] )
     | both | left | right | lft? | lt | rt """)
 
 DIMENSION = r' (?P<dim> length | width ) '
