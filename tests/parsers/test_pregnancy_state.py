@@ -102,3 +102,18 @@ class TestPregnancyState(unittest.TestCase):
         self.assertEqual(
             PREGNANCY_STATE.parse('reproductive data=Not gravid'),
             [Trait(value='not gravid', start=18, end=28)])
+
+    def test_parse_20(self):
+        self.assertEqual(
+            PREGNANCY_STATE.parse('reproductive data=At least primiparous'),
+            [Trait(value='primiparous', start=27, end=38)])
+
+    def test_parse_21(self):
+        self.assertEqual(
+            PREGNANCY_STATE.parse('post-parous'),
+            [Trait(value='post-parous', start=0, end=11)])
+
+    def test_parse_22(self):
+        self.assertEqual(
+            PREGNANCY_STATE.parse('non parous'),
+            [Trait(value='non parous', start=0, end=10)])

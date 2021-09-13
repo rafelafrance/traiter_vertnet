@@ -22,8 +22,7 @@ def convert(token):
 
 def isolate(token):
     """Convert parsed token into a trait product."""
-    token.group['number'] = [v.strip()
-                             for v in token.group['value'].split('x')]
+    token.group['number'] = [v.strip() for v in token.group['value'].split('x')]
     return convert(token)
 
 
@@ -41,8 +40,7 @@ def convert_many(token):
         else:
             trait.units = units[-1] if units else None
             trait.units_inferred = True
-        trait.value = convert_units.convert(to_positive_float(value),
-                                            trait.units)
+        trait.value = convert_units.convert(to_positive_float(value), trait.units)
         if trait.value > TOO_BIG:
             continue
         add_flags(token, trait)
@@ -67,7 +65,7 @@ EMBRYO_LENGTH = Base(
             (?<! collector [\s=:.] ) (?<! reg [\s=:.] ) (
                 ( crown | cr ) ( [_\s\-] | \s+ to \s+ )? rump
                 | (?<! [a-z] ) crl (?! [a-z] )
-                | (?<! [a-z] ) cr  (?! [a-z] )
+                | (?<! [a-z] ) c \.? r \.? (?! [a-z] )
             )"""),
 
         VOCAB.part('len', r' (length | len) (?! [a-z] ) '),
@@ -76,8 +74,7 @@ EMBRYO_LENGTH = Base(
 
         VOCAB.part('separator', r' [;"/.] '),
 
-        VOCAB.grouper('value', """
-            cross | number len_units? (?! sex ) """),
+        VOCAB.grouper('value', """ cross | number len_units? (?! sex ) """),
 
         VOCAB.grouper('key', """ embryo_len_key len? ( eq | colon )? """),
 
@@ -91,13 +88,10 @@ EMBRYO_LENGTH = Base(
         VOCAB.producer(convert, """ embryo? key value quest? """),
 
         VOCAB.producer(convert, """ embryo? x? value key quest? """),
-        VOCAB.producer(convert_many, """
-            embryo count? value{2,} (?! skip ) quest? """),
+        VOCAB.producer(convert_many, """ embryo count? value{2,} (?! skip ) quest? """),
         VOCAB.producer(convert, """ embryo? key x? value quest? """),
         VOCAB.producer(convert, """ embryo? x? value key quest? """),
-        VOCAB.producer(
-            convert, """ embryo x? value (?! skip ) quest? """),
-        VOCAB.producer(isolate, """
-            embryo colon? count? value len_units quest? """),
+        VOCAB.producer(convert, """ embryo x? value (?! skip ) quest? """),
+        VOCAB.producer(isolate, """ embryo colon? count? value len_units quest? """),
 
     ])

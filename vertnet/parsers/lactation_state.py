@@ -24,11 +24,13 @@ LACTATION_STATE = Base(
             | post | recently | recent | had | pre
             ) """),
 
+        VOCAB.part('pre', r' \b pre [\s\-]? '),
+
         # Separates measurements
         VOCAB.part('separator', r' [;"/] '),
         VOCAB['word'],
 
-        VOCAB.grouper('prefix', 'not post'.split()),
+        VOCAB.grouper('prefix', 'not post pre'.split()),
 
         VOCAB.producer(
             convert, """ (?P<value> prefix? lactating quest? ) """),

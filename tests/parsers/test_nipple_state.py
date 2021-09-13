@@ -192,3 +192,9 @@ class TestNippleState(unittest.TestCase):
             NIPPLE_STATE.parse(
                 'reproductive data=Lactating; clear & enlarged teats ;'),
             [Trait(value='enlarged teats', start=37, end=51)])
+
+    def test_parse_36(self):
+        self.assertEqual(
+            NIPPLE_STATE.parse(
+                'reproductive data=enlargedNipples ;'),
+            [Trait(value='enlargednipples', start=18, end=33)])

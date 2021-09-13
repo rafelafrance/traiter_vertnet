@@ -59,7 +59,7 @@ VOCAB.part('none', r' \b ( no | none | not | non ) \b ')
 VOCAB.part(
     'partially',
     ['partially', r' \b part \b', r'\b pt \b']
-    + 'slightly slight '.split())
+    + 'slightly slight barely'.split())
 
 VOCAB.part('sep', ' [;] | $ ')
 
@@ -113,11 +113,11 @@ VOCAB.part('ovary', r' ( ovary s? | ovaries | ov ) \b ')
 VOCAB.part('uterus', 'uterus uterine ut'.split())
 VOCAB.part('horn', 'horns?'.split(), capture=False)
 
-VOCAB.part('nipple', r""" ( \b
+VOCAB.part('nipple', r""" (
     nipples? | nipp?s? | teats? |
-        ((mammae | mamm[ae]ry | mammaries | mamm)
+        ((mammae | mamm[ae]ry | mammaries | mamm (?! alian ) )
             (\s+ ( glands? | tisss?ue ) )? )
-    ) \b """)
+    ) """)
 
 VOCAB.part('embryo', r"""
     embryonic | embryos? | embryps? | embroys | embs? | embrs?

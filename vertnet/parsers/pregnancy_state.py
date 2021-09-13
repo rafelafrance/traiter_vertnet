@@ -10,8 +10,9 @@ PREGNANCY_STATE = Base(
     name=__name__.split('.')[-1],
     rules=[
         VOCAB.term('pregnant', r"""
-            prega?n?ant pregnan preg pregnancy pregnancies
-            gravid multiparous nulliparous parous """.split()),
+            prega?n?ant pregnan preg pregnancy pregnancies gravid
+            post[\s\-]?parous
+            multiparous nulliparous parous primiparous """.split()),
 
         VOCAB.term('joiner', r""" of were """.split()),
 

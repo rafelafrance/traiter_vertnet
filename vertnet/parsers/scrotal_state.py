@@ -17,11 +17,14 @@ def convert(token):
     return trait
 
 
-TESTES_STATE = Base(
+SCROTAL_STATE = Base(
     name=__name__.split('.')[-1],
     rules=[
         # Abbreviations for "testes"
         VOCAB.term('abbrev', 'tes ts tnd td tns ta t'.split()),
+
+        # Abbreviations for "testes state"
+        VOCAB.term('state_abbrev', 'ns sc'.split()),
 
         VOCAB['word'],
 
@@ -44,27 +47,37 @@ TESTES_STATE = Base(
         # E.g.: reproductiveData: ts 5x3 fully descended
         VOCAB.producer(convert, [
             """(?P<value> label ( testes | abbrev )? length?
-                state | abdominal | other | non testes )"""]),
+                state | state_abbrev | abdominal | scrotal
+                    | non scrotal | other | non testes )"""]),
 
-        VOCAB.producer(convert, ["""(?P<value> label length? non testes )"""]),
+        # E.g.: reproductive data = nonScrotal
+        VOCAB.producer(convert, [
+            """(?P<value> label length?
+                 non testes | non scrotal | scrotal )"""]),
 
         # E.g.: ts inguinal
         VOCAB.producer(convert, [
-            """(?P<value> abbrev length? state | abdominal | other)"""]),
+            """(?P<value> abbrev length?
+                state | abdominal | non scrotal | scrotal | other)"""]),
 
         # E.g.: testes 5x4 mm pt desc
         VOCAB.producer(convert, [
             """(?P<value> testes ( length )?
-                    ( state | abdominal | other )
-                    ( state | abdominal | other | and ){,3}
-                    ( state | abdominal | other )
+                    ( state | state_abbrev | abdominal | non scrotal
+                        | scrotal | other )
+                    ( state | state_abbrev | abdominal | non scrotal
+                        | scrotal | other | and ){,3}
+                    ( state | state_abbrev | abdominal | non scrotal
+                        | scrotal | other )
                 )"""]),
 
         # E.g.: testes 5x4 desc
         VOCAB.producer(convert, [
-            """(?P<value> testes length? state | abdominal | other )"""]),
+            """(?P<value> testes length?
+                state | state_abbrev | abdominal | non scrotal | scrotal | other )"""]),
 
         # E.g.: no gonads
-        VOCAB.producer(convert, ["""(?P<value> non ( testes | gonads ) )"""]),
+        VOCAB.producer(convert, [
+            """(?P<value> non ( testes | scrotal | gonads ) | scrotal )"""]),
 
         ])
