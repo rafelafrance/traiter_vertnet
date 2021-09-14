@@ -1,9 +1,10 @@
 """Parse testes state notations."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.trait import Trait
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.trait import Trait
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -23,7 +24,7 @@ TESTES_STATE = Base(
         # Abbreviations for "testes"
         VOCAB.term('abbrev', 'tes ts tnd td tns ta t'.split()),
 
-        VOCAB['word'],
+        VOCAB['uterus'],
 
         VOCAB.grouper('state', [
             'non fully descended',
@@ -34,37 +35,24 @@ TESTES_STATE = Base(
             'partially descended',
             'size non descended',
             'size descended',
-            'descended',
-            'size']),
+            'descended']),
 
         # Simplify the testes length so it can be skipped easily
         VOCAB.grouper('length', 'cross len_units?'),
 
-        # A typical testes state notation
-        # E.g.: reproductiveData: ts 5x3 fully descended
+        VOCAB.producer(convert, r""" (?P<value>
+            ( testes | abbrev | ambiguous_key ) length?
+                ( state | abdominal | size )
+                ( conj? ( state | size ) )?
+            ) """),
+
+        VOCAB.producer(convert, r""" (?P<value>
+            non ( testes | abbrev | ambiguous_key ) ( state )?
+            ) """),
+
         VOCAB.producer(convert, [
-            """(?P<value> label ( testes | abbrev )? length?
-                state | abdominal | other | non testes )"""]),
+            """ label (?P<value> ( testes | abbrev )? length?
+                size ( conj? state )?
+            ) """]),
 
-        VOCAB.producer(convert, ["""(?P<value> label length? non testes )"""]),
-
-        # E.g.: ts inguinal
-        VOCAB.producer(convert, [
-            """(?P<value> abbrev length? state | abdominal | other)"""]),
-
-        # E.g.: testes 5x4 mm pt desc
-        VOCAB.producer(convert, [
-            """(?P<value> testes ( length )?
-                    ( state | abdominal | other )
-                    ( state | abdominal | other | and ){,3}
-                    ( state | abdominal | other )
-                )"""]),
-
-        # E.g.: testes 5x4 desc
-        VOCAB.producer(convert, [
-            """(?P<value> testes length? state | abdominal | other )"""]),
-
-        # E.g.: no gonads
-        VOCAB.producer(convert, ["""(?P<value> non ( testes | gonads ) )"""]),
-
-        ])
+    ])
