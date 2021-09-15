@@ -77,7 +77,7 @@ VOCAB.term("label", "reproductive .? ( data | state | condition )")
 VOCAB.part("mature", r"( immature | mature | imm ) \b ")
 
 VOCAB.part("non", r" \b ( not | non | no | semi | sub ) ")
-VOCAB.part("none", r" \b ( no | none | not | non ) \b ")
+VOCAB.term("none", r" no | none | not | non ")
 
 VOCAB.part(
     "partially",

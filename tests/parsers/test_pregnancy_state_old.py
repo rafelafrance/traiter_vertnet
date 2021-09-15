@@ -3,7 +3,7 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
 from vertnet.pylib.trait import Trait
-from vertnet.parsers.pregnancy_state import PREGNANCY_STATE
+from vertnet.parsers.pregnancy_state_old import PREGNANCY_STATE
 
 
 class TestPregnancyState(unittest.TestCase):
@@ -22,31 +22,31 @@ class TestPregnancyState(unittest.TestCase):
     def test_parse_03(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("non-lactating, non-pregnant"),
-            [Trait(value="not pregnant", start=15, end=27)],
+            [Trait(value="non-pregnant", start=15, end=27)],
         )
 
     def test_parse_04(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("Box ID: UAFWALR34. Recent Pregnancy."),
-            [Trait(value="pregnant", start=26, end=35)],
+            [Trait(value="recent pregnancy", start=19, end=35)],
         )
 
     def test_parse_05(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("probably pregnant"),
-            [Trait(value="pregnant", start=9, end=17)],
+            [Trait(value="probably pregnant", start=0, end=17)],
         )
 
     def test_parse_06(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("Fox was pregnant, but"),
-            [Trait(value="pregnant", start=8, end=16)],
+            [Trait(value="was pregnant", start=4, end=16)],
         )
 
     def test_parse_07(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("GMU catalog.  Pregnant?"),
-            [Trait(value="pregnant", start=14, end=22)],
+            [Trait(value="pregnant?", start=14, end=23)],
         )
 
     def test_parse_08(self):
@@ -57,7 +57,7 @@ class TestPregnancyState(unittest.TestCase):
     def test_parse_09(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("probably early pregnancy"),
-            [Trait(value="pregnant", start=15, end=24)],
+            [Trait(value="probably early pregnancy", start=0, end=24)],
         )
 
     def test_parse_10(self):
@@ -69,25 +69,25 @@ class TestPregnancyState(unittest.TestCase):
     def test_parse_11(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("possible early pregnancy"),
-            [Trait(value="pregnant", start=15, end=24)],
+            [Trait(value="possible early pregnancy", start=0, end=24)],
         )
 
     def test_parse_12(self):
         self.assertEqual(
             PREGNANCY_STATE.parse(",prob. pregnant,"),
-            [Trait(value="pregnant", start=7, end=15)],
+            [Trait(value="prob. pregnant", start=1, end=15)],
         )
 
     def test_parse_13(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("; not visibly pregnant,"),
-            [Trait(value="not pregnant", start=2, end=22)],
+            [Trait(value="not visibly pregnant", start=2, end=22)],
         )
 
     def test_parse_14(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("No evidence of pregnancy,"),
-            [Trait(value="not pregnant", start=0, end=24)],
+            [Trait(value="no evidence of pregnancy", start=0, end=24)],
         )
 
     def test_parse_15(self):
@@ -99,41 +99,41 @@ class TestPregnancyState(unittest.TestCase):
     def test_parse_16(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("pregnancy not evident"),
-            [Trait(value="not pregnant", start=0, end=13)],
+            [Trait(value="pregnancy not evident", start=0, end=21)],
         )
 
     def test_parse_17(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("*Two pregnancies were visible on uterus."),
-            [Trait(value="pregnant", start=5, end=16)],
+            [Trait(value="pregnancies were visible", start=5, end=29)],
         )
 
     def test_parse_18(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("number 2859; female; no pregnancies"),
-            [Trait(value="not pregnant", start=21, end=35)],
+            [Trait(value="no pregnancies", start=21, end=35)],
         )
 
     def test_parse_19(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("reproductive data=Not gravid"),
-            [Trait(value="not pregnant", start=18, end=28)],
+            [Trait(value="not gravid", start=18, end=28)],
         )
 
     def test_parse_20(self):
         self.assertEqual(
-            PREGNANCY_STATE.parse("reproductive data=At least primiparous"), []
-            # [Trait(value="pregnant", start=27, end=38)],
+            PREGNANCY_STATE.parse("reproductive data=At least primiparous"),
+            [Trait(value="primiparous", start=27, end=38)],
         )
 
     def test_parse_21(self):
         self.assertEqual(
-            PREGNANCY_STATE.parse("post-parous"), []
-            # [Trait(value="not pregnant", start=0, end=11)],
+            PREGNANCY_STATE.parse("post-parous"),
+            [Trait(value="post-parous", start=0, end=11)],
         )
 
     def test_parse_22(self):
         self.assertEqual(
-            PREGNANCY_STATE.parse("non parous"), []
-            # [Trait(value="not pregnant", start=0, end=10)],
+            PREGNANCY_STATE.parse("non parous"),
+            [Trait(value="non parous", start=0, end=10)],
         )

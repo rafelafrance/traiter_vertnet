@@ -12,7 +12,7 @@ VOCAB = Vocabulary(patterns.VOCAB)
 def convert(token):
     """Convert parsed token into a trait."""
     trait = Trait(
-        value="enlarged" if token.group.get("enlarged") else "not enlarged",
+        value="enlarged" if token.group.get("pos") else "not enlarged",
         start=token.start,
         end=token.end,
     )
@@ -24,12 +24,18 @@ NIPPLES_ENLARGED = Base(
     rules=[
         VOCAB["conj"],
         VOCAB.part("separator", r' [;"?/,] '),
+        VOCAB.term("enlarged_abbrev", r"[oc]e[ln]"),
+        VOCAB.term("not_enlarged_abbrev", r"[oc]s[ln]"),
         VOCAB.term("false", """ false """),
-        VOCAB.producer(convert, """ (?P<enlarged> nipple enlarged ) """),
-        VOCAB.producer(convert, """ (?P<enlarged> enlarged nipple ) """),
-        VOCAB.producer(convert, """ (?P<not_enlarged> none nipple ) """),
-        VOCAB.producer(convert, """ (?P<not_enlarged> nipple none ) """),
-        VOCAB.producer(convert, """ (?P<not_enlarged> nipple not_enlarged ) """),
-        VOCAB.producer(convert, """(?P<not_enlarged> not_enlarged false? nipple )"""),
+
+        VOCAB.producer(convert, """ (?P<pos> nipple enlarged ) """),
+        VOCAB.producer(convert, """ (?P<pos> enlarged nipple ) """),
+        VOCAB.producer(convert, """ (?P<pos> enlarged_abbrev ) """),
+
+        VOCAB.producer(convert, """ (?P<neg> none nipple ) """),
+        VOCAB.producer(convert, """ (?P<neg> nipple none ) """),
+        VOCAB.producer(convert, """ (?P<neg> nipple not_enlarged ) """),
+        VOCAB.producer(convert, """ (?P<neg> not_enlarged false? nipple ) """),
+        VOCAB.producer(convert, """ (?P<neg> not_enlarged_abbrev ) """),
     ],
 )

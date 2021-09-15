@@ -13,16 +13,13 @@ PREGNANCY_STATE = Base(
             "pregnant",
             r"""
                 prega?n?ant pregnan preg pregnancy pregnancies gravid
-                post[\s\-]?parous
-                multiparous nulliparous parous primiparous`
+                post[\s\-]?parous multiparous nulliparous parous primiparous 
             """.split(),
         ),
         VOCAB.term("joiner", r""" of were """.split()),
         VOCAB.term(
             "recent",
-            r"""
-                recently recent was previously prev
-            """.split(),
+            r""" recently recent was previously prev """.split(),
         ),
         VOCAB.term(
             "probably",
@@ -43,7 +40,8 @@ PREGNANCY_STATE = Base(
         VOCAB.producer(
             convert,
             """ (?P<value> none? (recent | probably)?
-                stage? (none | joiner)? pregnant quest? )""",
+                stage? (none | joiner)? pregnant quest? )
+            """,
         ),
     ],
 )

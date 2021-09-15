@@ -163,3 +163,15 @@ class TestNipplesEnlarged(unittest.TestCase):
             NIPPLES_ENLARGED.parse("reproductive data=enlargedNipples ;"),
             [Trait(value="enlarged", start=18, end=33)],
         )
+
+    def test_parse_29(self):
+        self.assertEqual(
+            NIPPLES_ENLARGED.parse("reproductive data=OEN;"),
+            [Trait(value="enlarged", start=18, end=21)],
+        )
+
+    def test_parse_30(self):
+        self.assertEqual(
+            NIPPLES_ENLARGED.parse("reproductive data=OSN;"),
+            [Trait(value="not enlarged", start=18, end=21)],
+        )
