@@ -14,9 +14,9 @@ FLAGS = regex.VERBOSE | regex.IGNORECASE
 
 def to_positive_int(value):
     """Convert value to an integer, handle 'no' or 'none' etc."""
-    digits = regex.sub(r'\D', '', value) if value else ''
+    digits = regex.sub(r"\D", "", value) if value else ""
     try:
         return int(digits)
     except ValueError:
-        value = value if value else ''
+        value = value if value else ""
         return WORD_TO_NUM.get(value.lower().strip(), 0)

@@ -19,5 +19,5 @@ class JsonLinesWriter(BaseWriter):  # pylint: disable=too-few-public-methods
             return
         raw_record = {k: v for k, v in raw_record.items() if v}
         row = {**raw_record, **parsed_record}
-        obj = json.dumps(row) + '\n'
+        obj = json.dumps(row) + "\n"
         self.args.output_file.write(obj)

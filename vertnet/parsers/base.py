@@ -14,9 +14,11 @@ class Base(Parser):  # pylint: disable=too-few-public-methods
     """Shared lexer logic."""
 
     def __init__(
-            self, rules: RulesInput,
-            name: str = 'parser',
-            fix_up: Callable[[Trait, str], Trait] = None) -> None:
+        self,
+        rules: RulesInput,
+        name: str = "parser",
+        fix_up: Callable[[Trait, str], Trait] = None,
+    ) -> None:
         """Build the trait parser."""
         super().__init__(name=name, rules=rules)
         self.fix_up = fix_up if fix_up else fix_up_nop
@@ -56,6 +58,4 @@ class Base(Parser):  # pylint: disable=too-few-public-methods
 
 def convert(token):
     """Convert parsed tokens into a result."""
-    return Trait(
-        value=token.group['value'].lower(),
-        start=token.start, end=token.end)
+    return Trait(value=token.group["value"].lower(), start=token.start, end=token.end)

@@ -23,4 +23,4 @@ class BaseWriter(AbstractContextManager):
     @abstractmethod
     def write(self, raw_record, parsed_record):
         """Output a report record."""
-        raise NotImplementedError('You need a record function.')
+        raise NotImplementedError("You need a record function.")

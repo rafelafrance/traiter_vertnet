@@ -3,7 +3,7 @@
 from collections import namedtuple
 from traiter.util import DotDict, as_list, squash
 
-TraitKey = namedtuple('TraitKey', 'value side')
+TraitKey = namedtuple("TraitKey", "value side")
 
 
 class Trait(DotDict):
@@ -36,9 +36,9 @@ class Trait(DotDict):
 
     def merge_ambiguous_key(self, other):
         """Capture the meaning across all parses."""
-        ambiguous_key = bool(getattr(self, 'ambiguous_key'))
-        ambiguous_key &= bool(getattr(other, 'ambiguous_key'))
-        setattr(self, 'ambiguous_key', ambiguous_key)  # squash pylint
+        ambiguous_key = bool(getattr(self, "ambiguous_key"))
+        ambiguous_key &= bool(getattr(other, "ambiguous_key"))
+        setattr(self, "ambiguous_key", ambiguous_key)  # squash pylint
 
     def as_key(self):
         """Determine if the traits are the same trait."""

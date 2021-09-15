@@ -2,6 +2,7 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
+
 # from vertnet.pylib.trait import Trait
 # from vertnet.parsers.tibia_length import TIBIA_LENGTH
 

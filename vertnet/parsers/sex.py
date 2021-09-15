@@ -7,33 +7,26 @@ from vertnet.parsers.base import Base, convert
 VOCAB = Vocabulary(patterns.VOCAB)
 
 SEX = Base(
-    name=__name__.split('.')[-1],
+    name=__name__.split(".")[-1],
     rules=[
         # JSON keys for sex
-        VOCAB.term('sex_key', 'sex'),
-
+        VOCAB.term("sex_key", "sex"),
         # The sexes
-        VOCAB.term('sex_vocab', 'females? males?'.split()),
-
+        VOCAB.term("sex_vocab", "females? males?".split()),
         # These are words that indicate that "sex" is not a key
-        VOCAB.term('not_sex', 'and is was'.split()),
-
+        VOCAB.term("not_sex", "and is was".split()),
         # Allow arbitrary words in some cases
-        VOCAB.part('word', r' \b [a-z] [^;,"=:\s]* '),
-
+        VOCAB.part("word", r' \b [a-z] [^;,"=:\s]* '),
         # Some patterns need a terminator
-        VOCAB.part('separator', ' [;,"] | $ '),
-
+        VOCAB.part("separator", ' [;,"] | $ '),
         # E.g.: sex might be female;
-        VOCAB.producer(convert, [
-            """sex_key
-                (?P<value> ( sex_vocab | word ){1,2} quest? ) separator"""]),
-
+        VOCAB.producer(
+            convert,
+            """ sex_key (?P<value> ( sex_vocab | word ){1,2} quest? ) separator """,
+        ),
         # E.g.: sex=female?, Or: sex=unknown
-        VOCAB.producer(convert, [
-            'sex_key (?P<value> ( sex_vocab | word ) quest? )']),
-
+        VOCAB.producer(convert, " sex_key (?P<value> ( sex_vocab | word ) quest? ) "),
         # E.g.: male, Or: male?
-        VOCAB.producer(convert, '(?P<value> sex_vocab quest? )'),
-
-        ])
+        VOCAB.producer(convert, " (?P<value> sex_vocab quest? ) "),
+    ],
+)
