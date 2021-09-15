@@ -10,6 +10,7 @@ from vertnet.parsers.lactation_state import LACTATION_STATE
 from vertnet.parsers.life_stage import LIFE_STAGE
 from vertnet.parsers.nipple_count import NIPPLE_COUNT
 from vertnet.parsers.nipple_state import NIPPLE_STATE
+from vertnet.parsers.nipples_enlarged import NIPPLES_ENLARGED
 from vertnet.parsers.ovaries_size import OVARY_SIZE
 from vertnet.parsers.ovaries_state import OVARIES_STATE
 from vertnet.parsers.placental_scar_count import PLACENTAL_SCAR_COUNT
@@ -35,6 +36,7 @@ TRAITS = {
     'life_stage': LIFE_STAGE,
     'nipple_count': NIPPLE_COUNT,
     'nipple_state': NIPPLE_STATE,
+    'nipples_enlarged': NIPPLES_ENLARGED,
     'ovaries_size': OVARY_SIZE,
     'ovaries_state': OVARIES_STATE,
     'placental_scar_count': PLACENTAL_SCAR_COUNT,

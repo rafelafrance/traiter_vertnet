@@ -1,6 +1,7 @@
 """Shared reproductive trait tokens (testes & ovaries)."""
 
-from traiter.old.vocabulary import Vocabulary, LOWEST
+from traiter.old.vocabulary import LOWEST, Vocabulary
+
 import vertnet.pylib.patterns as patterns
 
 VOCAB = Vocabulary(patterns.VOCAB)
@@ -29,6 +30,16 @@ VOCAB.part('size', r"""
         | moderate | mod \b | medium  | med \b | minute | lg \b
         | sm \b | tiny )
     ( \s* size d? | [+] )?
+    """)
+
+VOCAB.part('not_enlarged', r"""
+    small | unobservable | sm-med | sm \b | tiny | minute
+    | not [\s\-]? enlarged | not [\s\-]? large
+    """)
+
+VOCAB.part('enlarged', r"""
+    enlarged | enlarge | large | extended | protuberant | prominent | lg \b
+    | conspicuous
     """)
 
 VOCAB.part(

@@ -11,7 +11,7 @@ VAGINA_STATE = Base(
     rules=[
         VOCAB.part('vagina', r""" (?<! sal ) ( vagina | vag | vulva ) """),
 
-        VOCAB.term('abbrev', r""" ov cv [oc][sme][ln] """.split()),
+        VOCAB.term('abbrev', r""" ov cv [oc][sme][ln] vc vo """.split()),
 
         VOCAB.part('closed', r"""
             closed | imperforated | imperf | cerrada | non [-\s] perforated 
@@ -19,14 +19,13 @@ VAGINA_STATE = Base(
 
         VOCAB.part('open', r""" open | perforated? | perf | abrir """),
 
-        VOCAB.part('other', r""" swollen | plugged | sealed """),
+        VOCAB.part('other', r""" swollen | plugged | plug | sealed """),
 
         VOCAB.grouper('state', r""" closed | open | other """),
 
         VOCAB.producer(convert, """ (?P<value> vagina partially? state ) """),
 
-        VOCAB.producer(convert, """ (?P<value> state vagina ) """),
+        VOCAB.producer(convert, """ (?P<value> state vagina state? ) """),
 
-        VOCAB.producer(convert, r""" label (?P<value>
-            ( state | abbrev )  vagina? ) """),
+        VOCAB.producer(convert, r""" (?P<value> ( state | abbrev )  vagina? ) """),
     ])

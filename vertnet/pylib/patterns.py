@@ -30,7 +30,7 @@ VOCAB.part('to', r' to ', capture=False)
 VOCAB.part('with', r' with ', capture=False)
 VOCAB.part('up_to', r' ( up \s+ )? to ', capture=False)
 VOCAB.term('and', r' and ', capture=False)
-VOCAB.term('conj', ' or and '.split(), capture=False)
+VOCAB.term('conj', ' or and but '.split(), capture=False)
 VOCAB.term('prep', ' to with on of in '.split(), capture=False)
 VOCAB.term('found', 'found', capture=False)
 
