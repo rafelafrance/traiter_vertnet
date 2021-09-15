@@ -3,7 +3,6 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
 
-# from vertnet.pylib.util import shorten
 from vertnet.pylib.trait import Trait
 from vertnet.parsers.testes_size import TESTES_SIZE
 

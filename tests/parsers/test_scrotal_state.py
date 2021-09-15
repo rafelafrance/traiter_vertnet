@@ -29,19 +29,19 @@ class TestScrotalState(unittest.TestCase):
     def test_parse_04(self):
         self.assertEqual(
             SCROTAL_STATE.parse("testes ns"),
-            [Trait(value="not scrotal", start=0, end=9)]
+            [Trait(value="not scrotal", start=0, end=9)],
         )
 
     def test_parse_05(self):
         self.assertEqual(
             SCROTAL_STATE.parse("not scrotal"),
-            [Trait(value="not scrotal", start=0, end=11)]
+            [Trait(value="not scrotal", start=0, end=11)],
         )
 
     def test_parse_06(self):
         self.assertEqual(
             SCROTAL_STATE.parse("t ns"),
-            [{"end": 4, "start": 0, "value": "not scrotal"}]
+            [{"end": 4, "start": 0, "value": "not scrotal"}],
         )
 
     def test_parse_07(self):

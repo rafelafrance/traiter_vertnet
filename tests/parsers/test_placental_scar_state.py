@@ -28,7 +28,7 @@ class TestPlacentalScarCount(unittest.TestCase):
     def test_parse_04(self):
         self.assertEqual(
             PLACENTAL_SCAR_STATE.parse("4 plac scar"),
-            [Trait(value="present", start=0, end=11)]
+            [Trait(value="present", start=0, end=11)],
         )
 
     def test_parse_05(self):
