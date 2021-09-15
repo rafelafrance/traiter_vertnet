@@ -115,6 +115,8 @@ VOCAB.part("descended", ["( un )? ( des?c?end ( ed )?", "desc? )"])
 VOCAB.term("other", "cryptorchism cryptorchid monorchism monorchid inguinal".split())
 
 VOCAB.part("scrotal", r"( nonscrotal | scrotum | scrotal | scrot | nscr | scr) \b")
+VOCAB.part("scrotal_pos", r"( scrotum | scrotal | scrot | scr) \b")
+VOCAB.part("scrotal_neg", r"( nonscrotal | nscr ) \b")
 
 VOCAB.part("testes", r" ( testes |  testis | testicles? | test ) \b ")
 

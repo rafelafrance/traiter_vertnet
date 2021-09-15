@@ -1,11 +1,10 @@
 """Shared token patterns."""
 
-from traiter.old.vocabulary import Vocabulary, FIRST, LOWEST
-from vertnet.pylib.util import ORDINALS, NUM_WORDS
+from traiter.old.vocabulary import FIRST, LOWEST, Vocabulary
 
+from vertnet.pylib.util import NUM_WORDS, ORDINALS
 
 VOCAB = Vocabulary()
-
 
 # Chars that may be a token
 VOCAB.part("slash", r" [/] ", capture=False)

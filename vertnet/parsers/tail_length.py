@@ -1,13 +1,14 @@
 """Parse tail length notations."""
 
 from functools import partial
+
 import regex
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import FLAGS
-from vertnet.pylib.numeric import fix_up_inches, shorthand_length
-from vertnet.pylib.numeric import simple, fraction
+
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.numeric import fix_up_inches, fraction, shorthand_length, simple
+from vertnet.pylib.util import FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

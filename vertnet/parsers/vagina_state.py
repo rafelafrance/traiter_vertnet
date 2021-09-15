@@ -1,6 +1,7 @@
 """Parse vagina state notations."""
 
 from traiter.old.vocabulary import Vocabulary
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base, convert
 
@@ -20,7 +21,9 @@ VAGINA_STATE = Base(
         ),
         VOCAB.part("open", r""" open | perforated? | perf | abrir """),
         VOCAB.part("other", r""" swollen | plugged | plug | sealed """),
+
         VOCAB.grouper("state", """ closed | open | other """),
+
         VOCAB.producer(convert, """ (?P<value> vagina partially? state ) """),
         VOCAB.producer(convert, """ (?P<value> state vagina state? ) """),
         VOCAB.producer(convert, """ (?P<value> ( state | abbrev )  vagina? ) """),

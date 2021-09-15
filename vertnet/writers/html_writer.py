@@ -1,7 +1,9 @@
 """Write the lib output to an HTML file."""
 
 from datetime import datetime
+
 from jinja2 import Environment, FileSystemLoader
+
 from vertnet.writers.base_writer import BaseWriter
 
 

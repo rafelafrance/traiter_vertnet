@@ -1,7 +1,8 @@
 """Write the output to a CSV file."""
 
-import regex
 import pandas as pd
+import regex
+
 from vertnet.writers.base_writer import BaseWriter
 
 

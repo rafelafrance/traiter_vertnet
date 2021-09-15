@@ -1,6 +1,7 @@
 """Read the lib input from a CSV file."""
 
 import csv
+
 from vertnet.readers.base_reader import BaseReader
 
 

@@ -1,6 +1,7 @@
 """Write the output to a JSON Lines file."""
 
 import json
+
 from vertnet.writers.base_writer import BaseWriter
 
 

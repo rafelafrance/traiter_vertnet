@@ -1,14 +1,19 @@
 """Parse ear length notations."""
 
 from functools import partial
+
 import regex
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.util import FLAGS
-from vertnet.pylib.numeric import simple_len, fraction
-from vertnet.pylib.numeric import shorthand_length
-from vertnet.pylib.numeric import numeric_fix_ups
+
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.numeric import (
+    fraction,
+    numeric_fix_ups,
+    shorthand_length,
+    simple_len,
+)
+from vertnet.pylib.util import FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

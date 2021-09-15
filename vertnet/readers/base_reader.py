@@ -1,8 +1,8 @@
 """Read the lib input from a file."""
 
 from abc import abstractmethod
-from contextlib import AbstractContextManager
 from collections.abc import Iterable
+from contextlib import AbstractContextManager
 
 
 # pylint: disable=too-few-public-methods

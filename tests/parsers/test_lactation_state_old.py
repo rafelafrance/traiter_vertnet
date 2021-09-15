@@ -3,7 +3,7 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
 from vertnet.pylib.trait import Trait
-from vertnet.parsers.lactation_state import LACTATION_STATE
+from vertnet.parsers.lactation_state_old import LACTATION_STATE
 
 
 class TestLactationState(unittest.TestCase):
@@ -22,65 +22,53 @@ class TestLactationState(unittest.TestCase):
     def test_parse_03(self):
         self.assertEqual(
             LACTATION_STATE.parse("No embs; post lact."),
-            [Trait(value="not lactating", start=9, end=18)],
+            [Trait(value="post lact", start=9, end=18)],
         )
 
     def test_parse_04(self):
         self.assertEqual(
             LACTATION_STATE.parse("non-lactating"),
-            [Trait(value="not lactating", start=0, end=13)],
+            [Trait(value="non-lactating", start=0, end=13)],
         )
 
     def test_parse_05(self):
         self.assertEqual(
             LACTATION_STATE.parse("lactating?"),
-            [Trait(value="lactating", start=0, end=9)],
+            [Trait(value="lactating?", start=0, end=10)],
         )
 
     def test_parse_06(self):
         self.assertEqual(
             LACTATION_STATE.parse("recently lactating"),
-            [Trait(value="lactating", start=9, end=18)],
+            [Trait(value="recently lactating", start=0, end=18)],
         )
 
     def test_parse_07(self):
         self.assertEqual(
             LACTATION_STATE.parse("small mammaries, no lactation,"),
-            [Trait(value="not lactating", start=17, end=29)],
+            [Trait(value="no lactation", start=17, end=29)],
         )
 
     def test_parse_08(self):
         self.assertEqual(
             LACTATION_STATE.parse("just finished lactating"),
-            [Trait(value="not lactating", start=5, end=23)],
+            [Trait(value="just finished lactating", start=0, end=23)],
         )
 
     def test_parse_09(self):
         self.assertEqual(
             LACTATION_STATE.parse("reproductive data=non-lactating, non-pregnant"),
-            [Trait(value="not lactating", start=18, end=31)],
+            [Trait(value="non-lactating", start=18, end=31)],
         )
 
     def test_parse_10(self):
         self.assertEqual(
             LACTATION_STATE.parse("Tail pencil; Not nursing, no embryos;"),
-            [Trait(value="not lactating", start=13, end=24)],
+            [Trait(value="not nursing", start=13, end=24)],
         )
 
     def test_parse_11(self):
         self.assertEqual(
             LACTATION_STATE.parse("no. 8552; suckling"),
-            [Trait(value="lactating", start=10, end=18)],
-        )
-
-    def test_parse_12(self):
-        self.assertEqual(
-            LACTATION_STATE.parse("reproductive data=OEL;"),
-            [Trait(value="lactating", start=18, end=21)],
-        )
-
-    def test_parse_13(self):
-        self.assertEqual(
-            LACTATION_STATE.parse("reproductive data=OSN;"),
-            [Trait(value="not lactating", start=18, end=21)],
+            [Trait(value="suckling", start=10, end=18)],
         )

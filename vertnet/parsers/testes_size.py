@@ -1,9 +1,10 @@
 """Parse testes size notations."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.reproductive import double, convert
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.reproductive import convert, double
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

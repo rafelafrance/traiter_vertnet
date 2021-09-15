@@ -29,7 +29,7 @@ PREGNANCY_STATE = Base(
         VOCAB.part("separator", r' [;,"] '),
 
         VOCAB.producer(convert, """ (?P<neg> pregnant none) """),
-        VOCAB.producer(convert, """ (?P<neg> none pregnant ) """, ),
+        VOCAB.producer(convert, """ (?P<neg> none pregnant ) """),
 
         VOCAB.producer(convert, """ (?P<pos> pregnant ) """),
     ],

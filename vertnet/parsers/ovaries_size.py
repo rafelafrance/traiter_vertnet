@@ -1,9 +1,10 @@
 """Parse ovaries size notations."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.reproductive import double, convert
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.reproductive import convert, double
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -71,7 +72,7 @@ OVARY_SIZE = Base(
         # Anchored by ovaries but with words between
         VOCAB.producer(convert, "ovary ( state | word | sep ){0,3} state value"),
         # Anchored by ovaries but with only one word in between
-        # E.g.: ovaries scrotal 9mm
+        # E.g.: ovaries 9mm
         VOCAB.producer(convert, "side? ovary ( state | word ) value"),
         # E.g.: Ovaries 5 x 3
         VOCAB.producer(convert, "side? ovary value"),

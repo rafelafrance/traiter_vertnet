@@ -1,6 +1,7 @@
 """Parse pregnancy state notations."""
 
 from traiter.old.vocabulary import Vocabulary
+
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base, convert
 

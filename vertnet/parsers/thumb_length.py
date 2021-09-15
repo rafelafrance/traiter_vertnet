@@ -1,10 +1,10 @@
 """Parse thumb length notations."""
 
 from traiter.old.vocabulary import Vocabulary
-from vertnet.pylib.numeric import fix_up_inches
-from vertnet.pylib.numeric import fraction, simple
+
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
+from vertnet.pylib.numeric import fix_up_inches, fraction, simple
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
