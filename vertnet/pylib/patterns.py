@@ -303,7 +303,7 @@ VOCAB.grouper(
 # A number times another number like: "12 x 34" this is typically
 # length x width. We Allow a triple like "12 x 34 x 56" but we only take
 # the first two numbers
-CROSS = """ 
+CROSS = """
     (?<! x )
     ( number len_units? ( x | by ) number len_units?
     | number len_units )

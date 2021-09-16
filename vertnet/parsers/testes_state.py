@@ -52,7 +52,7 @@ TESTES_STATE = Base(
         ),
         VOCAB.producer(
             convert,
-            """ label 
+            """ label
                 (?P<value> ( testes | abbrev )? length? size ( conj? state )? )
             """,
         ),

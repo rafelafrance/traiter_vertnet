@@ -71,8 +71,7 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse(
                 '{"totalLengthInMM":"x", "earLengthInMM":"20", '
-                '"weight":"[139.5] g" }'
-            ),
+                '"weight":"[139.5] g" }'),
             [
                 Trait(
                     value=139.5,
@@ -90,8 +89,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 '{"fat":"No fat", "gonads":"Testes 10 x 6 mm.", '
                 '"molt":"No molt",'
-                ' "stomach contents":"Not recorded", "weight":"94 gr."'
-            ),
+                ' "stomach contents":"Not recorded", "weight":"94 gr."'),
             [Trait(value=94, units="gr", units_inferred=False, start=101, end=115)],
         )
 
@@ -218,8 +216,7 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse(
                 "reproductive data: Testes descended -10x7 mm; sex: "
-                "male; unformatted measurements: 181-75-21-18=22 g"
-            ),
+                "male; unformatted measurements: 181-75-21-18=22 g"),
             [
                 Trait(
                     value=22,
@@ -242,8 +239,7 @@ class TestBodyMass(unittest.TestCase):
         self.assertEqual(
             BODY_MASS.parse(
                 ' {"gonadLengthInMM_1":"10", "gonadLengthInMM_2":"6", '
-                '"weight":"1,192.0" }'
-            ),
+                '"weight":"1,192.0" }'),
             [Trait(value=1192, units=None, units_inferred=True, start=54, end=70)],
         )
 
@@ -252,8 +248,11 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse('"weight: 20.5-31.8'),
             [
                 Trait(
-                    value=[20.5, 31.8], units=None, units_inferred=True, start=1, end=18
-                )
+                    value=[20.5, 31.8],
+                    units=None,
+                    units_inferred=True,
+                    start=1,
+                    end=18)
             ],
         )
 
@@ -321,8 +320,7 @@ class TestBodyMass(unittest.TestCase):
     def test_parse_29(self):
         self.assertEqual(
             BODY_MASS.parse(
-                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62]g"
-            ),
+                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62]g"),
             [
                 Trait(
                     value=62,
@@ -339,8 +337,7 @@ class TestBodyMass(unittest.TestCase):
     def test_parse_30(self):
         self.assertEqual(
             BODY_MASS.parse(
-                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62g]"
-            ),
+                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62g]"),
             [
                 Trait(
                     value=62,
@@ -357,8 +354,7 @@ class TestBodyMass(unittest.TestCase):
     def test_parse_31(self):
         self.assertEqual(
             BODY_MASS.parse(
-                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62] x"
-            ),
+                "Note in catalog: Mus. SW Biol. NK 30009; 91-0-17-22-[62] x"),
             [],
         )
 
@@ -381,8 +377,7 @@ class TestBodyMass(unittest.TestCase):
                 "Collections staff (2008-2010 inventory). Record last "
                 "updated in Excel (prior to Arctos migration) by Dawn "
                 "R. Roberts (2013-11-30). Date listed as entered in "
-                "original FileMaker database: 1988-07-29."
-            ),
+                "original FileMaker database: 1988-07-29."),
             [],
         )
 
@@ -436,8 +431,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 '{"created": "2014-10-29", "relatedresourceid": '
                 '"eeba8b10-040e-4477-a0a6-870102b56234;'
-                'abbf14f5-1a7c-48f6-8f2f-2a8af53c8c86"}'
-            ),
+                'abbf14f5-1a7c-48f6-8f2f-2a8af53c8c86"}'),
             [],
         )
 
@@ -446,8 +440,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 '{"created": "2007-05-27", "relatedresourceid": '
                 '"92bc5a20-577e-4504-aab6-bb409d06871a;'
-                '0460ccc4-a461-43ec-86b6-1c252377b126"}'
-            ),
+                '0460ccc4-a461-43ec-86b6-1c252377b126"}'),
             [],
         )
 
@@ -456,8 +449,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 '{"created": "2014-10-29", "relatedresourceid": '
                 '"57d3efd8-2b9c-4952-8976-e27401a01251;'
-                '8a35be5e-27fb-4875-81f6-42a5d7787760"}'
-            ),
+                '8a35be5e-27fb-4875-81f6-42a5d7787760"}'),
             [],
         )
 
@@ -519,8 +511,7 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 '{"earLengthInMM":"15 mm", "hindfootLengthInMM":'
                 '"hind_foot_length]", "measurements":"38", "tail":"40 mm", '
-                '"totalLength":"96 mm", "weight":"11.7 g" }'
-            ),
+                '"totalLength":"96 mm", "weight":"11.7 g" }'),
             [Trait(value=11.7, units="g", units_inferred=False, start=129, end=144)],
         )
 
@@ -532,10 +523,8 @@ class TestBodyMass(unittest.TestCase):
             BODY_MASS.parse(
                 shorten(
                     """
-                Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm; 
-                Hind Foot: 11 mm; Ear: 13 mm"""
-                )
-            ),
+                Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm;
+                Hind Foot: 11 mm; Ear: 13 mm""")),
             [Trait(value=12, units="gm", units_inferred=False, start=0, end=11)],
         )
 
@@ -545,18 +534,14 @@ class TestBodyMass(unittest.TestCase):
                 shorten(
                     """
                 {"measurements":"78-39-5-14-8(TR)-30(FA)",
-                "weightInGrams":"3.5" }"""
-                )
-            ),
-            [
-                {
-                    "start": 44,
-                    "end": 63,
-                    "units": "Grams",
-                    "value": 3.5,
-                    "units_inferred": False,
-                }
-            ],
+                "weightInGrams":"3.5" }""")),
+            [{
+                "start": 44,
+                "end": 63,
+                "units": "Grams",
+                "value": 3.5,
+                "units_inferred": False,
+            }],
         )
 
     def test_parse_53(self):
@@ -565,8 +550,6 @@ class TestBodyMass(unittest.TestCase):
                 shorten(
                     """
                 all measurements given in specimens 11041-11070 are:
-                """
-                )
-            ),
+                """)),
             [],
         )

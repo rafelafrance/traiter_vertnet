@@ -231,7 +231,7 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_021(self):
         self.assertEqual(
             TOTAL_LENGTH.parse(
-                ("before; Total length in catalog and " "specimen tag as 117, after")
+                "before; Total length in catalog and specimen tag as 117, after"
             ),
             [],
         )
@@ -998,9 +998,8 @@ class TestTotalLength(unittest.TestCase):
         self.assertEqual(
             TOTAL_LENGTH.parse(
                 shorten(
-                    """
-                Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm; 
-                Hind Foot: 11 mm; Ear: 13 mm"""
+                    """Body: 12 gm; Body and tail: 109 mm; Tail: 43 mm;
+                    Hind Foot: 11 mm; Ear: 13 mm"""
                 )
             ),
             [Trait(value=109, units="mm", units_inferred=False, start=13, end=34)],
@@ -1009,10 +1008,7 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_109(self):
         self.assertEqual(
             TOTAL_LENGTH.parse(
-                shorten(
-                    """
-                Note in catalog: Recatalogued from 115818-850"""
-                )
+                shorten("""Note in catalog: Recatalogued from 115818-850""")
             ),
             [],
         )

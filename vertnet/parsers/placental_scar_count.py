@@ -71,14 +71,14 @@ PLACENTAL_SCAR_COUNT = Base(
             convert_count,
             """plac_scar op?
                   (?P<count1> count ) prep? (?P<side1> side )
-                ( (?P<count2> count ) prep? (?P<side2> side ) )? 
+                ( (?P<count2> count ) prep? (?P<side2> side ) )?
             """,
         ),
         VOCAB.producer(
             convert_count,
             """ (?P<count1> count ) prep? (?P<side1> side ) plac_scar
                 ( (?P<count2> count ) prep? (?P<side2> side )
-                    (plac_scar)? )? 
+                    (plac_scar)? )?
             """,
         ),
         VOCAB.producer(

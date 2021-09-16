@@ -70,13 +70,13 @@ OVARIES_STATE = Base(
         VOCAB.grouper(
             "values",
             """
-            ( value_words ( and | comma ) | non )? 
+            ( value_words ( and | comma ) | non )?
             value_words """,
         ),
         VOCAB.producer(
             convert,
             """
-                side? ovaries side? ( word | number | comma ){0,5} 
+                side? ovaries side? ( word | number | comma ){0,5}
                 (?P<value> values+ )
             """,
         ),

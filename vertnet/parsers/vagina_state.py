@@ -15,7 +15,7 @@ VAGINA_STATE = Base(
         VOCAB.part(
             "closed",
             r"""
-                closed | imperforated | imperf | cerrada | non [-\s] perforated 
+                closed | imperforated | imperf | cerrada | non [-\s] perforated
                 | unperforate | non  [-\s] perf | clsd | imp
             """,
         ),
