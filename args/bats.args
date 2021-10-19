@@ -54,7 +54,7 @@
 --extra-field=verbatimlongitude
 --extra-field=verbatimsrs
 --extra-field=waterbody
---output-file=output/bats_2020-08-11.jsonl
+--output-file=output/bats_2021-10-19.jsonl
 --output-format=jsonl
 --progress
 --search-field=dynamicproperties
@@ -70,12 +70,18 @@
 --trait=lactation_state
 --trait=nipple_count
 --trait=nipple_state
+--trait=nipples_enlarged
 --trait=ovaries_size
 --trait=ovaries_state
 --trait=placental_scar_count
+--trait=placental_scar_state
 --trait=pregnancy_state
+--trait=scrotal_state
 --trait=tail_length
 --trait=testes_size
 --trait=testes_state
+--trait=thumb_length
+--trait=tibia_length
 --trait=total_length
 --trait=tragus_length
+--trait=vagina_state
