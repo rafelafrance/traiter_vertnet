@@ -27,10 +27,10 @@ def convert_count(token):
         trait.value = count1 + count2
 
     if count1 or side1 != "side1":
-        trait.side1 = count1
+        setattr(trait, side1, count1)
 
     if count2 or side2 != "side2":
-        trait.size2 = count2
+        setattr(trait, side2, count2)
 
     return trait if all(x < 1000 for x in as_list(trait.value)) else None
 

@@ -29,7 +29,7 @@ def convert(token):
         ):
             count = "1" if count == "!" else count
             sub = SUB.get(sub[0].lower(), sub)
-            trait.sub = to_positive_int(count)
+            setattr(trait, sub, to_positive_int(count))
 
     elif token.group.get("side"):
         side = token.group["side"].lower()
