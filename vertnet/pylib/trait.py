@@ -2,7 +2,9 @@
 
 from collections import namedtuple
 
-from traiter.util import DotDict, as_list, squash
+from traiter.util import as_list, squash
+
+from .util import DotDict
 
 TraitKey = namedtuple("TraitKey", "value side")
 

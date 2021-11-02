@@ -12,6 +12,14 @@ NUM_WORDS = list(WORD_TO_NUM.keys())
 FLAGS = regex.VERBOSE | regex.IGNORECASE
 
 
+class DotDict(dict):
+    """Allow dot.notation access to dictionary items."""
+
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
 def to_positive_int(value):
     """Convert value to an integer, handle 'no' or 'none' etc."""
     digits = regex.sub(r"\D", "", value) if value else ""
