@@ -55,7 +55,7 @@
 --extra-field=verbatimsrs
 --extra-field=waterbody
 --input-file=data/vertnet_latest_mammals.csv
---output-file=data/output/all_mammals_2021-10-27.jsonl
+--output-file=data/output/all_mammals_2021-11-09.jsonl
 --output-format=jsonl
 --progress
 --search-field=dynamicproperties
