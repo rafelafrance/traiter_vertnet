@@ -1,7 +1,7 @@
 """Normalize units to millimeters or grams."""
 
 
-def convert(value, units):
+def convert_units(value, units):
     """Normalize either single units or a list of units."""
     units = units if units else ""
     factor = UNITS.get(units.lower(), 1.0)

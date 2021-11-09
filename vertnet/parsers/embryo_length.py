@@ -40,7 +40,7 @@ def convert_many(token):
         else:
             trait.units = units[-1] if units else None
             trait.units_inferred = True
-        trait.value = convert_units.convert(to_positive_float(value), trait.units)
+        trait.value = convert_units.convert_units(to_positive_float(value), trait.units)
         if trait.value > TOO_BIG:
             continue
         add_flags(token, trait)

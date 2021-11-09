@@ -141,7 +141,7 @@ class TestEarLength(unittest.TestCase):
             EAR_LENGTH.parse("; ear from notch=.25 in"),
             [
                 Trait(
-                    value=0.25,
+                    value=6.35,
                     units="in",
                     units_inferred=False,
                     measured_from="notch",

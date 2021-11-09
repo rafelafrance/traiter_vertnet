@@ -148,7 +148,7 @@ class TestHindFootLength(unittest.TestCase):
             HIND_FOOT_LENGTH.parse("; hind foot with claw=2 in;"),
             [
                 Trait(
-                    value=2,
+                    value=50.8,
                     units="in",
                     units_inferred=False,
                     includes="claw",

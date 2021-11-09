@@ -5,7 +5,7 @@ from fractions import Fraction
 import regex
 from traiter.util import FLAGS, as_list, squash, to_positive_float, to_positive_int
 
-from vertnet.pylib.convert_units import convert
+from vertnet.pylib.convert_units import convert_units
 from vertnet.pylib.trait import Trait
 
 LOOK_BACK_FAR = 40
@@ -27,7 +27,7 @@ def as_value(token, trait, value_field="number", unit_field="units"):
             unit = units[i]
         else:
             unit = units[-1] if units else None
-        values.append(convert(val, unit))
+        values.append(convert_units(val, unit))
     if not values:
         return False
     trait.value = squash(values)
@@ -69,8 +69,9 @@ def compound(token):
     trait.units = [token.group["feet"], token.group["inches"]]
     trait.units_inferred = False
     trait.is_flag_missing(token, "key", rename="ambiguous_key")
-    fts = convert(to_positive_float(token.group["ft"]), "ft")
-    ins = [convert(to_positive_float(i), "in") for i in as_list(token.group["in"])]
+    fts = convert_units(to_positive_float(token.group["ft"]), "ft")
+    ins = [convert_units(to_positive_float(i), "in")
+           for i in as_list(token.group["in"])]
     value = [round(fts + i, 2) for i in ins]
     trait.value = squash(value)
     add_flags(token, trait)
@@ -91,7 +92,7 @@ def fraction(token):
         print(f"Fraction error: {numerator} / {denominator}")
         return None
     if trait.units:
-        trait.value = convert(trait.value, trait.units)
+        trait.value = convert_units(trait.value, trait.units)
     add_flags(token, trait)
     return trait
 
@@ -136,5 +137,5 @@ def fix_up_inches(trait, text):
         trait.end += 1
         trait.units = '"'
         trait.units_inferred = False
-        trait.value = convert(trait.value, trait.units)
+        trait.value = convert_units(trait.value, trait.units)
     return trait

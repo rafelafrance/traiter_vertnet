@@ -335,7 +335,7 @@ class TestTestesSize(unittest.TestCase):
     def test_parse_28(self):
         self.assertEqual(
             TESTES_SIZE.parse("sex=male ; reproductive data=Testes .5' , scrotal"),
-            [Trait(value=0.5, units="'", units_inferred=False, start=11, end=39)],
+            [Trait(value=152.4, units="'", units_inferred=False, start=11, end=39)],
         )
 
     def test_parse_29(self):
