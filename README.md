@@ -1,6 +1,6 @@
 # The Vertnet Traits Database Project ![CI](https://github.com/rafelafrance/traiter_vertnet/workflows/CI/badge.svg)
 
-## All right, what's this all about then?
+# All right, what's this all about then?
 **Challenge**: Extract trait information from unstructured or semi-structured natural history field notations. That is, if I'm given text like:
 
  ```
@@ -28,8 +28,26 @@ I should be able to extract:
 Values from controlled vocabularies are also extracted.
  - These values sometimes have a signifier like "Life Stage: Adult"
  - And other times we see a value on its own like "Adult" without the signifier.
+ - 
+# File processing
 
-## Parsing strategy
+In general, I take a CSV file as input (almost always from VerNet) and process each record in the CSV file. There are fields that are targeted for parsing (finding traits) and other fields that are just carried through to the output as is. The following VerNet fields are usually targets for parsing.
+
+- `dynamicproperties`
+- `fieldnotes`
+- `occurrenceremarks`
+- `reproductivecondition` - We only want sex traits from this field.
+
+So we are taking one CSV file and (usually) producing another CSV file. The output will have traits added to it. A simplified example of the output of parsing body mass from the `dynamicproperties` field.
+
+binomial|body_mass.1.is_shorthand|location|body_mass.1.units_inferred|body_mass.1.value|dynamicproperties
+---------|------------------------|--------|--------------------------|-----------------|-----------------
+Abrothrix olivaceus| |dynamicproperties|False|20|sex=male ; total length=165 mm; weight=20 g
+Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-24.5-17=24.5g"}
+Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
+Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
+
+# Parsing strategy
 
 This implementation uses a technique that I call **"Stacked Regular Expressions"**. The concept is very simple, we build tokens in one step and in the next two steps we use those tokens to reduce combinations to other tokens or productions.
 
@@ -46,7 +64,7 @@ Another point to note, is that we want to parse gigabytes (or terabytes) of data
 
 **The drawback of this approach is that it tends to have a significantly higher precision than recall.**
 
-#### 1. Tokenize the text
+### 1. Tokenize the text
 Replace text with tokens. We use regular expressions to create a token stream from the raw text. During this process, any text that is not captured by a token regex is removed from the token stream, i.e. noise is removed from the text.
    
 The following regular expressions will return a sequence of tokens with the name as one of (animal, color, etc.) and what the regular expression matches as the value of the token. 
@@ -72,9 +90,9 @@ Given these rules and the following text: `The specimen is an older dog with tan
 
 Notice that there are no tokens for any of the spaces, any of the words in "The specimen is a", or the final `,` comma. We have removed the "noise". This turns out to be very helpful with simplifying the parsers. 
 
-#### 2. (Optional) Replace sequences of tokens to simplify the token stream. Repeat this step as many times as needed.
+### 2. (Optional) Replace sequences of tokens to simplify the token stream. Repeat this step as many times as needed.
 
-Replace tokens with other tokens. Use a DSL to capture sets of tokens that may be combined into a single token. This simplification step is often repeated so simplifications may be built up step-wise.
+Replace tokens with other tokens. Use a Domain Specific Language (DSL) to capture sets of tokens that may be combined into a single token. This simplification step is often repeated so simplifications may be built up step-wise.
 
 ```python
 grouper('color_set', ' color and color ')
@@ -90,7 +108,7 @@ Are replaced with the single token:
 
 Note that this rule will match any pair of colors linked by the word "and". Also note that the original information is preserved. So the new "color_set" token also has a color list of `["tan", "gray"]`.
  
-#### 3. Convert sequences of tokens into the final productions
+### 3. Convert sequences of tokens into the final productions
 Replace tokens with the final tokens. Everything except the final tokens are removed. This final stream of tokens is what the client code processes.
 
 Here is a rule for recognizing fur color.
@@ -110,7 +128,7 @@ Keeping with the example above we get the following information:
 
  Combined token data is preserved just like it is in step 2. We will have the fur_color data but also the color list of `["tan", "gray"]`.
 
-#### The domain specific language.
+### The domain specific language (DSL).
 
 Token names are just regular expression group names and follow the same rules. All rules are case-insensitive and use the verbose regular expression syntax.
 
@@ -126,21 +144,22 @@ grouper('color_phrase', ' modifier? ( color and )? color ')
 ```
 Here "color and" is two tokens and must be grouped as you would have to group letters in a normal regular expression.
 
-## Postprocessing of the stacked regular expression output
+# Postprocessing of the output traits
 
 Note that there are actually two phases of postprocessing.
-1. As the final stage of processing tokens after the `producer`s are run. This handles the output of the producer on a per item basis. Some things handled here are:
+1. As the final stage of processing tokens after the `producer`s are run. This handles the output of the producer on a per-trait basis. Some things handled here are:
    1. Normalize all measurements to millimeters and grams. For instance, we convert any measurements given  inches to millimeters.
    2. Normalization of controlled vocabulary fields like life stage or sex. There may be abbreviations or phrase that mean roughly the same thing, like "F" and "Fem" for "female", these are normalized.
-   3. Rejecting of productions that are actually not a measurement. For instance, if we have a production like `E 20` and it is near another notation like `N 32` then it is much more likely to be a longitude and not an ear measurement, and therefore it is rejected.
+   3. Rejecting of productions that are actually not traits. For instance, if we have a production for an ear length like `E 20` and it is near another notation like `N 32` then it is much more likely to be a longitude and not an ear measurement, and is therefore rejected.
    4. Etc.
-2. A per data record level of processing of all the traits for the records. Some examples include:
-   1. (Optional) Some researchers only want one of each trait for any data record. For instance if there is one total length measurement in the `dynamicproperties` field and two total lengths in the `fieldnotes` field then I may either drop all but the first measurement or just report the extrema (min/max) of all the measurements.
+2. At per data record level of process all traits for a record. Some examples include:
+   1. (Optional) Some researchers only want one of each trait for any data record. For instance if there are two total length measurements in the `dynamicproperties` field and two total lengths in the `fieldnotes` field then I may either drop all but the first measurement or just report the extrema (min/max) of all the measurements.
    2. If the sex is clearly a male or female then we will remove measurements for the wrong sex from `reproductivecondition` fields. If a testes measurement is in a record for a female then it is removed.
-   3. Remove trait lists that have become empty and then remove records that also become empty.
-   4. Etc.
+   3. When there are too many annotation for a particular trait, then I'll remove that particular trait for that record. I have seen over twenty sex annotations for a single record, in that case we remove the sex notation for that record but keep the other traits.
+   4. Remove trait lists that have become empty and then remove records that also become empty.
+   5. Etc.
 
-## Install
+# Install
 
 You will need to have Python3 installed, as well as pip, a package manager for python. You can install the requirements into your python environment like so:
 ```
@@ -148,7 +167,7 @@ git clone https://github.com/rafelafrance/traiter.git
 python3 -m pip install --user --requirement traiter/requirements.txt
 ```
   
-## Run
+# Run
 I typically use an arguments file when running this process. So a run looks similar to:
 ```
 cd /my/path/to/traiter
@@ -156,7 +175,7 @@ cd /my/path/to/traiter
 ```
 Look in the `args` directory for argument examples.
 
-## Tests
+# Tests
 Having a test suite is absolutely critical. The strategy I use is every new pattern gets its own test. Any time there is a parser error I add the parts that caused the error to the test suite and correct the parser. Most test are targeted at the traits being produced and not at smaller units of code.
 
 You can run the tests like so:
