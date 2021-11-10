@@ -48,45 +48,45 @@ Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
 Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
 
 Added fields:
-1. Start with a trait name: the **body_mass**.2.value
-   1. body_mass: grams
-   2. ear_length: millimeters
-   3. embryo_count: integer
-   4. embryo_length: millimeters
-   5. forearm_length: millimeters 
-   6. hind_foot_length: millimeters
-   7. lactation_state: text
-   8. life_stage: text
-   9. nipple_count: integer
-   10. nipple_state: text
-   11. nipple_enlarged: text
-   12. ovaries_size: millimeters
-   13. ovaries_state: text
-   14. placental_scar_count: integer
-   15. placental_scar_state: controlled vocabulary
-   16. pregnancy_state: text
-   17. scrotal_state: text
-   18. sex: text
-   19. tail_length: millimeters
-   20. testes_size: millimeters
-   21. testes_state: text
-   22. thumb_length: millimeters
-   23. tibia_length: millimeters
-   24. total_length: millimeters
-   25. tragus_length: millimeters
-   26. vagina_state: text
+1. Start with a trait name: For example the "body_mass" in **body_mass**.1.value
+   - body_mass: grams
+   - ear_length: millimeters
+   -. embryo_count: integer
+   - embryo_length: millimeters
+   - forearm_length: millimeters 
+   - hind_foot_length: millimeters
+   - lactation_state: text
+   - life_stage: text
+   - nipple_count: integer
+   - nipple_state: text
+   - nipple_enlarged: text
+   - ovaries_size: millimeters
+   - ovaries_state: text
+   - placental_scar_count: integer
+   - placental_scar_state: controlled vocabulary
+   - pregnancy_state: text
+   - scrotal_state: text
+   - sex: text
+   - tail_length: millimeters
+   - testes_size: millimeters
+   - testes_state: text
+   - thumb_length: millimeters
+   - tibia_length: millimeters
+   - total_length: millimeters
+   - tragus_length: millimeters
+   - vagina_state: text
 2. The trait name is optionally followed by trait index if there are multiple extractions for the same trait, like: body_mass.**2**.value. So, in this example there were at least 2 body mass extractions.
 3. Finally, the last field is the trait value, or a trait flag, like: body_mass.2.**value**. There are a few different flags/values:
-   1. `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
-   2. `is_shorthand` = did the trait measurement come from a shorthand notation like "182.5-84.5-24.5-17=24.5g".
-   3. `units_inferred` indicate if the units for the trait were missing from the input data and were guessed.
-   4. `ambiguous_key` indicates when we guessed at a key value. For instance, "weight" usually indicates a body mass, but it may represent any other mass.
-   5. `estimated_value`: Some traits are noted as estimated in the input data itself, so we carry the flag through to the output.
-   6. `side`: Was the trait taken from the left/right side also indicated as side 1/2.
-   7. `units`: Are the original units in the trait.
-   8. `dimension`: Is this a length or width measurement.
-   9. `question`: Was the trait flagged with a question mark in the input? If so, we carry this through to the output.
-   10. `includes`: Does the hind-foot measurement include the claw?
+   - `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
+   - `is_shorthand` = did the trait measurement come from a shorthand notation like "182.5-84.5-24.5-17=24.5g".
+   - `units_inferred` indicate if the units for the trait were missing from the input data and were guessed.
+   - `ambiguous_key` indicates when we guessed at a key value. For instance, "weight" usually indicates a body mass, but it may represent any other mass.
+   - `estimated_value`: Some traits are noted as estimated in the input data itself, so we carry the flag through to the output.
+   - `side`: Was the trait taken from the left/right side also indicated as side 1/2.
+   - `units`: Are the original units in the trait.
+   - `dimension`: Is this a length or width measurement.
+   - `question`: Was the trait flagged with a question mark in the input? If so, we carry this through to the output.
+   - `includes`: Does the hind-foot measurement include the claw?
 
 # Parsing strategy
 
