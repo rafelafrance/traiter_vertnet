@@ -47,8 +47,16 @@ Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-2
 Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
 Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
 
-Added fields:
-1. Start with a trait name: For example the "body_mass" in **body_mass**.1.value
+# Column trait column header anatomy (trait.1.trait_field)
+
+There are two or three parts to a trait column header field. We either have "trait.n.field" or just "trait.field". The number part (if it exists) is a tiebreaker that indicates which extracted trait we are working for that row. For instance, we may have multiple body masses, one from the dynamicproperties and one from the fieldnotes. Or, we may have multiple body masses from the same field. It's just a way to disambiguate them.
+
+The first part is described in [Traits extracted](#Traits-extracted) and the third part is described in [Trait column header fields](#Trait-column-header-fields).
+
+# Traits extracted
+
+As mentioned above, this is the first part of the trait column header. For example the "body_mass" in **body_mass**.1.value
+
    - `body_mass`: grams
    - `ear_length`: millimeters
    - `embryo_count`: integer
@@ -75,8 +83,11 @@ Added fields:
    - `total_length`: millimeters
    - `tragus_length`: millimeters
    - `vagina_state`: text
-2. The trait name is optionally followed by trait index if there are multiple extractions for the same trait, like: body_mass.**2**.value. So, in this example there were at least 2 body mass extractions.
-3. Finally, the last field is the trait value, or a trait flag, like: body_mass.2.**value**. There are a few different flags/values:
+
+# Trait column header fields
+
+ This is the last part of the trait column header the for example the "value" in: body_mass. There are a few different flags/values:
+
    - `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
    - `is_shorthand` = did the trait measurement come from a shorthand notation like "182.5-84.5-24.5-17=24.5g".
    - `units_inferred` indicate if the units for the trait were missing from the input data and were guessed.
