@@ -49,6 +49,32 @@ Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm;
 
 Added fields:
 1. Start with a trait name: the **body_mass**.2.value
+   1. body_mass: grams
+   2. ear_length: millimeters
+   3. embryo_count: integer
+   4. embryo_length: millimeters
+   5. forearm_length: millimeters 
+   6. hind_foot_length: millimeters
+   7. lactation_state: text
+   8. life_stage: text
+   9. nipple_count: integer
+   10. nipple_state: text
+   11. nipple_enlarged: text
+   12. ovaries_size: millimeters
+   13. ovaries_state: text
+   14. placental_scar_count: integer
+   15. placental_scar_state: controlled vocabulary
+   16. pregnancy_state: text
+   17. scrotal_state: text
+   18. sex: text
+   19. tail_length: millimeters
+   20. testes_size: millimeters
+   21. testes_state: text
+   22. thumb_length: millimeters
+   23. tibia_length: millimeters
+   24. total_length: millimeters
+   25. tragus_length: millimeters
+   26. vagina_state: text
 2. The trait name is optionally followed by trait index if there are multiple extractions for the same trait, like: body_mass.**2**.value. So, in this example there were at least 2 body mass extractions.
 3. Finally, the last field is the trait value, or a trait flag, like: body_mass.2.**value**. There are a few different flags/values:
    1. `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
