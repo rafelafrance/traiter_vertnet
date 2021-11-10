@@ -14,7 +14,7 @@ I should be able to extract:
 
  Of course, this is a rather straight-forward example. Natural history/museum notations are highly idiosyncratic and may use various shorthand notations. Here are just a few examples of how total length measurements appear:
 
- - Total Length: 15.7cm
+ - Total Length: 15.7 cm
  - 15.7cm T.L.
  - 157-60-20-19=21g
  - SVL 157 mm
@@ -38,11 +38,13 @@ This implementation uses a technique that I call **"Stacked Regular Expressions"
 3. Convert sequences of tokens into the final productions.
 * Postprocessing of the extracted information is performed by the caller.
 
-All steps use regular expressions. Step 1 uses them on raw text like any other regular expression but the other two steps use them on the token stream. The regular expressions on the token stream look and behave just like normal regular expressions but they are adjusted to work on tokens & not text. I.e. steps 2 & 3 use a domain specific language (DSL) for the token-level regular expressions.
+All steps use regular expressions. Step 1 uses them on raw text like any other regular expression but the other two steps use them on the token stream. The regular expressions on the token stream look and behave just like normal regular expressions, but they are adjusted to work on tokens & not text. I.e. steps 2 & 3 use a domain specific language (DSL) for the token-level regular expressions.
 
 Note that I am trying to extract data from patterns of text and not parse a formal language. Most importantly, I don't need to worry about recursive structures. Pattern recognition is a common technique in **Natural Language Processing, Information Extraction**.
 
 Another point to note, is that we want to parse gigabytes (or terabytes) of data in a "reasonable" amount of time. So speed may not be the primary concern but having fast turnaround is still important. The development of parsers that use this module tends to be iterative.
+
+**The drawback of this approach is that it tends to have a significantly higher precision than recall.**
 
 #### 1. Tokenize the text
 Replace text with tokens. We use regular expressions to create a token stream from the raw text. During this process, any text that is not captured by a token regex is removed from the token stream, i.e. noise is removed from the text.
@@ -68,14 +70,14 @@ Given these rules and the following text: `The specimen is an older dog with tan
 - {and: and}
 - {color: gray}
 
-Notice that there are no tokens for any of the spaces, any of the words "The specimen is a", or the final `,` comma. We have removed the "noise". This turns out to be very helpful with simplifying the parsers. 
+Notice that there are no tokens for any of the spaces, any of the words in "The specimen is a", or the final `,` comma. We have removed the "noise". This turns out to be very helpful with simplifying the parsers. 
 
 #### 2. (Optional) Replace sequences of tokens to simplify the token stream. Repeat this step as many times as needed.
 
 Replace tokens with other tokens. Use a DSL to capture sets of tokens that may be combined into a single token. This simplification step is often repeated so simplifications may be built up step-wise.
 
 ```python
-replacer('graying', ' color and color ')
+grouper('color_set', ' color and color ')
 ```
 
 Continuing the example above the three tokens:
@@ -84,9 +86,9 @@ Continuing the example above the three tokens:
 - {color: gray}
 
 Are replaced with the single token:
-- {graying: 'tan and gray'}
+- {color_set: 'tan and gray', 'color': ["tan", "gray"]}
 
-Note that this rule will match any pair of colors linked by the word "and". Also note that the original information is preserved. So the new "graying" token also has the color list of `["tan", "gray"]`.
+Note that this rule will match any pair of colors linked by the word "and". Also note that the original information is preserved. So the new "color_set" token also has a color list of `["tan", "gray"]`.
  
 #### 3. Convert sequences of tokens into the final productions
 Replace tokens with the final tokens. Everything except the final tokens are removed. This final stream of tokens is what the client code processes.
@@ -95,31 +97,48 @@ Here is a rule for recognizing fur color.
 
 ```python
 def fur_color(token):
-    # Process the token for fur color.
+    """Process the token for fur color."""
+    trait = Trait(start=token.start, end=token.end, color=token.color)
+    # Other processing may happen here.
+    return trait
 
 producer(fur_color, r' ( color | mixed_color ) fur ')
 ```
 
 Keeping with the example above we get the following information:
-- {fur_color: 'tan and gray fur'}
+- {fur_color: 'tan and gray fur', 'color': ["brown", "gray"]}
 
  Combined token data is preserved just like it is in step 2. We will have the fur_color data but also the color list of `["tan", "gray"]`.
 
 #### The domain specific language.
 
-Token names are just regular expression group names and follow the same rules. All rules are case insensitive and use the verbose regular expression syntax.
+Token names are just regular expression group names and follow the same rules. All rules are case-insensitive and use the verbose regular expression syntax.
 
-The replacers and producers (steps 2 & 3 not in step 1). Use a simple domain specific language based on regular expressions. In fact, they are just slightly modified regular expressions. The only conceptual difference is that a token in a replacer or producer regular expression can be treated as if it is a single character. So you can do things like:
+The `grouper`s and `producer`s (steps 2 & 3 not in step 1). Use a simple domain specific language based on regular expressions. In fact, they are just slightly modified regular expressions. The only conceptual difference is that a token in a grouper or producer regular expression can be treated as if it is a single character. So you can do things like:
 ```python
 keyword('modifier', 'dark | light')
-replacer('color_phrase', ' modifier? color ')
+grouper('color_phrase', ' modifier? color ')
 ```
 The "modifier" token is treated as a single unit. But also note that you still have to group multiple tokens if you want to do something like:
 ```python
 keyword('modifier', 'dark | light')
-replacer('color_phrase', ' modifier? ( color and )? color ')
+grouper('color_phrase', ' modifier? ( color and )? color ')
 ```
 Here "color and" is two tokens and must be grouped as you would have to group letters in a normal regular expression.
+
+## Postprocessing of the stacked regular expression output
+
+Note that there are actually two phases of postprocessing.
+1. As the final stage of processing tokens after the `producer`s are run. This handles the output of the producer on a per item basis. Some things handled here are:
+   1. Normalize all measurements to millimeters and grams. For instance, we convert any measurements given  inches to millimeters.
+   2. Normalization of controlled vocabulary fields like life stage or sex. There may be abbreviations or phrase that mean roughly the same thing, like "F" and "Fem" for "female", these are normalized.
+   3. Rejecting of productions that are actually not a measurement. For instance, if we have a production like `E 20` and it is near another notation like `N 32` then it is much more likely to be a longitude and not an ear measurement, and therefore it is rejected.
+   4. Etc.
+2. A per data record level of processing of all the traits for the records. Some examples include:
+   1. (Optional) Some researchers only want one of each trait for any data record. For instance if there is one total length measurement in the `dynamicproperties` field and two total lengths in the `fieldnotes` field then I may either drop all but the first measurement or just report the extrema (min/max) of all the measurements.
+   2. If the sex is clearly a male or female then we will remove measurements for the wrong sex from `reproductivecondition` fields. If a testes measurement is in a record for a female then it is removed.
+   3. Remove trait lists that have become empty and then remove records that also become empty.
+   4. Etc.
 
 ## Install
 
@@ -130,12 +149,15 @@ python3 -m pip install --user --requirement traiter/requirements.txt
 ```
   
 ## Run
+I typically use an arguments file when running this process. So a run looks similar to:
 ```
-python3 traiter.py ... TODO ...
+cd /my/path/to/traiter
+./traiter.py @args/all_mammals.args
 ```
+Look in the `args` directory for argument examples.
 
 ## Tests
-Having a test suite is absolutely critical. The strategy I use is every new pattern gets its own test. Any time there is a parser error I add the parts that caused the error to the test suite and correct the parser. I.e. I use the standard red/green testing methodology.
+Having a test suite is absolutely critical. The strategy I use is every new pattern gets its own test. Any time there is a parser error I add the parts that caused the error to the test suite and correct the parser. Most test are targeted at the traits being produced and not at smaller units of code.
 
 You can run the tests like so:
 ```
