@@ -28,7 +28,7 @@ I should be able to extract:
 Values from controlled vocabularies are also extracted.
  - These values sometimes have a signifier like "Life Stage: Adult"
  - And other times we see a value on its own like "Adult" without the signifier.
- - 
+
 # File processing
 
 In general, I take a CSV file as input (almost always from VerNet) and process each record in the CSV file. There are fields that are targeted for parsing (finding traits) and other fields that are just carried through to the output as is. The following VerNet fields are usually targets for parsing.
@@ -46,6 +46,21 @@ Abrothrix olivaceus| |dynamicproperties|False|20|sex=male ; total length=165 mm;
 Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-24.5-17=24.5g"}
 Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
 Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
+
+Added fields:
+1. Start with a trait name: the **body_mass**.2.value
+2. The trait name is optionally followed by trait index if there are multiple extractions for the same trait, like: body_mass.**2**.value. So, in this example there were at least 2 body mass extractions.
+3. Finally, the last field is the trait value, or a trait flag, like: body_mass.2.**value**. There are a few different flags/values:
+   1. `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
+   2. `is_shorthand` = did the trait measurement come from a shorthand notation like "182.5-84.5-24.5-17=24.5g".
+   3. `units_inferred` indicate if the units for the trait were missing from the input data and were guessed.
+   4. `ambiguous_key` indicates when we guessed at a key value. For instance, "weight" usually indicates a body mass, but it may represent any other mass.
+   5. `estimated_value`: Some traits are noted as estimated in the input data itself, so we carry the flag through to the output.
+   6. `side`: Was the trait taken from the left/right side also indicated as side 1/2.
+   7. `units`: Are the original units in the trait.
+   8. `dimension`: Is this a length or width measurement.
+   9. `question`: Was the trait flagged with a question mark in the input? If so, we carry this through to the output.
+   10. `includes`: Does the hind-foot measurement include the claw?
 
 # Parsing strategy
 
