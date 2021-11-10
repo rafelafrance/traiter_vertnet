@@ -47,7 +47,7 @@ Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-2
 Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
 Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
 
-# Column trait column header anatomy (trait.1.trait_field)
+# Column trait column headers (trait.1.field)
 
 There are two or three parts to a trait column header field. We either have "trait.n.field" or just "trait.field". The number part (if it exists) is a tiebreaker that indicates which extracted trait we are working for that row. For instance, we may have multiple body masses, one from the dynamicproperties and one from the fieldnotes. Or, we may have multiple body masses from the same field. It's just a way to disambiguate them.
 
