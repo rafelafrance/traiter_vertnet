@@ -49,32 +49,32 @@ Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm;
 
 Added fields:
 1. Start with a trait name: For example the "body_mass" in **body_mass**.1.value
-   - body_mass: grams
-   - ear_length: millimeters
-   -. embryo_count: integer
-   - embryo_length: millimeters
-   - forearm_length: millimeters 
-   - hind_foot_length: millimeters
-   - lactation_state: text
-   - life_stage: text
-   - nipple_count: integer
-   - nipple_state: text
-   - nipple_enlarged: text
-   - ovaries_size: millimeters
-   - ovaries_state: text
-   - placental_scar_count: integer
-   - placental_scar_state: controlled vocabulary
-   - pregnancy_state: text
-   - scrotal_state: text
-   - sex: text
-   - tail_length: millimeters
-   - testes_size: millimeters
-   - testes_state: text
-   - thumb_length: millimeters
-   - tibia_length: millimeters
-   - total_length: millimeters
-   - tragus_length: millimeters
-   - vagina_state: text
+   - `body_mass`: grams
+   - `ear_length`: millimeters
+   - `embryo_count`: integer
+   - `embryo_length`: millimeters
+   - `forearm_length`: millimeters 
+   - `hind_foot_length`: millimeters
+   - `lactation_state`: text
+   - `life_stage`: text
+   - `nipple_count`: integer
+   - `nipple_state`: text
+   - `nipple_enlarged`: text
+   - `ovaries_size`: millimeters
+   - `ovaries_state`: text
+   - `placental_scar_count`: integer
+   - `placental_scar_state`: text
+   - `pregnancy_state`: text
+   - `scrotal_state`: text
+   - `sex`: text
+   - `tail_length`: millimeters
+   - `testes_size`: millimeters
+   - `testes_state`: text
+   - `thumb_length`: millimeters
+   - `tibia_length`: millimeters
+   - `total_length`: millimeters
+   - `tragus_length`: millimeters
+   - `vagina_state`: text
 2. The trait name is optionally followed by trait index if there are multiple extractions for the same trait, like: body_mass.**2**.value. So, in this example there were at least 2 body mass extractions.
 3. Finally, the last field is the trait value, or a trait flag, like: body_mass.2.**value**. There are a few different flags/values:
    - `value` is either a measurement normalized to millimeters or grams or a controlled vocabulary value. This depends on the trait being extracted.
