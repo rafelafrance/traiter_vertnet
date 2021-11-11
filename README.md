@@ -47,7 +47,7 @@ Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-2
 Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
 Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
 
-# Column trait column headers (trait.1.field)
+# Trait column headers (trait.1.field)
 
 There are two or three parts to a trait column header field. We either have "trait.n.field" or just "trait.field". The number part (if it exists) is a tiebreaker that indicates which extracted trait we are working for that row. For instance, we may have multiple body masses, one from the dynamicproperties and one from the fieldnotes. Or, we may have multiple body masses from the same field. It's just a way to disambiguate them.
 
@@ -61,7 +61,7 @@ As mentioned above, this is the first part of the trait column header. For examp
    - `ear_length`: millimeters
    - `embryo_count`: integer
    - `embryo_length`: millimeters
-   - `forearm_length`: millimeters 
+   - `forearm_length`: millimeters
    - `hind_foot_length`: millimeters
    - `lactation_state`: text
    - `life_stage`: text
@@ -84,7 +84,7 @@ As mentioned above, this is the first part of the trait column header. For examp
    - `tragus_length`: millimeters
    - `vagina_state`: text
 
-# Trait column header fields
+# Trait column headers
 
  This is the last part of the trait column header the for example the "value" in: body_mass. There are a few different flags/values:
 
@@ -110,7 +110,7 @@ This implementation uses a technique that I call **"Stacked Regular Expressions"
 
 All steps use regular expressions. Step 1 uses them on raw text like any other regular expression but the other two steps use them on the token stream. The regular expressions on the token stream look and behave just like normal regular expressions, but they are adjusted to work on tokens & not text. I.e. steps 2 & 3 use a domain specific language (DSL) for the token-level regular expressions.
 
-Note that I am trying to extract data from patterns of text and not parse a formal language. Most importantly, I don't need to worry about recursive structures. Pattern recognition is a common technique in **Natural Language Processing, Information Extraction**.
+Note that I am trying to extract data from patterns of text and not parse a formal language. Most importantly, I don't need to worry about recursive structures. Pattern recognition is a common technique in **Natural Language Processing, Information Extraction**. Having said that, this is the only project still using this form of pattern matching. All other projects are now using spaCy patterns because you can match on things other than text like parts of speech etc. which does come in handy.
 
 Another point to note, is that we want to parse gigabytes (or terabytes) of data in a "reasonable" amount of time. So speed may not be the primary concern but having fast turnaround is still important. The development of parsers that use this module tends to be iterative.
 
@@ -118,8 +118,8 @@ Another point to note, is that we want to parse gigabytes (or terabytes) of data
 
 ### 1. Tokenize the text
 Replace text with tokens. We use regular expressions to create a token stream from the raw text. During this process, any text that is not captured by a token regex is removed from the token stream, i.e. noise is removed from the text.
-   
-The following regular expressions will return a sequence of tokens with the name as one of (animal, color, etc.) and what the regular expression matches as the value of the token. 
+
+The following regular expressions will return a sequence of tokens with the name as one of (animal, color, etc.) and what the regular expression matches as the value of the token.
 
 ```python
 keyword('animal', r' dogs? | cats? ')
@@ -140,7 +140,7 @@ Given these rules and the following text: `The specimen is an older dog with tan
 - {and: and}
 - {color: gray}
 
-Notice that there are no tokens for any of the spaces, any of the words in "The specimen is a", or the final `,` comma. We have removed the "noise". This turns out to be very helpful with simplifying the parsers. 
+Notice that there are no tokens for any of the spaces, any of the words in "The specimen is a", or the final `,` comma. We have removed the "noise". This turns out to be very helpful with simplifying the parsers.
 
 ### 2. (Optional) Replace sequences of tokens to simplify the token stream. Repeat this step as many times as needed.
 
@@ -159,7 +159,7 @@ Are replaced with the single token:
 - {color_set: 'tan and gray', 'color': ["tan", "gray"]}
 
 Note that this rule will match any pair of colors linked by the word "and". Also note that the original information is preserved. So the new "color_set" token also has a color list of `["tan", "gray"]`.
- 
+
 ### 3. Convert sequences of tokens into the final productions
 Replace tokens with the final tokens. Everything except the final tokens are removed. This final stream of tokens is what the client code processes.
 
@@ -218,7 +218,7 @@ You will need to have Python3 installed, as well as pip, a package manager for p
 git clone https://github.com/rafelafrance/traiter.git
 python3 -m pip install --user --requirement traiter/requirements.txt
 ```
-  
+
 # Run
 I typically use an arguments file when running this process. So a run looks similar to:
 ```
