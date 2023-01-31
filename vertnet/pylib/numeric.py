@@ -1,17 +1,20 @@
 """Utilities for parsing numeric traits."""
-
 from fractions import Fraction
 
 import regex
-from traiter.util import FLAGS, as_list, squash, to_positive_float, to_positive_int
+from traiter.const import RE_FLAGS
+from traiter.util import as_list
+from traiter.util import squash
+from traiter.util import to_positive_float
+from traiter.util import to_positive_int
 
 from vertnet.pylib.convert_units import convert_units
 from vertnet.pylib.trait import Trait
 
 LOOK_BACK_FAR = 40
 
-QUOTES_VS_INCHES = regex.compile(r' \d " (?! \s* \} )', FLAGS)
-IS_COLLECTOR = regex.compile(r" collector ", FLAGS)
+QUOTES_VS_INCHES = regex.compile(r' \d " (?! \s* \} )', RE_FLAGS)
+IS_COLLECTOR = regex.compile(r" collector ", RE_FLAGS)
 
 
 def as_value(token, trait, value_field="number", unit_field="units"):
@@ -70,8 +73,9 @@ def compound(token):
     trait.units_inferred = False
     trait.is_flag_missing(token, "key", rename="ambiguous_key")
     fts = convert_units(to_positive_float(token.group["ft"]), "ft")
-    ins = [convert_units(to_positive_float(i), "in")
-           for i in as_list(token.group["in"])]
+    ins = [
+        convert_units(to_positive_float(i), "in") for i in as_list(token.group["in"])
+    ]
     value = [round(fts + i, 2) for i in ins]
     trait.value = squash(value)
     add_flags(token, trait)
@@ -131,8 +135,8 @@ def fix_up_inches(trait, text):
     """Disambiguate between double quotes "3" and inch units 3"."""
     if (
         not trait.units
-        and QUOTES_VS_INCHES.match(text[trait.end - 1:])
-        and text[trait.start: trait.end].count('"') == 0
+        and QUOTES_VS_INCHES.match(text[trait.end - 1 :])
+        and text[trait.start : trait.end].count('"') == 0
     ):
         trait.end += 1
         trait.units = '"'

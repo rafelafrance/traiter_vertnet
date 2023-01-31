@@ -1,5 +1,4 @@
 """Misc utilities."""
-
 import inflect
 import regex
 
@@ -9,7 +8,7 @@ ORDINALS += [INFLECT.number_to_words(x) for x in ORDINALS]
 WORD_TO_NUM = {INFLECT.number_to_words(x): x for x in range(21)}
 NUM_WORDS = list(WORD_TO_NUM.keys())
 
-FLAGS = regex.VERBOSE | regex.IGNORECASE
+RE_FLAGS = regex.VERBOSE | regex.IGNORECASE
 
 
 class DotDict(dict):

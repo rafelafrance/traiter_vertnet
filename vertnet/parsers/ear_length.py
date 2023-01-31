@@ -1,5 +1,4 @@
 """Parse ear length notations."""
-
 from functools import partial
 
 import regex
@@ -7,13 +6,11 @@ from traiter.old.vocabulary import Vocabulary
 
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import (
-    fraction,
-    numeric_fix_ups,
-    shorthand_length,
-    simple_len,
-)
-from vertnet.pylib.util import FLAGS
+from vertnet.pylib.numeric import fraction
+from vertnet.pylib.numeric import numeric_fix_ups
+from vertnet.pylib.numeric import shorthand_length
+from vertnet.pylib.numeric import simple_len
+from vertnet.pylib.util import RE_FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -22,15 +19,15 @@ LOOK_BACK_FAR = 40
 LOOK_BACK_NEAR = 10
 
 # These indicate that the parse is not really for an ear length
-IS_ET = regex.compile(r" e \.? t ", FLAGS)
-IS_NUMBER = regex.compile(" [#] ", FLAGS)
-IS_MAG = regex.compile(" magnemite ", FLAGS)
-IS_ID = regex.compile(" identifier | ident | id ", FLAGS)
+IS_ET = regex.compile(r" e \.? t ", RE_FLAGS)
+IS_NUMBER = regex.compile(" [#] ", RE_FLAGS)
+IS_MAG = regex.compile(" magnemite ", RE_FLAGS)
+IS_ID = regex.compile(" identifier | ident | id ", RE_FLAGS)
 
 # The 'E' abbreviation gets confused with abbreviation for East sometimes.
 # Try to disambiguate the two by looking for a North near by.
 LOOK_AROUND = 10
-IS_EAST = regex.compile(r" \b n ", FLAGS)
+IS_EAST = regex.compile(r" \b n ", RE_FLAGS)
 
 
 def fix_up(trait, text):

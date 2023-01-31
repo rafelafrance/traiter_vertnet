@@ -1,20 +1,17 @@
-"""Common logic for parsing trait notations."""
+from typing import Callable
+from typing import List
 
-from typing import Callable, List
-
-from traiter.old.parser import Parser, RulesInput
+from traiter.old.parser import Parser
+from traiter.old.parser import RulesInput
 
 from vertnet.pylib.trait import Trait
 
 
-def fix_up_nop(trait, _):  # pylint: disable=unused-argument
-    """Fix problematic parses."""
+def fix_up_nop(trait, _):
     return trait
 
 
-class Base(Parser):  # pylint: disable=too-few-public-methods
-    """Shared lexer logic."""
-
+class Base(Parser):
     def __init__(
         self,
         rules: RulesInput,

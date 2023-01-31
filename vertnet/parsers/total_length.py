@@ -1,5 +1,4 @@
 """Parse total length notations."""
-
 from functools import partial
 
 import regex
@@ -8,8 +7,10 @@ from traiter.old.vocabulary import Vocabulary
 import vertnet.pylib.numeric as numeric
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import compound, fix_up_inches, fraction
-from vertnet.pylib.util import FLAGS
+from vertnet.pylib.numeric import compound
+from vertnet.pylib.numeric import fix_up_inches
+from vertnet.pylib.numeric import fraction
+from vertnet.pylib.util import RE_FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -18,16 +19,16 @@ LOOK_BACK_FAR = 40
 LOOK_BACK_NEAR = 10
 
 # These indicate that the parse is not a total length
-IS_ID = regex.compile(" identifier | ident | id | collector ", FLAGS)
-IS_TRAP = regex.compile(" trap ", FLAGS)
+IS_ID = regex.compile(" identifier | ident | id | collector ", RE_FLAGS)
+IS_TRAP = regex.compile(" trap ", RE_FLAGS)
 IS_TESTES = regex.compile(
-    " reproductive | gonad | test | scrotal | scrotum | scrot ", FLAGS
+    " reproductive | gonad | test | scrotal | scrotum | scrot ", RE_FLAGS
 )
 
 # The 'L' abbreviation gets confused with abbreviation for Left sometimes.
 # Try to disambiguate the two by looking for a Right near by.
 LOOK_AROUND = 10
-IS_LEFT = regex.compile(r" \b r \b ", FLAGS)
+IS_LEFT = regex.compile(r" \b r \b ", RE_FLAGS)
 
 
 def simple(token):

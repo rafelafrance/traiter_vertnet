@@ -1,5 +1,4 @@
 """Parse tail length notations."""
-
 from functools import partial
 
 import regex
@@ -7,8 +6,11 @@ from traiter.old.vocabulary import Vocabulary
 
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import fix_up_inches, fraction, shorthand_length, simple
-from vertnet.pylib.util import FLAGS
+from vertnet.pylib.numeric import fix_up_inches
+from vertnet.pylib.numeric import fraction
+from vertnet.pylib.numeric import shorthand_length
+from vertnet.pylib.numeric import simple
+from vertnet.pylib.util import RE_FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
@@ -18,12 +20,12 @@ LOOK_BACK_NEAR = 20
 
 # These indicate that the parse is not really for a tail length
 IS_TESTES = regex.compile(
-    " reproductive | gonad | test | scrotal | scrotum | scrot ", FLAGS
+    " reproductive | gonad | test | scrotal | scrotum | scrot ", RE_FLAGS
 )
-IS_ELEVATION = regex.compile(" elevation | elev ", FLAGS)
-IS_TOTAL = regex.compile(" body | nose | snout ", FLAGS)
-IS_TAG = regex.compile(" tag ", FLAGS)
-IS_ID = regex.compile(" identifier | ident | id ", FLAGS)
+IS_ELEVATION = regex.compile(" elevation | elev ", RE_FLAGS)
+IS_TOTAL = regex.compile(" body | nose | snout ", RE_FLAGS)
+IS_TAG = regex.compile(" tag ", RE_FLAGS)
+IS_ID = regex.compile(" identifier | ident | id ", RE_FLAGS)
 
 
 def fix_up(trait, text):

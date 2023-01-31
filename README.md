@@ -1,5 +1,11 @@
 # The Vertnet Traits Database Project ![CI](https://github.com/rafelafrance/traiter_vertnet/workflows/CI/badge.svg)
 
+# Nothing to see here. Move along.
+**Ancient code that is only here as a reference for old publications.**
+
+
+---------------------------------------------------------------------------------------------
+
 # All right, what's this all about then?
 **Challenge**: Extract trait information from unstructured or semi-structured natural history field notations. That is, if I'm given text like:
 
