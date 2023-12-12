@@ -1,10 +1,9 @@
 """Build a trait parse result."""
-
 from collections import namedtuple
 
-from traiter.util import as_list, squash
-
+from .util import as_list
 from .util import DotDict
+from .util import squash
 
 TraitKey = namedtuple("TraitKey", "value side")
 

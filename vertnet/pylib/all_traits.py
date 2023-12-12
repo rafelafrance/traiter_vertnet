@@ -1,5 +1,4 @@
-"""All of the parsers."""
-
+"""All the parsers."""
 from vertnet.parsers.body_mass import BODY_MASS
 from vertnet.parsers.ear_length import EAR_LENGTH
 from vertnet.parsers.embryo_count import EMBRYO_COUNT

@@ -2,7 +2,7 @@
 from functools import partial
 
 import regex
-from traiter.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.numeric as numeric
 import vertnet.pylib.patterns as patterns

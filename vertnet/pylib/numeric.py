@@ -2,12 +2,12 @@
 from fractions import Fraction
 
 import regex
-from traiter.const import RE_FLAGS
-from traiter.util import as_list
-from traiter.util import squash
-from traiter.util import to_positive_float
-from traiter.util import to_positive_int
+from traiter.pylib.util import to_positive_float
+from traiter.pylib.util import to_positive_int
 
+from .util import as_list
+from .util import RE_FLAGS
+from .util import squash
 from vertnet.pylib.convert_units import convert_units
 from vertnet.pylib.trait import Trait
 

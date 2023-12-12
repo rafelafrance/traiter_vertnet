@@ -1,10 +1,9 @@
 """Parse all traits for the input record."""
-
 from collections import defaultdict
 
 
 class RecordParser:  # pylint: disable=too-few-public-methods
-    """Handles all of the parsed traits for a record."""
+    """Handles all the parsed traits for a record."""
 
     def __init__(self, args, parsers):
         """Create the record container."""

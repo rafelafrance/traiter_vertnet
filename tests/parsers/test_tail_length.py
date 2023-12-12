@@ -3,7 +3,7 @@
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
 
-from traiter.util import shorten
+from traiter.pylib.util import shorten
 
 from vertnet.parsers.tail_length import TAIL_LENGTH
 from vertnet.pylib.trait import Trait

@@ -1,9 +1,8 @@
 """Parse placental scar counts."""
-
-from traiter.old.vocabulary import Vocabulary
-from traiter.util import as_list
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
+from ..pylib.util import as_list
 from vertnet.parsers.base import Base
 from vertnet.pylib.trait import Trait
 from vertnet.pylib.util import to_positive_int

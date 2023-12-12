@@ -1,12 +1,15 @@
 """Parse body mass notations."""
-
-from traiter.old.vocabulary import Vocabulary
-from traiter.util import as_list, squash, to_positive_float
+from traiter.pylib.old.vocabulary import Vocabulary
+from traiter.pylib.util import to_positive_float
 
 import vertnet.pylib.patterns as patterns
+from ..pylib.util import as_list
+from ..pylib.util import squash
 from vertnet.parsers.base import Base
 from vertnet.pylib.convert_units import convert_units
-from vertnet.pylib.numeric import add_flags, as_value, simple_mass
+from vertnet.pylib.numeric import add_flags
+from vertnet.pylib.numeric import as_value
+from vertnet.pylib.numeric import simple_mass
 from vertnet.pylib.trait import Trait
 
 VOCAB = Vocabulary(patterns.VOCAB)
@@ -28,8 +31,10 @@ def compound(token):
     trait.units_inferred = False
     trait.is_flag_missing(token, "key", rename="ambiguous_key")
     lbs = convert_units(to_positive_float(token.group["lbs"]), "lbs")
-    ozs = [convert_units(to_positive_float(oz), "ozs")
-           for oz in as_list(token.group["ozs"])]
+    ozs = [
+        convert_units(to_positive_float(oz), "ozs")
+        for oz in as_list(token.group["ozs"])
+    ]
     value = [round(lbs + oz, 2) for oz in ozs]
     trait.value = squash(value)
     add_flags(token, trait)

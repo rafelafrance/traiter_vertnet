@@ -1,8 +1,8 @@
 from typing import Callable
 from typing import List
 
-from traiter.old.parser import Parser
-from traiter.old.parser import RulesInput
+from traiter.pylib.old.parser import Parser
+from traiter.pylib.old.parser import RulesInput
 
 from vertnet.pylib.trait import Trait
 

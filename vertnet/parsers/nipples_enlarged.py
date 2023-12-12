@@ -1,6 +1,5 @@
 """Parse nipple state notations."""
-
-from traiter.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
@@ -27,11 +26,9 @@ NIPPLES_ENLARGED = Base(
         VOCAB.term("enlarged_abbrev", r"[oc]e[ln]"),
         VOCAB.term("not_enlarged_abbrev", r"[oc]s[ln]"),
         VOCAB.term("false", """ false """),
-
         VOCAB.producer(convert, """ (?P<pos> nipple enlarged ) """),
         VOCAB.producer(convert, """ (?P<pos> enlarged nipple ) """),
         VOCAB.producer(convert, """ (?P<pos> enlarged_abbrev ) """),
-
         VOCAB.producer(convert, """ (?P<neg> none nipple ) """),
         VOCAB.producer(convert, """ (?P<neg> nipple none ) """),
         VOCAB.producer(convert, """ (?P<neg> nipple not_enlarged ) """),

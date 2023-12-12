@@ -1,6 +1,5 @@
 """Parse lactation state notations."""
-
-from traiter.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base

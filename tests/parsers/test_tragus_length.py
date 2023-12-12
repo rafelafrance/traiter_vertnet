@@ -2,9 +2,11 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from traiter.util import shorten
-from vertnet.pylib.trait import Trait
+
+from traiter.pylib.util import shorten
+
 from vertnet.parsers.tragus_length import TRAGUS_LENGTH
+from vertnet.pylib.trait import Trait
 
 
 class TestTragusLength(unittest.TestCase):

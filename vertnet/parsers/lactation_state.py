@@ -1,6 +1,5 @@
 """Parse lactation state notations."""
-
-from traiter.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
@@ -36,13 +35,10 @@ LACTATION_STATE = Base(
         VOCAB.term("lactating_abbrev", r"[oc][esm]l"),
         VOCAB.term("not_lactating_abbrev", r"[oc][esm]n"),
         VOCAB.term("post", r""" post | finished """),
-
         # Separates measurements
         VOCAB.part("separator", r' [;"/] '),
-
         VOCAB.producer(convert, """ (?P<pos> lactating ) """),
         VOCAB.producer(convert, """ (?P<pos> lactating_abbrev ) """),
-
         VOCAB.producer(convert, """ (?P<neg> (none | post) lactating ) """),
         VOCAB.producer(convert, """ (?P<neg> lactating (none | post) ) """),
         VOCAB.producer(convert, """ (?P<neg> not_lactating_abbrev ) """),

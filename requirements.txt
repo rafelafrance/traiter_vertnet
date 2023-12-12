@@ -1,8 +1,0 @@
-Jinja2
-inflect
-numpy
-pandas
-python-dateutil
-regex
-spacy
-tqdm

@@ -2,10 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 # pylint: disable=too-many-lines
-
 import unittest
 
-from traiter.util import shorten
+from traiter.pylib.util import shorten
 
 from vertnet.parsers.total_length import TOTAL_LENGTH
 from vertnet.pylib.trait import Trait
@@ -831,8 +830,9 @@ class TestTotalLength(unittest.TestCase):
                     start=25,
                     end=29,
                 ),
-                Trait(value=279.4, units="in", units_inferred=False,
-                      start=103, end=121),
+                Trait(
+                    value=279.4, units="in", units_inferred=False, start=103, end=121
+                ),
             ],
         )
 

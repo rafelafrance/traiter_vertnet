@@ -1,10 +1,9 @@
 """Functions common to most male & female reproductive traits."""
-
 from copy import copy
 from string import punctuation
 
-from traiter.old.rule import part
-from traiter.old.token import Token
+from traiter.pylib.old.rule import part
+from traiter.pylib.old.token import Token
 
 from vertnet.pylib.numeric import as_value
 from vertnet.pylib.patterns import CROSS

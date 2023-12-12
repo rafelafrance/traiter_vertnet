@@ -1,8 +1,10 @@
 """Shared token patterns."""
+from traiter.pylib.old.vocabulary import FIRST
+from traiter.pylib.old.vocabulary import LOWEST
+from traiter.pylib.old.vocabulary import Vocabulary
 
-from traiter.old.vocabulary import FIRST, LOWEST, Vocabulary
-
-from vertnet.pylib.util import NUM_WORDS, ORDINALS
+from vertnet.pylib.util import NUM_WORDS
+from vertnet.pylib.util import ORDINALS
 
 VOCAB = Vocabulary()
 
@@ -124,7 +126,7 @@ VOCAB.part("sh_val", SH_VAL)
 
 VOCAB.part(
     "shorthand",
-    fr"""
+    rf"""
         (?<! [\d/a-z-] )
         (?P<shorthand_tl> (?P<estimated_tl> \[ )? {SH_VAL} \]? )
         (?P<shorthand_sep> [:/-] )
@@ -147,7 +149,7 @@ VOCAB.part(
 
 VOCAB.part(
     "shorthand_bats",
-    fr"""
+    rf"""
         (?<! [\d/a-z-] )
         (?P<shorthand_tl> (?P<estimated_tl> \[ )? {SH_VAL} \]? )
         (?P<shorthand_sep> [:/-] )
@@ -207,7 +209,7 @@ VOCAB.part(
 
 VOCAB.part(
     "shorthand_triple",
-    fr"""
+    rf"""
         (?<! [\d/a-z-] )
         (?P<shorthand_tl> (?P<estimated_tl> \[ )? {SH_VAL} \]? )
         (?P<shorthand_sep> [:/-] )
@@ -235,7 +237,7 @@ DIMENSION = r" (?P<dim> length | width ) "
 VOCAB.part("dimension", DIMENSION)
 
 # Numeric sides interfere with number parsing so combine \w dimension
-VOCAB.part("dim_side", fr""" {DIMENSION} \s* (?P<side> [12] ) \b """)
+VOCAB.part("dim_side", rf""" {DIMENSION} \s* (?P<side> [12] ) \b """)
 
 VOCAB.part(
     "cyst",

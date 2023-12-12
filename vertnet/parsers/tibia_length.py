@@ -1,10 +1,11 @@
 """Parse tibia length notations."""
-
-from traiter.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import fix_up_inches, fraction, simple
+from vertnet.pylib.numeric import fix_up_inches
+from vertnet.pylib.numeric import fraction
+from vertnet.pylib.numeric import simple
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
