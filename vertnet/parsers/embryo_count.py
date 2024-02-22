@@ -2,14 +2,15 @@
 from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
-from ..pylib.util import as_list
 from vertnet.parsers.base import Base
 from vertnet.pylib.trait import Trait
-from vertnet.pylib.util import to_positive_int
+from vertnet.pylib.util import as_list, to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
 SUB = {"l": "left", "r": "right", "m": "male", "f": "female"}
+
+TOO_LONG = 1000
 
 
 def convert(token):
@@ -24,7 +25,9 @@ def convert(token):
 
     if token.group.get("subcount") and token.group.get("sub"):
         for count, sub in zip(
-            as_list(token.group["subcount"]), as_list(token.group.get("sub"))
+            as_list(token.group["subcount"]),
+            as_list(token.group.get("sub")),
+            strict=False,
         ):
             count = "1" if count == "!" else count
             sub = SUB.get(sub[0].lower(), sub)
@@ -34,7 +37,7 @@ def convert(token):
         side = token.group["side"].lower()
         trait.side = SUB.get(side, side)
 
-    return trait if all(x < 1000 for x in as_list(trait.value)) else None
+    return trait if all(x < TOO_LONG for x in as_list(trait.value)) else None
 
 
 def found(token):

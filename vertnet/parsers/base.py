@@ -1,8 +1,6 @@
-from typing import Callable
-from typing import List
+from collections.abc import Callable
 
-from traiter.pylib.old.parser import Parser
-from traiter.pylib.old.parser import RulesInput
+from traiter.pylib.old.parser import Parser, RulesInput
 
 from vertnet.pylib.trait import Trait
 
@@ -16,21 +14,20 @@ class Base(Parser):
         self,
         rules: RulesInput,
         name: str = "parser",
-        fix_up: Callable[[Trait, str], Trait] = None,
+        fix_up: Callable[[Trait, str], Trait] | None = None,
     ) -> None:
         """Build the trait parser."""
         super().__init__(name=name, rules=rules)
         self.fix_up = fix_up if fix_up else fix_up_nop
 
     # pylint: disable=arguments-differ
-    def parse(self, text: str, field: str = None) -> List[Trait]:
+    def parse(self, text: str, field: str | None = None) -> list[Trait]:
         """Find the traits in the text."""
         traits = []
 
         tokens = super().parse(text)
 
         for token in tokens:
-
             trait_list = token.action(token)
 
             # The action function can reject the token

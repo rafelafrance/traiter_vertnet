@@ -2,14 +2,15 @@
 from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
-from ..pylib.util import as_list
 from vertnet.parsers.base import Base
 from vertnet.pylib.trait import Trait
-from vertnet.pylib.util import to_positive_int
+from vertnet.pylib.util import as_list, to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
 SUB = {"l": "left", "r": "right", "m": "male", "f": "female"}
+
+TOO_MANY = 1000
 
 
 def convert_count(token):
@@ -31,7 +32,7 @@ def convert_count(token):
     if count2 or side2 != "side2":
         setattr(trait, side2, count2)
 
-    return trait if all(x < 1000 for x in as_list(trait.value)) else None
+    return trait if all(x < TOO_MANY for x in as_list(trait.value)) else None
 
 
 def convert_state(token):

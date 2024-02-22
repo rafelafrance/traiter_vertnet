@@ -2,15 +2,12 @@
 from traiter.pylib.old.vocabulary import Vocabulary
 from traiter.pylib.util import to_positive_float
 
-import vertnet.pylib.patterns as patterns
-from ..pylib.util import as_list
-from ..pylib.util import squash
 from vertnet.parsers.base import Base
+from vertnet.pylib import patterns
 from vertnet.pylib.convert_units import convert_units
-from vertnet.pylib.numeric import add_flags
-from vertnet.pylib.numeric import as_value
-from vertnet.pylib.numeric import simple_mass
+from vertnet.pylib.numeric import add_flags, as_value, simple_mass
 from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import as_list, squash
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

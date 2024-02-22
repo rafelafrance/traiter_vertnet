@@ -2,14 +2,12 @@
 from traiter.pylib.old.vocabulary import Vocabulary
 from traiter.pylib.util import to_positive_float
 
-import vertnet.pylib.convert_units as convert_units
 import vertnet.pylib.shared_reproductive_patterns as patterns
-from ..pylib.util import as_list
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import add_flags
-from vertnet.pylib.numeric import fix_up_inches
-from vertnet.pylib.numeric import simple
+from vertnet.pylib import convert_units
+from vertnet.pylib.numeric import add_flags, fix_up_inches, simple
 from vertnet.pylib.trait import Trait
+from vertnet.pylib.util import as_list
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

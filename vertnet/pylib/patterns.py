@@ -1,10 +1,7 @@
 """Shared token patterns."""
-from traiter.pylib.old.vocabulary import FIRST
-from traiter.pylib.old.vocabulary import LOWEST
-from traiter.pylib.old.vocabulary import Vocabulary
+from traiter.pylib.old.vocabulary import FIRST, LOWEST, Vocabulary
 
-from vertnet.pylib.util import NUM_WORDS
-from vertnet.pylib.util import ORDINALS
+from vertnet.pylib.util import NUM_WORDS, ORDINALS
 
 VOCAB = Vocabulary()
 

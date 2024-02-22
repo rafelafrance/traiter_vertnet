@@ -3,10 +3,12 @@ from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.reproductive import convert
-from vertnet.pylib.reproductive import double
+from vertnet.pylib.reproductive import convert, double
 
 VOCAB = Vocabulary(patterns.VOCAB)
+
+STATE = ["""(non | partially | fully )? descended """]
+STATE += """ scrotal abdominal size other """.split()
 
 TESTES_SIZE = Base(
     name=__name__.split(".")[-1],
@@ -29,11 +31,7 @@ TESTES_SIZE = Base(
             "value",
             """ cross | number len_units? (?! mass_units ) """,
         ),
-        VOCAB.grouper(
-            "state",
-            ["""(non | partially | fully )? descended """]
-            + """ scrotal abdominal size other """.split(),
-        ),
+        VOCAB.grouper("state", STATE),
         # Male or female ambiguous, like: gonadLength1
         VOCAB.grouper(
             "ambiguous",

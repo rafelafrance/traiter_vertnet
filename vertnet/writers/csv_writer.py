@@ -23,7 +23,7 @@ class CsvWriter(BaseWriter):
     def __exit__(self, exc_type, exc_value, traceback):
         """End the report."""
         dfm = pd.DataFrame(self.rows)
-        dfm.rename(columns=lambda x: regex.sub(r"^.+?:\s*", "", x), inplace=True)
+        dfm = dfm.rename(columns=lambda x: regex.sub(r"^.+?:\s*", "", x))
         dfm.to_csv(self.args.output_file, index=False)
 
     def write(self, raw_record, parsed_record):

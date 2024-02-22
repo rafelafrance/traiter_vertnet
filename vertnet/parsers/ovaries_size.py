@@ -3,8 +3,7 @@ from traiter.pylib.old.vocabulary import Vocabulary
 
 import vertnet.pylib.shared_reproductive_patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.reproductive import convert
-from vertnet.pylib.reproductive import double
+from vertnet.pylib.reproductive import convert, double
 
 VOCAB = Vocabulary(patterns.VOCAB)
 

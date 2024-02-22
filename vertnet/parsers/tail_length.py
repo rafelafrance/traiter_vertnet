@@ -4,12 +4,9 @@ from functools import partial
 import regex
 from traiter.pylib.old.vocabulary import Vocabulary
 
-import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import fix_up_inches
-from vertnet.pylib.numeric import fraction
-from vertnet.pylib.numeric import shorthand_length
-from vertnet.pylib.numeric import simple
+from vertnet.pylib import patterns
+from vertnet.pylib.numeric import fix_up_inches, fraction, shorthand_length, simple
 from vertnet.pylib.util import RE_FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)
@@ -37,7 +34,6 @@ def fix_up(trait, text):
 
     # Problem parses happen mostly with an ambiguous key
     if trait.ambiguous_key:
-
         # Make sure this isn't a testes measurement
         start = max(0, trait.start - LOOK_BACK_FAR)
         if (

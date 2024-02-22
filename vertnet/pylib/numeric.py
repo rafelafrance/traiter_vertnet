@@ -2,14 +2,12 @@
 from fractions import Fraction
 
 import regex
-from traiter.pylib.util import to_positive_float
-from traiter.pylib.util import to_positive_int
+from traiter.pylib.util import to_positive_float, to_positive_int
 
-from .util import as_list
-from .util import RE_FLAGS
-from .util import squash
 from vertnet.pylib.convert_units import convert_units
 from vertnet.pylib.trait import Trait
+
+from .util import RE_FLAGS, as_list, squash
 
 LOOK_BACK_FAR = 40
 
@@ -26,10 +24,7 @@ def as_value(token, trait, value_field="number", unit_field="units"):
         val = to_positive_float(val)
         if val is None:
             return False
-        if i < len(units):
-            unit = units[i]
-        else:
-            unit = units[-1] if units else None
+        unit = units[i] if i < len(units) else units[-1] if units else None
         values.append(convert_units(val, unit))
     if not values:
         return False

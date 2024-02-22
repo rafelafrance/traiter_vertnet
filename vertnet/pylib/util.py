@@ -1,14 +1,9 @@
-"""Misc utilities."""
-import os
+from collections.abc import Hashable
 from contextlib import contextmanager
 from pathlib import Path
 from shutil import rmtree
 from tempfile import mkdtemp
 from typing import Any
-from typing import Generator
-from typing import Hashable
-from typing import Optional
-from typing import Union
 
 import inflect
 import regex
@@ -24,7 +19,7 @@ RE_FLAGS = regex.VERBOSE | regex.IGNORECASE
 
 
 class DotDict(dict):
-    """Allow dot.notation access to dictionary items."""
+    """Allow dot notation access to dictionary items."""
 
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
@@ -43,11 +38,12 @@ def to_positive_int(value):
 
 @contextmanager
 def get_temp_dir(
-    prefix: str = "temp_", where: Optional[Union[str, Path]] = None, keep: bool = False
-) -> Generator:
+    prefix: str = "temp_", where: str | Path | None = None, *, keep: bool = False
+) -> Any:
     """Handle creation and deletion of temporary directory."""
-    if where and not os.path.exists(where):
-        os.mkdir(where)
+    where = Path(where) if isinstance(where, str) else where
+    if where and not where.exists():
+        where.mkdir()
 
     temp_dir = mkdtemp(prefix=prefix, dir=where)
 
@@ -61,39 +57,39 @@ def get_temp_dir(
 def flatten(nested: Any) -> list:
     """Flatten an arbitrarily nested list."""
     flat = []
-    nested = nested if isinstance(nested, (list, tuple, set)) else [nested]
+    nested = nested if isinstance(nested, list | tuple | set) else [nested]
     for item in nested:
         # if not isinstance(item, str) and hasattr(item, '__iter__'):
-        if isinstance(item, (list, tuple, set)):
+        if isinstance(item, list | tuple | set):
             flat.extend(flatten(item))
         else:
             flat.append(item)
     return flat
 
 
-def squash(values: Union[list, set]) -> Any:
+def squash(values: list | set) -> Any:
     """Squash a list to a single value if its length is one."""
     return list(values) if len(values) != 1 else values[0]
 
 
 def as_list(values: Any) -> list:
     """Convert values to a list."""
-    return list(values) if isinstance(values, (list, tuple, set)) else [values]
+    return list(values) if isinstance(values, list | tuple | set) else [values]
 
 
 def as_set(values: Any) -> set:
     """Convert values to a set."""
-    return set(values) if isinstance(values, (list, tuple, set)) else {values}
+    return set(values) if isinstance(values, list | tuple | set) else {values}
 
 
 def as_tuple(values: Any) -> tuple[Any, ...]:
     """Convert values to a tuple."""
-    return tuple(values) if isinstance(values, (list, tuple, set)) else (values,)
+    return tuple(values) if isinstance(values, list | tuple | set) else (values,)
 
 
 def as_member(values: Any) -> Hashable:
     """Convert values to set members (hashable)."""
-    return tuple(values) if isinstance(values, (list, set)) else values
+    return tuple(values) if isinstance(values, list | set) else values
 
 
 def camel_to_snake(name: str) -> str:
@@ -117,6 +113,6 @@ def xor(one: Any, two: Any) -> bool:
     return (one and not two) or (not one and two)
 
 
-def sign(x: Union[int, float]) -> int:
+def sign(x: float) -> int:
     """Return the sign of a number (-1, 0, 1)."""
     return 0 if x == 0 else (-1 if x < 0 else 1)

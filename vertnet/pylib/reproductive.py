@@ -41,8 +41,8 @@ def double(token):
 
     side1 = side1.lower().strip(punctuation) if side1 else None
     side2 = side2.lower().strip(punctuation) if side2 else None
-    side1 = SIDES.get(side2) if not side1 else side1
-    side2 = SIDES.get(side1) if not side2 else side2
+    side1 = side1 if side1 else SIDES.get(side2)
+    side2 = side2 if side2 else SIDES.get(side1)
 
     if side1:
         trait1.side = side1

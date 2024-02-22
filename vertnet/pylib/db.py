@@ -10,7 +10,7 @@ def connect(path: str) -> sqlite3.Connection:
     """Connect to an SQLite database."""
     cxn = sqlite3.connect(path)
 
-    cxn.execute("PRAGMA page_size = {}".format(2 ** 16))
+    cxn.execute(f"PRAGMA page_size = {2 ** 16}")
     cxn.execute("PRAGMA busy_timeout = 10000")
     cxn.execute("PRAGMA journal_mode = WAL")
     cxn.row_factory = sqlite3.Row
@@ -23,4 +23,4 @@ def select_raw(
     """Get raw records."""
     clause = f"LIMIT {limit}" if limit else ""
     clause += f" OFFSET {offset}" if offset else ""
-    return cxn.execute(f"SELECT * FROM {RAW_TABLE} {clause};")
+    return cxn.execute(f"SELECT * FROM {RAW_TABLE} {clause};")  # noqa: S608

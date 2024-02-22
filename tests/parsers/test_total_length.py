@@ -82,10 +82,8 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_008(self):
         self.assertEqual(
             TOTAL_LENGTH.parse(
-                (
-                    "snout-vent length=54 mm; total length=111 mm;"
-                    " tail length=57 mm; weight=5 g"
-                )
+                "snout-vent length=54 mm; total length=111 mm;"
+                " tail length=57 mm; weight=5 g"
             ),
             [
                 Trait(value=54, units="mm", units_inferred=False, start=0, end=23),
@@ -96,11 +94,9 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_009(self):
         self.assertEqual(
             TOTAL_LENGTH.parse(
-                (
-                    "unformatted measurements=Verbatim weight=X;"
-                    "ToL=230;TaL=115;HF=22;E=18;"
-                    " total length=231 mm; tail length=115 mm;"
-                )
+                "unformatted measurements=Verbatim weight=X;"
+                "ToL=230;TaL=115;HF=22;E=18;"
+                " total length=231 mm; tail length=115 mm;"
             ),
             [
                 Trait(value=230, units=None, units_inferred=True, start=43, end=50),
@@ -564,10 +560,8 @@ class TestTotalLength(unittest.TestCase):
     def test_parse_061(self):
         self.assertEqual(
             TOTAL_LENGTH.parse(
-                (
-                    "tail length in mm: -; total length in mm: -; "
-                    "wing chord in mm: 81.0R; wing spread in mm: -"
-                )
+                "tail length in mm: -; total length in mm: -; "
+                "wing chord in mm: 81.0R; wing spread in mm: -"
             ),
             [],
         )

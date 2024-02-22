@@ -3,7 +3,6 @@
 # Nothing to see here. Move along.
 **Ancient code that is only here as a reference for old publications.**
 
-
 ---------------------------------------------------------------------------------------------
 
 # All right, what's this all about then?
@@ -45,17 +44,17 @@ In general, I take a CSV file as input (almost always from VertNet) and process 
 
 So we are taking one CSV file and (usually) producing another CSV file. The output will have traits added to it. A simplified example of the output of parsing body mass from the `dynamicproperties` field.
 
-binomial|body_mass.1.is_shorthand|location|body_mass.1.units_inferred|body_mass.1.value|dynamicproperties
----------|------------------------|--------|--------------------------|-----------------|-----------------
-Abrothrix olivaceus| |dynamicproperties|False|20|sex=male ; total length=165 mm; weight=20 g
-Akodon olivaceus|True|dynamicproperties|False|24.5|{"measurements":"182.5-84.5-24.5-17=24.5g"}
-Abrothrix olivaceus| |dynamicproperties|True|17.5|; BodyMass: 17.5
-Abrothrix olivaceus| |dynamicproperties|False|19|sex=male ; total length=140 mm; weight=19 g;
+| binomial            | body_mass.1.is_shorthand | location          | body_mass.1.units_inferred | body_mass.1.value | dynamicproperties                            |
+|---------------------|--------------------------|-------------------|----------------------------|-------------------|----------------------------------------------|
+| Abrothrix olivaceus |                          | dynamicproperties | False                      | 20                | sex=male ; total length=165 mm; weight=20 g  |
+| Akodon olivaceus    | True                     | dynamicproperties | False                      | 24.5              | {"measurements":"182.5-84.5-24.5-17=24.5g"}  |
+| Abrothrix olivaceus |                          | dynamicproperties | True                       | 17.5              | ; BodyMass: 17.5                             |
+| Abrothrix olivaceus |                          | dynamicproperties | False                      | 19                | sex=male ; total length=140 mm; weight=19 g; |
 
 # Trait column headers (trait.1.field)
 There are two or three parts to a trait column header field. We either have "trait.n.field" or just "trait.field". The number part (if it exists) is a tiebreaker that indicates which extracted trait we are working for that row. For instance, we may have multiple body masses, one from the dynamicproperties and one from the fieldnotes. Or, we may have multiple body masses from the same field. It's just a way to disambiguate them.
 
-The first part is described in [Traits extracted](#Traits-extracted) and the third part is described in [Trait column header fields](#Trait-column-header-fields).
+The first part is described in [Traits extracted](#Traits-extracted) and the third part is described in [Trait column header fields](#Trait-column-headers).
 
 # Traits extracted
 As mentioned above, this is the first part of the trait column header. For example the "body_mass" in **body_mass**.1.value
@@ -169,7 +168,6 @@ Here is a rule for recognizing fur color.
 
 ```python
 def fur_color(token):
-    """Process the token for fur color."""
     trait = Trait(start=token.start, end=token.end, color=token.color)
     # Other processing may happen here.
     return trait
@@ -212,19 +210,14 @@ Note that there are actually two phases of postprocessing.
    5. Etc.
 
 # Install
-You will need to have Python3 installed, as well as pip, a package manager for python. You can install the requirements into your python environment like so:
+You will need to have Python3.11+ installed, as well as pip, a package manager for Python.
+You can install the requirements into your python environment like so:
 ```bash
-git clone https://github.com/rafelafrance/traiter.git
-cd /my/path/to/traiter
-python3 -m pip install --user --requirement requirements.txt
+git clone https://github.com/rafelafrance/traiter_vertnet.git
+cd /my/path/to/traiter_vertnet
+make install
 ```
 
-# Run
-I typically use an arguments file when running this process. So a run looks similar to:
-```bash
-cd /my/path/to/traiter
-./traiter.py @args/all_mammals.args
-```
 Look in the `args` directory for argument examples.
 
 # Tests
@@ -232,6 +225,6 @@ Having a test suite is absolutely critical. The strategy I use is every new patt
 
 You can run the tests like so:
 ```bash
-cd /my/path/to/traiter
+cd /my/path/to/traiter_vertnet
 python -m unittest discover
 ```

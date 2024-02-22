@@ -61,16 +61,14 @@ class TestScrotalState(unittest.TestCase):
     def test_parse_09(self):
         self.assertEqual(
             SCROTAL_STATE.parse(
-                (
-                    "sex=male ; age class=adult ; reproductive data=scrotal ; "
-                    "hind foot with claw=32 mm; weight=82 g; weight=78 g; "
-                    "weight=87 g; weight=94 g; reproductive data=nonscrotal ; "
-                    "sex=male ; sex=male ; reproductive data=nonscrotal ; "
-                    "reproductive data=nonscrotal ; sex=male ; hind foot with "
-                    "claw=32 mm; hind foot with claw=34 mm; hind foot with "
-                    "claw=34 mm; age class=adult ; age class=adult ; "
-                    "age class=adult"
-                )
+                "sex=male ; age class=adult ; reproductive data=scrotal ; "
+                "hind foot with claw=32 mm; weight=82 g; weight=78 g; "
+                "weight=87 g; weight=94 g; reproductive data=nonscrotal ; "
+                "sex=male ; sex=male ; reproductive data=nonscrotal ; "
+                "reproductive data=nonscrotal ; sex=male ; hind foot with "
+                "claw=32 mm; hind foot with claw=34 mm; hind foot with "
+                "claw=34 mm; age class=adult ; age class=adult ; "
+                "age class=adult"
             ),
             [
                 Trait(value="scrotal", start=47, end=54),

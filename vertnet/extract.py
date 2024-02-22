@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-"""Given a file of natural history notes, parse traits."""
-
 import argparse
 import sys
 import textwrap
@@ -21,8 +19,9 @@ INPUT_FORMATS = {"csv": CsvReader}
 OUTPUT_FORMATS = {"csv": CsvWriter, "html": HtmlWriter, "jsonl": JsonLinesWriter}
 
 
-def main(args):
-    """Perform actions based on the arguments."""
+def main():
+    args = parse_args()
+    parse_traits(args)
     reader = INPUT_FORMATS[args.input_format](args)
     with reader as in_file:
         for row in in_file:
@@ -31,7 +30,6 @@ def main(args):
 
 
 def parse_traits(args):
-    """Parse the input."""
     trait_parsers = [
         (trait, parser) for trait, parser in TRAITS.items() if trait in args.trait
     ]
@@ -42,7 +40,6 @@ def parse_traits(args):
     record_parser = RecordParser(args, trait_parsers)
 
     with reader as input_file, writer as output_file:
-
         for record in tqdm(input_file, disable=args.progress):
             record = dict(record.items())
 
@@ -51,7 +48,6 @@ def parse_traits(args):
 
 
 def parse_args():
-    """Process command-line arguments."""
     description = """Extract parsers from the file."""
     arg_parser = argparse.ArgumentParser(
         description=textwrap.dedent(description), fromfile_prefix_chars="@"
@@ -114,11 +110,8 @@ def parse_args():
     )
 
     args = arg_parser.parse_args()
-
     return args
 
 
 if __name__ == "__main__":
-    ARGS = parse_args()
-    # main(ARGS)
-    parse_traits(ARGS)
+    main()

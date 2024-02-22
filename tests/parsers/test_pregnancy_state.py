@@ -2,8 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
 from vertnet.parsers.pregnancy_state import PREGNANCY_STATE
+from vertnet.pylib.trait import Trait
 
 
 class TestPregnancyState(unittest.TestCase):
@@ -123,20 +124,20 @@ class TestPregnancyState(unittest.TestCase):
     def test_parse_20(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("reproductive data=At least primiparous"),
-            []
+            [],
             # [Trait(value="pregnant", start=27, end=38)],
         )
 
     def test_parse_21(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("post-parous"),
-            []
+            [],
             # [Trait(value="not pregnant", start=0, end=11)],
         )
 
     def test_parse_22(self):
         self.assertEqual(
             PREGNANCY_STATE.parse("non parous"),
-            []
+            [],
             # [Trait(value="not pregnant", start=0, end=10)],
         )

@@ -2,8 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
 from vertnet.parsers.ovaries_state import OVARIES_STATE
+from vertnet.pylib.trait import Trait
 
 
 class TestOvariesState(unittest.TestCase):

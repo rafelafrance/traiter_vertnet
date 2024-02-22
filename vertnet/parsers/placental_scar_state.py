@@ -8,6 +8,8 @@ from vertnet.pylib.util import to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
+TOO_MANY = 1000
+
 
 def convert_count(token):
     """Convert parsed tokens into a result."""
@@ -20,7 +22,7 @@ def convert_count(token):
     if not value:
         value = count1 + count2
 
-    if value >= 1000:
+    if value >= TOO_MANY:
         return None
 
     trait.value = "present" if value > 0 else "absent"

@@ -1,13 +1,35 @@
 """Parse life stage notations."""
 from traiter.pylib.old.vocabulary import Vocabulary
 
-import vertnet.pylib.patterns as patterns
-from vertnet.parsers.base import Base
-from vertnet.parsers.base import convert
+from vertnet.parsers.base import Base, convert
+from vertnet.pylib import patterns
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
 TIME_OPTIONS = VOCAB["time_units"].pattern
+
+NO_KEY = [
+    r" yolk \s? sac ",
+    r" young [\s-]? of [\s-]? the [\s-]? year ",
+    r" adult \s* young ",
+    r" young \s* adult ",
+]
+
+NO_KEY += """
+    ads? adulte?s?
+    chicks?
+    fledgelings? fleglings? fry
+    hatched hatchlings?
+    imagos? imms? immatures?
+    jeunes? juvs? juveniles? juvéniles?
+    larvae? larvals? larves? leptocephales? leptocephalus
+    matures? metamorphs?
+    neonates? nestlings? nulliparous
+    premetamorphs?
+    sub-adults? subads? subadulte?s?
+    tadpoles? têtard
+    yearlings? yg ygs young
+""".split()
 
 LIFE_STAGE = Base(
     name=__name__.split(".")[-1],
@@ -18,35 +40,12 @@ LIFE_STAGE = Base(
             [
                 r" life \s* stage \s* (remarks?)? ",
                 r" age \s* class ",
-                r" age \s* in \s* (?P<time_units> {}) ".format(TIME_OPTIONS),
+                rf" age \s* in \s* (?P<time_units> {TIME_OPTIONS}) ",
                 r" age ",
             ],
         ),
         # These words are life stages without a keyword indicator
-        VOCAB.term(
-            "intrinsic",
-            [
-                r" yolk \s? sac ",
-                r" young [\s-]? of [\s-]? the [\s-]? year ",
-                r" adult \s* young ",
-                r" young \s* adult ",
-            ]
-            + """
-                ads? adulte?s?
-                chicks?
-                fledgelings? fleglings? fry
-                hatched hatchlings?
-                imagos? imms? immatures?
-                jeunes? juvs? juveniles? juvéniles?
-                larvae? larvals? larves? leptocephales? leptocephalus
-                matures? metamorphs?
-                neonates? nestlings? nulliparous
-                premetamorphs?
-                sub-adults? subads? subadulte?s?
-                tadpoles? têtard
-                yearlings? yg ygs young
-            """.split(),
-        ),
+        VOCAB.term("intrinsic", NO_KEY),
         # This indicates that the following words are NOT a life stage
         VOCAB.term("skip", r" determin \w* "),
         # Compound words separated by dashes or slashes

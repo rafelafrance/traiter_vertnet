@@ -8,6 +8,8 @@ from vertnet.pylib.util import to_positive_int
 
 VOCAB = Vocabulary(patterns.VOCAB)
 
+TOO_MANY = 100
+
 
 def convert(token):
     """Convert single value tokens into a result."""
@@ -19,7 +21,7 @@ def convert(token):
     trait = Trait(start=token.start, end=token.end)
     trait.value = to_positive_int(value)
 
-    if trait.value > 100:
+    if trait.value > TOO_MANY:
         return None
 
     if token.group.get("notation"):

@@ -2,8 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
 from vertnet.parsers.testes_state import TESTES_STATE
+from vertnet.pylib.trait import Trait
 
 
 class TestTestesState(unittest.TestCase):
@@ -58,11 +59,9 @@ class TestTestesState(unittest.TestCase):
     def test_parse_09(self):
         self.assertEqual(
             TESTES_STATE.parse(
-                (
-                    "hind foot with claw=35 mm; "
-                    "reproductive data=Testes partially descended. "
-                    "Sperm present."
-                )
+                "hind foot with claw=35 mm; "
+                "reproductive data=Testes partially descended. "
+                "Sperm present."
             ),
             [Trait(value="testes partially descended", start=45, end=71)],
         )
@@ -70,10 +69,8 @@ class TestTestesState(unittest.TestCase):
     def test_parse_10(self):
         self.assertEqual(
             TESTES_STATE.parse(
-                (
-                    "sex=male ; reproductive data=testis 5mm, abdominal "
-                    "; ear from notch=20 mm; "
-                )
+                "sex=male ; reproductive data=testis 5mm, abdominal "
+                "; ear from notch=20 mm; "
             ),
             [Trait(value="testis 5mm, abdominal", start=29, end=50)],
         )
@@ -87,10 +84,8 @@ class TestTestesState(unittest.TestCase):
     def test_parse_12(self):
         self.assertEqual(
             TESTES_STATE.parse(
-                (
-                    "verbatim preservation date=8 October 1986 ; "
-                    "reproductive data=No testicles"
-                )
+                "verbatim preservation date=8 October 1986 ; "
+                "reproductive data=No testicles"
             ),
             [Trait(value="no testicles", start=62, end=74)],
         )

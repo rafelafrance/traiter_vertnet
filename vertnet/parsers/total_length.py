@@ -4,12 +4,9 @@ from functools import partial
 import regex
 from traiter.pylib.old.vocabulary import Vocabulary
 
-import vertnet.pylib.numeric as numeric
-import vertnet.pylib.patterns as patterns
 from vertnet.parsers.base import Base
-from vertnet.pylib.numeric import compound
-from vertnet.pylib.numeric import fix_up_inches
-from vertnet.pylib.numeric import fraction
+from vertnet.pylib import numeric, patterns
+from vertnet.pylib.numeric import compound, fix_up_inches, fraction
 from vertnet.pylib.util import RE_FLAGS
 
 VOCAB = Vocabulary(patterns.VOCAB)

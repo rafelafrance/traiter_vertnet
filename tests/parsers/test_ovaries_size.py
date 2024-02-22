@@ -2,8 +2,9 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
 # pylint: disable=missing-function-docstring,too-many-public-methods
 import unittest
-from vertnet.pylib.trait import Trait
+
 from vertnet.parsers.ovaries_size import OVARY_SIZE
+from vertnet.pylib.trait import Trait
 
 
 class TestOvariesSize(unittest.TestCase):
@@ -156,12 +157,10 @@ class TestOvariesSize(unittest.TestCase):
     def test_parse_11(self):
         self.assertEqual(
             OVARY_SIZE.parse(
-                (
-                    "reproductive data=Embryos "
-                    "L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ; right "
-                    "gonad length=3 mm; left gonad width=2 mm; right gonad "
-                    "width=2 mm; left gonad length=3 mm"
-                )
+                "reproductive data=Embryos "
+                "L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ; right "
+                "gonad length=3 mm; left gonad width=2 mm; right gonad "
+                "width=2 mm; left gonad length=3 mm"
             ),
             [
                 Trait(
@@ -210,10 +209,8 @@ class TestOvariesSize(unittest.TestCase):
     def test_parse_12(self):
         self.assertEqual(
             OVARY_SIZE.parse(
-                (
-                    "reproductive data=Embryos "
-                    "L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ;"
-                )
+                "reproductive data=Embryos "
+                "L:11x8mm, 12x8mm; R:10x9mm, 11x10mm. Nippl ;"
             ),
             [],
         )

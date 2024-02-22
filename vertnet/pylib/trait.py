@@ -1,16 +1,14 @@
-"""Build a trait parse result."""
-from collections import namedtuple
+from typing import NamedTuple
 
-from .util import as_list
-from .util import DotDict
-from .util import squash
-
-TraitKey = namedtuple("TraitKey", "value side")
+from .util import DotDict, as_list, squash
 
 
-class Trait(DotDict):
-    """Build a parse result."""
+class TraitKey(NamedTuple):
+    value: str
+    side: str
 
+
+class Trait(DotDict):  #
     def transfer(self, token, names):
         """Move fields from a token to the trait if they exist in the token."""
         for name in names:
@@ -38,9 +36,9 @@ class Trait(DotDict):
 
     def merge_ambiguous_key(self, other):
         """Capture the meaning across all parses."""
-        ambiguous_key = bool(getattr(self, "ambiguous_key"))
-        ambiguous_key &= bool(getattr(other, "ambiguous_key"))
-        setattr(self, "ambiguous_key", ambiguous_key)
+        ambiguous_key = bool(self.ambiguous_key)
+        ambiguous_key &= bool(other.ambiguous_key)
+        self.ambiguous_key = ambiguous_key
 
     def as_key(self):
         """Determine if the traits are the same trait."""
